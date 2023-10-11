@@ -1,30 +1,28 @@
 <template>
-  <a-card :bordered="false">
+  <a-card :bordered="false" v-if="mode === MAP_MODE.PREVIEW">
     <a-row>
       <a-button @click="handleFullScreen"> 地图全屏 </a-button>
+      <a-button @click="routeToEditMap"> 进入地图编辑 </a-button>
     </a-row>
     <a-divider class="line" />
     <div id="container" ref="mapRef"> </div>
   </a-card>
+  <div v-else id="container" ref="mapRef"> </div>
 </template>
 
 <script setup lang="ts">
-  enum MODE {
-    EDIT,
-    PREVIEW,
-  }
-  interface IMapProp {
-    mode: MODE;
-    plugins;
-    layers;
-    center;
-  }
+  import { type IMapProp, MAP_MODE } from './map.d.ts';
+  import { useRouter } from 'vue-router';
+  // import {prop}
+  const router = useRouter();
 
   const map = ref(null);
   const layers = ref([]);
   const mapRef = ref<HTMLDivElement | null>(null);
   const props = defineProps<IMapProp>({
-    mode,
+    mode: {
+      type:「
+    },
   });
 
   onMounted(() => {
@@ -49,6 +47,12 @@
 
   const handleFullScreen = () => {
     mapRef.value.requestFullscreen && mapRef.value.requestFullscreen();
+  };
+
+  const routeToEditMap = () => {
+    router.push({
+      name: 'map-edit',
+    });
   };
 </script>
 

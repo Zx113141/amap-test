@@ -131,6 +131,20 @@ const constantRoutes: RouteRecordRaw[] = [
     meta: { title: '登录' },
   },
   {
+    path: '/edit',
+    name: 'edit',
+    redirect: '/edit/map-edit',
+    meta: { title: '地图编辑器' },
+    children:[
+      {
+        path: '/app/map-edit',
+        name: 'map-edit',
+        component: () => import('/@/views/edit/map/index.vue'),
+        meta: { title: '地图编辑器', keepAlive: true,breadcrumb: true },
+      },
+    ]
+  },
+  {
     path: '/',
     name: 'Root',
     redirect: '/app',
