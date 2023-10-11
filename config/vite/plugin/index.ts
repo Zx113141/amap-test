@@ -9,6 +9,8 @@ import { AutoImportDeps } from './autoImport';
 import { configMockPlugin } from './mock';
 import { configVisualizerConfig } from './visualizer';
 import { configCompressPlugin } from './compress';
+import { autoComplete, Plugin as importToCDN } from 'vite-plugin-cdn-import';
+
 
 export function createVitePlugins(isBuild: boolean) {
   const vitePlugins: (Plugin | Plugin[])[] = [
@@ -20,6 +22,13 @@ export function createVitePlugins(isBuild: boolean) {
     autoRegistryComponents(),
     // 自动按需引入依赖
     AutoImportDeps(),
+    // CDN 引入
+    // importToCDN({
+    //   modules:[
+    //     autoComplete('vue'),
+    //     name:''
+    //   ]
+    // })
   ];
 
   // @vitejs/plugin-legacy

@@ -24,20 +24,21 @@
         </a-card>
       </a-col>
     </a-row>
-    <a-divider class="line" />
-    <Table :url="fetchApi.list" :columns="columns" :hiddenFilter="true" :scroll="{ x: 1200 }" />
+
+    <!-- <Table :url="fetchApi.list" :columns="columns" :hiddenFilter="true" :scroll="{ x: 1200 }" /> -->
+    <geo-map></geo-map>
   </div>
 </template>
 <script setup lang="ts">
   import IconSerach from '/@/assets/images/Icon _Search.png';
   import DataOverview from './components/DataOverview.vue';
   import TradingHistory from './components/TradingHistory.vue';
-  import { columns } from './constant';
-  import fetchApi from '/@/api/home';
   import { useHomeStore } from '/@/store/modules/home';
+  import GeoMap from '/@/components/Map/index.vue';
 
   const store = useHomeStore();
   const loading = ref(false);
+  const mapRef = ref<HTMLDivElement | null>(null);
 
   onMounted(async () => {
     loading.value = true;

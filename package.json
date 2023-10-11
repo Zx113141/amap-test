@@ -89,6 +89,7 @@
     "unplugin-auto-import": "^0.4.20",
     "unplugin-vue-components": "^0.17.21",
     "vite": "^4.4.9",
+    "vite-plugin-cdn-import": "^0.3.5",
     "vite-plugin-compression": "^0.5.1",
     "vite-plugin-mock": "^2.9.6",
     "vite-plugin-style-import": "^2.0.0",
