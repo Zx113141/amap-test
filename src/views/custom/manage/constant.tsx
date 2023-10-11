@@ -31,17 +31,31 @@ export const columns: ColumnProps[] = [
         width: 150,
     },
     {
-        title: '购房意向',
-        dataIndex: 'attention',
+        title: '已购房子',
+        dataIndex: 'buyed',
         width: 180,
         // ellipsis: true,
         customRender: ({ text }) => (
-            text ? text : '暂无'
+            text ? text : '-'
         ),
     },
     {
-        title: '现居住地',
-        dataIndex: 'address',
+        title: '购房平台',
+        dataIndex: 'platform',
+        width: 180,
+        customRender: ({ text }) => text || '-',
+        // fixed: 'right',
+    },
+    {
+        title: '销售名单',
+        dataIndex: 'salers',
+        width: 180,
+        customRender: ({ text }) => text || '-',
+        // fixed: 'right',
+    },
+    {
+        title: '合同编号',
+        dataIndex: 'contract',
         width: 180,
         customRender: ({ text }) => text || '-',
         // fixed: 'right',
@@ -62,7 +76,7 @@ export const columns: ColumnProps[] = [
     {
         title: '操作',
         key: 'action',
-        width: 120,
+        width: 200,
         // slots: { customRender: 'action' },
     },
 ];

@@ -29,10 +29,17 @@
                   v-model:value="formModel[item.name]"
                   class="default-select-w"
                 />
+                <a-input
+                  v-else-if="item.type === 'input'"
+                  :key="`input-${item.name}`"
+                  v-bind="item"
+                  v-model:value="formModel[item.name]"
+                  class="default-select-w"
+                />
                 <a-input-search
                   v-else
                   v-bind="item"
-                  :key="`input-${item.name}`"
+                  :key="`search-${item.name}`"
                   v-model:value="formModel[item.name]"
                   @search="handleSubmit"
                   class="default-search-w"
@@ -111,7 +118,7 @@
       width: 120px;
     }
     .default-search-w {
-      width: 290px;
+      width: 370px;
     }
     // & :deep(.ant-input) {
     //   height: 36px;
