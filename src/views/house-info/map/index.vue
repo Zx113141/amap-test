@@ -1,19 +1,7 @@
 <template>
-  <div>map</div>
+  <geo-map :edit="true"> </geo-map>
 </template>
 
-<script>
-  export default {
-    name: 'MapInfo',
-
-    data() {
-      return {};
-    },
-
-    mounted() {},
-
-    methods: {},
-  };
+<script setup lang="ts">
+  import GeoMap from '/@/components/Map/index.vue';
 </script>
-
-<style lang="scss" scoped></style>

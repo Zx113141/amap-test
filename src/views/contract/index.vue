@@ -18,15 +18,24 @@
         :label-col="labelCol"
         :wrapper-col="wrapperCol"
       >
-        <a-form-item label="用户:" name="mobile">
-          <a-input v-model:value="formModel.mobile" placeholder="请输入用户手机号" />
+        <a-form-item label="合同名称:" name="mobile">
+          <a-input v-model:value="formModel.mobile" placeholder="请输入合同名称" />
         </a-form-item>
-        <a-form-item label="角色:" name="role_id">
-          <a-select
-            v-model:value="formModel.role_id"
-            :options="roleOptions"
-            placeholder="请选择角色"
-          />
+        <a-form-item label="合同编号:" name="mobile">
+          <a-input v-model:value="formModel.mobile" placeholder="请输入合同编号" />
+        </a-form-item>
+        <a-form-item label="合同签订时间:" name="markTime">
+          <a-date-picker>
+            <template #suffixIcon>
+              <SmileOutlined />
+            </template>
+          </a-date-picker>
+        </a-form-item>
+        <a-form-item label="合同签订客户:" name="custom">
+          <a-input></a-input>
+        </a-form-item>
+        <a-form-item label="合同上传:" name="custom">
+          <Upload></Upload>
         </a-form-item>
       </a-form>
     </Modal>
@@ -39,6 +48,7 @@
   import { validatePhone } from '/@/utils/validate';
   import type { FormInstance } from 'ant-design-vue';
   import type { Rule } from 'ant-design-vue/es/form';
+  import Upload from '/@/components/Upload/index.vue';
 
   const mockReq = (params?: any): Promise<Boolean> =>
     new Promise((resolve) => setTimeout(() => resolve(params ? !!params : true), 500));
@@ -82,10 +92,19 @@
 
   const tableActions = reactive([
     {
+      label: '查看合同',
+      // auth: AuthEnum.user_update,
+      onClick: async (row) => {
+        modalState.title = '查看合同';
+        modalState.okText = '查看';
+        modalState.visible = true;
+      },
+    },
+    {
       label: '编辑',
       // auth: AuthEnum.user_update,
       onClick: async (row) => {
-        modalState.title = '修改用户';
+        modalState.title = '修改合同';
         modalState.okText = '更新';
         modalState.visible = true;
         formModel.value = row;
@@ -121,7 +140,7 @@
         const res = await mockReq(formModel.value);
         modalState.loading = false;
         if (res) {
-          createMessage.success(`${modalState.title === '新增用户' ? '新增' : '修改'}用户成功`);
+          createMessage.success(`${modalState.title === '新增' ? '新增' : '修改'}合同成功`);
           handleCancel();
           console.log('ELRef.value', ELRef.value);
           refresh();

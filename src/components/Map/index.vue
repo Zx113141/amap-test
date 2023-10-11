@@ -9,9 +9,23 @@
 </template>
 
 <script setup lang="ts">
+  enum MODE {
+    EDIT,
+    PREVIEW,
+  }
+  interface IMapProp {
+    mode: MODE;
+    plugins;
+    layers;
+    center;
+  }
+
   const map = ref(null);
   const layers = ref([]);
   const mapRef = ref<HTMLDivElement | null>(null);
+  const props = defineProps<IMapProp>({
+    mode,
+  });
 
   onMounted(() => {
     map.value = new AMap.Map('container', {
@@ -31,7 +45,6 @@
 
   onUnmounted(() => {
     map.value.off('click', clickHandler);
-    defineExpose({ mapRef });
   });
 
   const handleFullScreen = () => {

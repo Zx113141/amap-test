@@ -58,7 +58,7 @@ export const columns: ColumnProps[] = [
   {
     title: '操作',
     key: 'action',
-    width: 120,
+    width: 180,
     // slots: { customRender: 'action' },
   },
 ];

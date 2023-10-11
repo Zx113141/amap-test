@@ -31,6 +31,9 @@
         <a-form-item label="性别:" name="sex">
           <a-input v-model:value="formModel.sex" placeholder="请输入客户性别" />
         </a-form-item>
+        <a-form-item label="推荐人:" name="support">
+          <a-input v-model:value="formModel.support" placeholder="请输入客户性别" />
+        </a-form-item>
         <a-form-item label="已购房子:" name="buyed">
           <a-input v-model:value="formModel.buyed" placeholder="请输入已购房子地址" />
         </a-form-item>
@@ -112,6 +115,7 @@
     salers: '',
     contract: '',
     buyed: '',
+    support: '',
   });
 
   const tableActions = reactive([

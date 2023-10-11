@@ -29,6 +29,16 @@ export const columns: ColumnProps[] = [
         title: '邮箱',
         dataIndex: 'email',
         width: 150,
+        
+    },
+    {
+        title: '客户来源',
+        dataIndex: 'source',
+        width: 180,
+        // ellipsis: true,
+        customRender: ({ text }) => (
+            text ? text : '暂无'
+        ),
     },
     {
         title: '购房意向',

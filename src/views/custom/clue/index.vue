@@ -31,6 +31,10 @@
         <a-form-item label="性别:" name="sex">
           <a-input v-model:value="formModel.sex" placeholder="请输入客户性别" />
         </a-form-item>
+
+        <a-form-item label="客户来源:" name="attention">
+          <a-input v-model:value="formModel.source" placeholder="请输入客户来源" />
+        </a-form-item>
         <a-form-item label="购房意向:" name="attention">
           <a-input v-model:value="formModel.attention" placeholder="请输入客户购房意向" />
         </a-form-item>
@@ -86,6 +90,7 @@
     sex: '',
     email: '',
     attention: '',
+    source: '',
     address: '',
   });
 
