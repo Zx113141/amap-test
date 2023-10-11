@@ -1,0 +1,33 @@
+name: Deploy CI
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      # 1. checkout 仓库
+      - uses: actions/checkout@v3
+
+      # 2. 设置pnpm包管理器
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8
+
+      # 3. 设置pnpm包管理器
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+
+      - name: build
+        run: pnpm install --no-frozen-lockfile && pnpm run build:github # 部署至GitHub需要配置，base路径
+
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN  }}
+          publish_dir: ./dist
