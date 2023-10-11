@@ -14,13 +14,16 @@ export const columns: ColumnProps[] = [
     },
     {
         title: '性别',
-        dataIndex: 'description',
+        dataIndex: 'age',
         width: 80,
-        customRender: ({ text }) => (
-            <>
-                {text.length > 10 ? "男" : '女'}
-            </>
-        ),
+        customRender: ({ text }) => {
+
+            return (
+                <span>
+                    {text > 20 ? "男" : '女'}
+                </span>
+            )
+        },
     },
     {
         title: '邮箱',
@@ -40,9 +43,9 @@ export const columns: ColumnProps[] = [
     },
     {
         title: '现居住地',
-        dataIndex: 'color',
+        dataIndex: 'email',
         width: 100,
-        customRender: ({ text }) => <Tag color={text}>{text}</Tag>,
+        customRender: ({ text }) => <Tag >{text}</Tag>,
         // fixed: 'right',
     },
     {
@@ -60,3 +63,5 @@ export const columns: ColumnProps[] = [
 
 
 ];
+
+

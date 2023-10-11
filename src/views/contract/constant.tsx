@@ -10,7 +10,7 @@ export const columns: ColumnProps[] = [
     width: 80,
   },
   {
-    title: '节点',
+    title: '合同编号',
     dataIndex: 'node_name',
     width: 150,
   },
@@ -27,7 +27,7 @@ export const columns: ColumnProps[] = [
     width: 80,
   },
   {
-    title: 'IP',
+    title: '合同封面',
     dataIndex: 'ip',
     width: 100,
     customRender: ({ record }: any) => (
@@ -35,7 +35,7 @@ export const columns: ColumnProps[] = [
     ),
   },
   {
-    title: '角色',
+    title: '是否',
     dataIndex: 'nodeRole',
     width: 100,
   },

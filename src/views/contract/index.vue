@@ -1,10 +1,6 @@
 <template>
   <div class="node-conatiner">
-    <h2 class="nc_title font18">网站管理</h2>
-    <Alert
-      type="info"
-      message="Mock + fakerjs 数据模拟基本用法，及Table + filter筛选组件组合用法"
-    />
+    <h2 class="nc_title font18">合同管理</h2>
     <Table
       ref="ELRef"
       :url="fetchApi.node_list"
@@ -138,10 +134,10 @@
   const tableFilterModel = reactive({ role_id: undefined, search: '' });
   const tableFilterButton = reactive({
     type: 'primary',
-    label: '新增用户',
+    label: '新增合同',
     // auth: AuthEnum.user_create,
     onClick: () => {
-      modalState.title = '新增用户';
+      modalState.title = '新增合同';
       modalState.okText = '创建';
       modalState.visible = true;
     },
@@ -149,10 +145,9 @@
 
   const tableFilterItems = computed(() => [
     {
-      type: 'select',
-      name: 'role_id',
-      placeholder: '请选择角色',
-      options: roleOptions.value, // 这种写法支持options数据异步加载，并更新数据
+      type: 'input',
+      name: 'input',
+      placeholder: '请输入合同名称',
     },
     {
       type: 'search',
