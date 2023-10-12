@@ -3,6 +3,7 @@ import { reactive, ref, toRefs, onMounted, nextTick, defineProps } from 'vue';
 import { shallowRef } from '@vue/reactivity'
 import Polygon from "./polygon";
 import Markers from './marker'
+import {clusterIndexSet} from '../constant/cluster.config'
 
 interface IOptions {
     key: string; // 申请好的Web端开发者Key，首次调用 load 时必填
@@ -51,10 +52,11 @@ class InitMap {
     private initMarker(Markers) {
         this.marker = new Markers(this.map, this.AMap)
     }
-    // add
-    public add() {
-        console.log(this.map);
+    // 初始化IndexCluster
+    private initIndexCluster (IndexCluster, configs) {
+
     }
+
     // init 
     async init() {
         const AMap = await AMapLoader.load({
@@ -66,6 +68,10 @@ class InitMap {
         this.AMap = AMap
         this.initVector(Polygon)
         this.initMarker(Markers)
+    }
+
+    injectEvents(key, fn) {
+        this.map.on(key, fn)
     }
 
 }

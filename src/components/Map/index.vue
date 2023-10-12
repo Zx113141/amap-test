@@ -15,14 +15,13 @@
   import { useRouter } from 'vue-router';
   import InitMap from './func/init';
   import { shanghai, suzhou, wuxi } from './constant/polygon.area.js';
+  const currentEvents = ref('marker');
   // props
   const props = defineProps<IMapProp>();
   // router
   const router = useRouter();
-
-  // 全屏使用
+  // map html 实例
   const mapRef = ref<HTMLDivElement>();
-
   // init
   const initMap = () => {
     return new InitMap('container', {
@@ -31,30 +30,49 @@
       viewMode: '3D',
     });
   };
-  // map 实例
-  let map: any = reactive(initMap());
-  onMounted(async () => {
-    await map.init();
+  // to-do
+  const dosomething = () => {
     map.polygon.pushPolygonToMap([shanghai, suzhou, wuxi]);
-    if (props.autoFullscreen) {
-      handleFullScreen();
-    }
-  });
-  const handleFullScreen = () => {
-    mapRef.value?.requestFullscreen && mapRef.value.requestFullscreen();
   };
-  // 绑定事件
-  // map.value?.on('click', clickHandler);
-
-  onUnmounted(() => {
-    // map.value?.off('click', clickHandler);
-  });
-
   const routeToEditMap = () => {
     router.push({
       name: 'map-edit',
     });
   };
+  // 全屏请求
+  const handleFullScreen = () => {
+    mapRef.value?.requestFullscreen && mapRef.value.requestFullscreen();
+  };
+
+  // map 点击事件
+  const handleClick = (...args) => {
+    const [click] = args;
+    switch (currentEvents.value) {
+      case 'marker':
+        console.log([click.lnglat.lng, click.lnglat.lat]);
+        map.marker.createMarker([click.lnglat.lng, click.lnglat.lat]);
+    }
+  };
+  // map 实例
+  let map: any = reactive(initMap());
+
+  onMounted(async () => {
+    // 实例化地图
+    await map.init();
+
+    // 事件注入
+    map.injectEvents('click', handleClick);
+
+    // 全屏请求
+    if (props.autoFullscreen) {
+      handleFullScreen();
+    }
+  });
+
+  onUnmounted(() => {
+    map.destroy();
+    // map.value?.off('click', clickHandler);
+  });
 </script>
 
 <style lang="less" scoped>
