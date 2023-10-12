@@ -35,7 +35,7 @@
   import TradingHistory from './components/TradingHistory.vue';
   import { useHomeStore } from '/@/store/modules/home';
   import GeoMap from '/@/components/Map/index.vue';
-
+  // import type { MAP_MODE } from '/@/components/Map/map.d.ts';
   const store = useHomeStore();
   const loading = ref(false);
   const mapRef = ref<HTMLDivElement | null>(null);

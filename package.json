@@ -42,6 +42,7 @@
     "prepare": "husky install"
   },
   "dependencies": {
+    "@amap/amap-jsapi-loader": "^1.0.1",
     "@ant-design/icons-vue": "^6.0.1",
     "@vueuse/core": "^6.8.0",
     "ant-design-vue": "^3.2.7",

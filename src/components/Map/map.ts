@@ -1,10 +1,11 @@
 export enum MAP_MODE {
-    EDIT,
-    PREVIEW,
+    EDIT = 0,
+    PREVIEW = 1,
   }
   export interface IMapProp {
-    mode: MODE;
+    mode: MAP_MODE;
     plugins;
     layers;
     center;
+    autoFullscreen:boolean
   }

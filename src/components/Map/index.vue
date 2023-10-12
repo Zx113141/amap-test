@@ -7,47 +7,48 @@
     <a-divider class="line" />
     <div id="container" ref="mapRef"> </div>
   </a-card>
-  <div v-else id="container" ref="mapRef"> </div>
+  <div id="container" ref="mapRef" v-else> </div>
 </template>
 
 <script setup lang="ts">
-  import { type IMapProp, MAP_MODE } from './map.d.ts';
+  import { type IMapProp, MAP_MODE } from './map';
   import { useRouter } from 'vue-router';
-  // import {prop}
+  import InitMap from './func/init';
+  import { shanghai, suzhou, wuxi } from './constant/polygon.area.js';
+  // props
+  const props = defineProps<IMapProp>();
+  // router
   const router = useRouter();
 
-  const map = ref(null);
-  const layers = ref([]);
-  const mapRef = ref<HTMLDivElement | null>(null);
-  const props = defineProps<IMapProp>({
-    mode: {
-      type:「
-    },
-  });
+  // 全屏使用
+  const mapRef = ref<HTMLDivElement>();
 
-  onMounted(() => {
-    map.value = new AMap.Map('container', {
-      zoom: 16, //级别
-      center: [106.648281, 26.610522], //中心点坐标
-      viewMode: '3D', //使用3D视图，
-      layers: layers.value,
+  // init
+  const initMap = () => {
+    return new InitMap('container', {
+      center: [121.045332, 31.19884],
+      zoom: 8.8,
+      viewMode: '3D',
     });
-
-    // 绑定事件
-    map.value.on('click', clickHandler);
-  });
-
-  const clickHandler = function (e) {
-    alert('您在[ ' + e.lnglat.getLng() + ',' + e.lnglat.getLat() + ' ]的位置点击了地图！');
   };
+  // map 实例
+  let map: any = reactive(initMap());
+  onMounted(async () => {
+    await map.init();
+    map.polygon.pushPolygonToMap([shanghai, suzhou, wuxi]);
+    if (props.autoFullscreen) {
+      handleFullScreen();
+    }
+  });
+  const handleFullScreen = () => {
+    mapRef.value?.requestFullscreen && mapRef.value.requestFullscreen();
+  };
+  // 绑定事件
+  // map.value?.on('click', clickHandler);
 
   onUnmounted(() => {
-    map.value.off('click', clickHandler);
+    // map.value?.off('click', clickHandler);
   });
-
-  const handleFullScreen = () => {
-    mapRef.value.requestFullscreen && mapRef.value.requestFullscreen();
-  };
 
   const routeToEditMap = () => {
     router.push({
