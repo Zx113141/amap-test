@@ -70,7 +70,7 @@
   });
 
   onUnmounted(() => {
-    map.destroy();
+    // map.destroy();
     // map.value?.off('click', clickHandler);
   });
 </script>

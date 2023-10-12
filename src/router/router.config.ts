@@ -23,7 +23,7 @@ export const accessRoutes: RouteRecordRaw[] = [
       {
         path: '/app/custom',
         name: 'custom',
-        redirect:'/app/custom/clue',
+        redirect: '/app/custom/clue',
         // component: BlankLayout,
         meta: {
           title: '客户管理',
@@ -97,7 +97,7 @@ export const accessRoutes: RouteRecordRaw[] = [
             path: '/app/house-info/newly',
             name: 'newly',
             component: () => import('/@/views/house-info/newly/index.vue'),
-            meta: { title: '新增房源', keepAlive: true,breadcrumb: true },
+            meta: { title: '新增房源', keepAlive: true, breadcrumb: true },
           },
           {
             path: '/app/house-info/online',
@@ -135,12 +135,12 @@ const constantRoutes: RouteRecordRaw[] = [
     name: 'edit',
     redirect: '/edit/map-edit',
     meta: { title: '地图编辑器' },
-    children:[
+    children: [
       {
-        path: '/app/map-edit',
+        path: '/edit/map-edit',
         name: 'map-edit',
         component: () => import('/@/views/edit/map/index.vue'),
-        meta: { title: '地图编辑器', keepAlive: true,breadcrumb: true },
+        meta: { title: '地图编辑器', keepAlive: true, breadcrumb: true },
       },
     ]
   },
