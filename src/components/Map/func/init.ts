@@ -2,6 +2,7 @@ import AMapLoader from "@amap/amap-jsapi-loader"
 import { reactive, ref, toRefs, onMounted, nextTick, defineProps } from 'vue';
 import { shallowRef } from '@vue/reactivity'
 import Polygon from "./polygon";
+import Markers from './marker'
 
 interface IOptions {
     key: string; // 申请好的Web端开发者Key，首次调用 load 时必填
@@ -31,6 +32,8 @@ class InitMap {
     pulgin: any[] = []
     // polygon
     polygon: any = null
+    // marker
+    marker: any = []
 
     constructor(domId, options) {
         this.domId = domId
@@ -45,8 +48,8 @@ class InitMap {
         this.polygon = new Polygon(this.map, this.AMap)
     }
     // 初始化marker
-    private initMarker() {
-
+    private initMarker(Markers) {
+        this.marker = new Markers(this.map, this.AMap)
     }
     // add
     public add() {
@@ -62,6 +65,7 @@ class InitMap {
         // 保存AMap构造函数
         this.AMap = AMap
         this.initVector(Polygon)
+        this.initMarker(Markers)
     }
 
 }
