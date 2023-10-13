@@ -12,14 +12,15 @@
 
 <script setup lang="ts">
   import { type IMapProp, MAP_MODE } from './map';
-  import { useRouter } from 'vue-router';
+
   import InitMap from './func/init';
   import { shanghai, suzhou, wuxi } from './constant/polygon.area.js';
+
   const currentEvents = ref('marker');
   // props
   const props = defineProps<IMapProp>();
   // router
-  const router = useRouter();
+
   // map html 实例
   const mapRef = ref<HTMLDivElement>();
   // init
@@ -34,11 +35,7 @@
   const dosomething = () => {
     map.polygon.pushPolygonToMap([shanghai, suzhou, wuxi]);
   };
-  const routeToEditMap = () => {
-    router.push({
-      name: 'map-edit',
-    });
-  };
+
   // 全屏请求
   const handleFullScreen = () => {
     mapRef.value?.requestFullscreen && mapRef.value.requestFullscreen();

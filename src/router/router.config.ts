@@ -137,7 +137,7 @@ const constantRoutes: RouteRecordRaw[] = [
     meta: { title: '地图编辑器' },
     children: [
       {
-        path: '/edit/map-edit',
+        path: '/edit/:map_info/map-edit',
         name: 'map-edit',
         component: () => import('/@/views/edit/map/index.vue'),
         meta: { title: '地图编辑器', keepAlive: true, breadcrumb: true },
