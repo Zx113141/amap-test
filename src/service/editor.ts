@@ -1,0 +1,6 @@
+class EditorService {
+    constructor(parameters) {
+
+    }
+
+}

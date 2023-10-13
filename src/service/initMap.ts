@@ -1,8 +1,8 @@
 import AMapLoader from "@amap/amap-jsapi-loader"
-import { IMarkerOptions, IPluginOptions, IPolygonOptions, ILayersOptions } from "../map";
+import { IMarkerOptions, IPluginOptions, IPolygonOptions, ILayersOptions } from "../components/Map/map";
 import Polygon from "./polygon";
 import Markers from './marker'
-import {clusterIndexSet} from '../constant/cluster.config'
+import { clusterIndexSet } from '../components/Map/constant/cluster.config'
 
 interface IOptions {
     key: string; // 申请好的Web端开发者Key，首次调用 load 时必填
@@ -52,7 +52,7 @@ class InitMap {
         this.marker = new Markers(this.map, this.AMap)
     }
     // 初始化IndexCluster
-    private initIndexCluster (IndexCluster, configs) {
+    private initIndexCluster(IndexCluster, configs) {
 
     }
 
@@ -73,8 +73,12 @@ class InitMap {
         this.map.on(key, fn)
     }
 
-    injectParams (params:(ILayersOptions| IMarkerOptions)) {
+    injectParams(params: (ILayersOptions | IMarkerOptions)) {
 
+    }
+
+    destroyEvents(key, fn) {
+        this.map.off(key, fn)
     }
 
 }

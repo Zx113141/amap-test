@@ -1,5 +1,7 @@
 <template>
-  <geo-map :mode="MAP_MODE.EDIT" :auto-fullscreen="true"> </geo-map>
+  <div class="editor">
+    <geo-map :mode="MAP_MODE.EDIT" :auto-fullscreen="true"> </geo-map>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -19,4 +21,10 @@
   });
   // const get
 </script>
-zx
+
+<style lang="less" scoped>
+  .editor {
+    width: 100%;
+    height: 100%;
+  }
+</style>

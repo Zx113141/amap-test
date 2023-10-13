@@ -11,16 +11,14 @@
 </template>
 
 <script setup lang="ts">
-  import { type IMapProp, MAP_MODE } from './map';
+  import { type IMapProp } from './map';
 
-  import InitMap from './instance/init';
+  import InitMap from '/@/service/initMap';
   import { shanghai, suzhou, wuxi } from './constant/polygon.area.js';
 
   const currentEvents = ref('marker');
   // props
   const props = defineProps<IMapProp>();
-  // router
-
   // map html 实例
   const mapRef = ref<HTMLDivElement>();
   // init
@@ -57,7 +55,7 @@
     // 事件注入
     map.injectEvents('click', handleClick);
     // 参数注入
-    // map.injectParams('polygon');
+
     map.polygon.pushPolygonToMap([shanghai, suzhou, wuxi]);
     // 全屏请求
     if (props.autoFullscreen) {
@@ -66,7 +64,8 @@
   });
 
   onUnmounted(() => {
-    // map.destroy();
+    // 销毁事件
+    map.destroyEvents('click', handleClick);
     // map.value?.off('click', clickHandler);
   });
 </script>
