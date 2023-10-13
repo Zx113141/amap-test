@@ -1,6 +1,5 @@
 import AMapLoader from "@amap/amap-jsapi-loader"
-import { reactive, ref, toRefs, onMounted, nextTick, defineProps } from 'vue';
-import { shallowRef } from '@vue/reactivity'
+import { IMarkerOptions, IPluginOptions, IPolygonOptions, ILayersOptions } from "../map";
 import Polygon from "./polygon";
 import Markers from './marker'
 import {clusterIndexSet} from '../constant/cluster.config'
@@ -72,6 +71,10 @@ class InitMap {
 
     injectEvents(key, fn) {
         this.map.on(key, fn)
+    }
+
+    injectParams (params:(ILayersOptions| IMarkerOptions)) {
+
     }
 
 }

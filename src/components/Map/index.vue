@@ -54,10 +54,8 @@
   onMounted(async () => {
     // 实例化地图
     await map.init();
-
     // 事件注入
     map.injectEvents('click', handleClick);
-
     // 参数注入
     // map.injectParams('polygon');
     map.polygon.pushPolygonToMap([shanghai, suzhou, wuxi]);
