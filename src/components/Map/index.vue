@@ -38,6 +38,7 @@
   // map 点击事件
   const handleClick = (...args) => {
     const [click] = args;
+    console.log(click);
     switch (currentEvents.value) {
       case 'marker':
         map.marker.createMarker([click.lnglat.lng, click.lnglat.lat]);

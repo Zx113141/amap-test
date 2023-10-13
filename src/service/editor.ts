@@ -1,6 +1,12 @@
 class EditorService {
-    constructor(parameters) {
+    constructor() {
 
     }
+    
 
+    init () {
+
+    }
 }
+
+export default EditorService

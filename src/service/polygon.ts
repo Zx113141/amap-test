@@ -5,6 +5,7 @@ class Polygon {
         this.mapInstance = mapInstance
         this.AMap = AMap
     }
+
     addPolygon(data) {
         let polygon = new this.AMap.Polygon({
             path: data,
@@ -28,6 +29,9 @@ class Polygon {
                 fillColor: '#ccebc5'
 
             })
+        })
+        polygon.on('click', (e) => {
+            console.log(e);
         })
         this.mapInstance.add(polygon);
     }
