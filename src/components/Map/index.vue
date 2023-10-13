@@ -44,6 +44,7 @@
       case 'marker':
         map.marker.createMarker([click.lnglat.lng, click.lnglat.lat]);
       // case 'polygon':
+
       //
     }
   };
@@ -58,9 +59,8 @@
     map.injectEvents('click', handleClick);
 
     // 参数注入
-    map.injectParams('polygon',)
-     map.polygon.pushPolygonToMap([shanghai, suzhou, wuxi]);
-
+    // map.injectParams('polygon');
+    map.polygon.pushPolygonToMap([shanghai, suzhou, wuxi]);
     // 全屏请求
     if (props.autoFullscreen) {
       handleFullScreen();

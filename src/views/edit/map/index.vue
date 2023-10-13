@@ -7,19 +7,18 @@
   import { MAP_MODE, IPolygonOptions, IMarkerOptions } from '/@/components/Map/map';
 
   const polygons = reactive<{
-    polygon:IPolygonOptions | null
+    polygon: IPolygonOptions | null;
+    marker: IMarkerOptions | null;
   }>({
-    polygon:null,
-    marker: 
-  })
+    polygon: null,
+    marker: null,
+  });
 
-  const getPolygon = () => {
-
-  }
+  const getPolygon = () => {};
 
   onMounted(async () => {
-   const res =  await getPolygon()
-   
-  })
+    const res = await getPolygon();
+  });
   // const get
 </script>
+zx
