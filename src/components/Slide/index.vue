@@ -8,6 +8,10 @@
 
 <style lang="less" scoped>
   .slide {
+    display: flex;
+    position: relative;
+    column-gap: 8px;
+    padding: 10px;
     width: 300px;
     height: 100%;
     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.03), 0 1px 6px -1px rgba(0, 0, 0, 0.02),

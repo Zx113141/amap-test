@@ -14,7 +14,7 @@
   import { type IMapProp } from './map';
 
   import InitMap from '/@/service/initMap';
-  import { shanghai, suzhou, wuxi } from './constant/polygon.area.js';
+  import { shanghai, suzhou, wuxi } from '/@/config/constant/polygon.area.js';
 
   const currentEvents = ref('marker');
   // props
@@ -38,7 +38,7 @@
   // map 点击事件
   const handleClick = (...args) => {
     const [click] = args;
-    console.log(click);
+
     switch (currentEvents.value) {
       case 'marker':
         map.marker.createMarker([click.lnglat.lng, click.lnglat.lat]);
@@ -74,7 +74,7 @@
 <style lang="less" scoped>
   #container {
     // width: 300px;
-    height: 800px;
+    height: 100%;
   }
 </style>
-./instance/init
+./instance/init ../../config/constant/polygon.area.js
