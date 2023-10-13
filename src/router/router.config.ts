@@ -107,7 +107,7 @@ export const accessRoutes: RouteRecordRaw[] = [
           },
           {
             path: '/app/house-info/map',
-            name: 'online',
+            name: 'map',
             component: () => import('/@/views/house-info/map/index.vue'),
             meta: { title: '房源地图编辑', keepAlive: true, breadcrumb: true },
           },

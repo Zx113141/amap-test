@@ -10,39 +10,25 @@ export const columns: ColumnProps[] = [
     width: 80,
   },
   {
-    title: '合同编号',
+    title: '地图编号ID',
     dataIndex: 'node_name',
     width: 150,
   },
   {
-    title: (
-      <Tooltip>
-        <Space align="center">
-          <span>机构</span>
-          <QuestionCircleOutlined style="vertical-align:2px" />
-        </Space>
-      </Tooltip>
+    title: "编辑者",
+    dataIndex: 'editor',
+    customRender: ({ record, text }: any) => (
+      <span>{text ? text : '-'}</span>
     ),
-    dataIndex: 'institutions_name',
     width: 80,
   },
   {
-    title: '合同封面',
-    dataIndex: 'ip',
+    title: '编辑内容',
+    dataIndex: 'content',
     width: 100,
-    customRender: ({ record }: any) => (
-      <span>{record.ip ? `${record.ip}:${record.port}` : ''}</span>
+    customRender: ({ text }: any) => (
+      <span>{text ? text : '-'}</span>
     ),
-  },
-  {
-    title: '是否',
-    dataIndex: 'nodeRole',
-    width: 100,
-  },
-  {
-    title: '是否管理员',
-    dataIndex: 'is_consensus',
-    width: 150,
   },
   {
     title: '创建时间',
