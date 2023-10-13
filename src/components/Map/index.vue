@@ -1,19 +1,19 @@
 <template>
-  <a-card :bordered="false" v-if="mode === MAP_MODE.PREVIEW">
+  <!-- <a-card :bordered="false" v-if="mode === MAP_MODE.PREVIEW">
     <a-row>
       <a-button @click="handleFullScreen"> 地图全屏 </a-button>
       <a-button @click="routeToEditMap"> 进入地图编辑 </a-button>
     </a-row>
     <a-divider class="line" />
     <div id="container" ref="mapRef"> </div>
-  </a-card>
-  <div id="container" ref="mapRef" v-else> </div>
+  </a-card> -->
+  <div id="container" ref="mapRef"> </div>
 </template>
 
 <script setup lang="ts">
   import { type IMapProp, MAP_MODE } from './map';
 
-  import InitMap from './func/init';
+  import InitMap from './instance/init';
   import { shanghai, suzhou, wuxi } from './constant/polygon.area.js';
 
   const currentEvents = ref('marker');
@@ -31,10 +31,6 @@
       viewMode: '3D',
     });
   };
-  // to-do
-  const dosomething = () => {
-    map.polygon.pushPolygonToMap([shanghai, suzhou, wuxi]);
-  };
 
   // 全屏请求
   const handleFullScreen = () => {
@@ -46,8 +42,9 @@
     const [click] = args;
     switch (currentEvents.value) {
       case 'marker':
-        console.log([click.lnglat.lng, click.lnglat.lat]);
         map.marker.createMarker([click.lnglat.lng, click.lnglat.lat]);
+      // case 'polygon':
+      //
     }
   };
   // map 实例
@@ -59,6 +56,10 @@
 
     // 事件注入
     map.injectEvents('click', handleClick);
+
+    // 参数注入
+    map.injectParams('polygon',)
+     map.polygon.pushPolygonToMap([shanghai, suzhou, wuxi]);
 
     // 全屏请求
     if (props.autoFullscreen) {
@@ -78,3 +79,4 @@
     height: 800px;
   }
 </style>
+./instance/init

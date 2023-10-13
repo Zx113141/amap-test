@@ -4,5 +4,22 @@
 
 <script setup lang="ts">
   import GeoMap from '/@/components/Map/index.vue';
-  import { MAP_MODE } from '/@/components/Map/map';
+  import { MAP_MODE, IPolygonOptions, IMarkerOptions } from '/@/components/Map/map';
+
+  const polygons = reactive<{
+    polygon:IPolygonOptions | null
+  }>({
+    polygon:null,
+    marker: 
+  })
+
+  const getPolygon = () => {
+
+  }
+
+  onMounted(async () => {
+   const res =  await getPolygon()
+   
+  })
+  // const get
 </script>
