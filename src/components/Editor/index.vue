@@ -19,15 +19,16 @@
 </template>
 
 <script lang="ts" setup>
+  import { useEditMapWithOut } from '/@/store/modules/editMap';
   import EditorService from '/@/service/editor';
-  import LeftSlide from '../Slide/index.vue';
+  import LeftSlide from '/@/components/Slide/index.vue';
   import MaterialMenu from '../MaterialMenu/index.vue';
   import { map_items } from '/@/config/material/map_item';
-  let editor = reactive(new EditorService('editor'));
+  const store = useEditMapWithOut();
+  let editor = reactive(new EditorService('editor', store.setPosition));
 
   onMounted(() => {
     editor.init();
-    console.log(editor);
   });
 </script>
 

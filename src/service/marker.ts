@@ -11,19 +11,13 @@ class Markers {
 
     }
 
-    createMarker(position) {
-        console.log(this.AMap);
+    createMarker(position, options) {
+        // console.log(position);
         const marker = new this.AMap.Marker({
             map: this.mapInstance,
             position,
-            width: '15px',
-            height: '15px',
-            icon: '//a.amap.com/jsapi_demos/static/demo-center/icons/poi-marker-default.png',
-            // offset: new this.AMap.Pixel(-13, -30)
-            cursor: 'move',
-            offset: new this.AMap.Pixel(-13, -30),
-            // 设置是否可以拖拽
-            draggable: true,
+            offset: new this.AMap.Pixel(-30, -60),
+            ...options
         });
         this.pushMarkerToMap(marker)
     }

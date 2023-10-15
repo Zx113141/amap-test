@@ -7,6 +7,7 @@ import {
 } from '../components/Map/map';
 import Polygon from './polygon';
 import Markers from './marker';
+import Pixel from './pixel';
 import { clusterIndexSet } from '../config/constant/cluster.config';
 
 interface IOptions {
@@ -39,13 +40,15 @@ class InitMap {
   polygon: any = null;
   // marker
   marker: any = [];
+  // pixel
+  pixel: any = null
 
   constructor(domId, options) {
     this.domId = domId;
     this.options = options;
   }
   // 初始化plugin
-  private initPlugin(Plugin) {}
+  private initPlugin(Plugin) { }
   // 初始化vector
   private initVector(Polygon) {
     this.polygon = new Polygon(this.map, this.AMap);
@@ -55,8 +58,11 @@ class InitMap {
     this.marker = new Markers(this.map, this.AMap);
   }
   // 初始化IndexCluster
-  private initIndexCluster(IndexCluster, configs) {}
-
+  private initIndexCluster(IndexCluster, configs) { }
+  // 初始化Pixel
+  private initPixel(Pixel) {
+    this.pixel = new Pixel(this.map, this.AMap);
+  }
   // init
   async init() {
     const AMap = await AMapLoader.load({
@@ -68,14 +74,15 @@ class InitMap {
     this.AMap = AMap;
     this.initVector(Polygon);
     this.initMarker(Markers);
-    this.map.refreshResize();
+    this.initPixel(Pixel)
+    // this.map.refreshResize();
   }
 
   injectEvents(key, fn) {
     this.map.on(key, fn);
   }
 
-  injectParams(params: ILayersOptions | IMarkerOptions) {}
+  injectParams(params: ILayersOptions | IMarkerOptions) { }
 
   destroyEvents(key, fn) {
     this.map.off(key, fn);

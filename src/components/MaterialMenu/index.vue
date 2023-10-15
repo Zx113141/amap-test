@@ -1,6 +1,6 @@
 <template>
-  <div class="material" :draggable="true" @dragstart="() => store.pushNewMaterial(item)">
-    {{ type }}
+  <div class="material" :draggable="true" @click="() => store.chooseMaterial(props)">
+    {{ name }}
   </div>
 </template>
 
@@ -9,10 +9,10 @@
   const store = useEditMapWithOut();
 
   const props = defineProps({
-    type: {
-      default: '',
-    },
+    name: String,
+    options: Object,
   });
+  console.log(props);
 </script>
 
 <style style="less" scoped>

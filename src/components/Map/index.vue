@@ -15,7 +15,9 @@
 
   import InitMap from '/@/service/initMap';
   import { shanghai, suzhou, wuxi } from '/@/config/constant/polygon.area.js';
-
+  import { useEditMapWithOut } from '/@/store/modules/editMap';
+  // store
+  const store = useEditMapWithOut();
   const currentEvents = ref('marker');
   // props
   const props = defineProps<IMapProp>();
@@ -34,19 +36,6 @@
   const handleFullScreen = () => {
     mapRef.value?.requestFullscreen && mapRef.value.requestFullscreen();
   };
-
-  // map 点击事件
-  const handleClick = (...args) => {
-    const [click] = args;
-
-    switch (currentEvents.value) {
-      case 'marker':
-        map.marker.createMarker([click.lnglat.lng, click.lnglat.lat]);
-      // case 'polygon':
-
-      //
-    }
-  };
   // map 实例
   let map: any = reactive(initMap());
 
@@ -54,8 +43,7 @@
     // 实例化地图
     await map.init();
     // 事件注入
-    map.injectEvents('click', handleClick);
-    // 参数注入
+    map.injectEvents('click', store.beforeMapClick);
 
     map.polygon.pushPolygonToMap([shanghai, suzhou, wuxi]);
     // 全屏请求

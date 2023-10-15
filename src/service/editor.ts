@@ -1,18 +1,29 @@
+
+
 class EditorService {
   instanceId: string = '';
   canvas: Nullable<HTMLDivElement> = null;
-  constructor(instance: string) {
+  fn: (params?: any) => void
+  constructor(instance: string, fn: ((params: any) => void)) {
     this.instanceId = instance;
+    this.fn = fn
   }
 
   init() {
-    this.canvas = document.getElementById(this.instanceId) as HTMLDivElement;
-    this.canvas.ondragover = function (e: DragEvent) {
-      e.preventDefault();
-    };
-    this.canvas.ondragenter = function (e: DragEvent) {
-      e.preventDefault();
-    };
+    // 不需要拖拽事件
+    // const that = this
+    // that.canvas = document.getElementById(this.instanceId) as HTMLDivElement;
+    // that.canvas.ondragover = function (e: DragEvent) {
+    //   e.preventDefault();
+    // };
+    // that.canvas.ondragenter = function (e: DragEvent) {
+    //   e.preventDefault();
+    // };
+    // that.canvas.ondrop = function (e: DragEvent) {
+    //   const { offsetX: x, offsetY: y } = e
+    //   that.fn({ x, y })
+    // }
+
   }
 }
 
