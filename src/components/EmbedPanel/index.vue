@@ -1,5 +1,5 @@
 <template>
-  <component :is="PanelCompMap[options.type]" v-bind="{ ...options.materialOptions }"> </component>
+  <component :is="PanelCompMap[options.type]" :options="{ ...options }"> </component>
 </template>
 
 <script setup lang="ts">
