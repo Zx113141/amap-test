@@ -1,82 +1,70 @@
+// import { * asecharts } from 'echarts/core';
 import { defineStore } from 'pinia';
 import { store } from '/@/store';
-import fetchApi from '/@/api/home';
+import { useMarkerWithOut } from './marker'
 import { ResInfoList } from '/@/api/home/model';
+import Markers from '/@/service/marker';
+import { mergeOptions } from '/@/utils/merge';
 
 interface EditMap {
-  main: Nullable<ResInfoList>;
-  markers: any[],
-  plugins: any[],
-  polygons: any[],
-  material: any
+  AMap: any,
+  mapInstance: any
+  material: any,
+  materialOptions: any
 }
 
 export const useEditMap = defineStore({
   id: 'map-edit',
   state: (): EditMap => ({
     // info
-    main: null,
-    markers: [],
-    plugins: [],
-    polygons: [],
-    material: 1
+    AMap: null,
+    mapInstance: null,
+    // markers: [],
+    // plugins: [],
+    // polygons: [],
+    material: 1,
+    materialOptions: null
   }),
   getters: {
-    getInfo(): Nullable<ResInfoList> {
-      return this.main || null;
-    },
-    getMarkerOptions(): Nullable<EditMap> {
-      return this.markers.find(marker => marker.id === this.material.id)
-    },
     getCanvasOrMaterial(): Nullable<EditMap> {
       return this.material || null
     },
   },
   actions: {
+    saveMapContructorAndMapInstane(AMap, map) {
+      this.AMap = AMap
+      this.mapInstance = map
+    },
+    createMarker(e) {
+      const markerStore = useMarkerWithOut()
+      const positon = [e.lnglat.lng, e.lnglat.lat]
+      console.log(this.material.options);
+      const marker = (new Markers(this.AMap)).createMarker(this.mapInstance, positon, mergeOptions(this.material.options))
+      markerStore.pushToMarkers(marker)
+    },
     chooseMaterial(material) {
       this.material = material
+      // implemnt right slide menu options
+      this.renderMenuSlide(material.options)
     },
-    beforeMapClick(e, map) {
+    beforeMapClick(e) {
       if (!this.material) return
-      console.log([e.lnglat.lng, e.lnglat.lat]);
       switch (this.material.name) {
         case 'marker':
-          this.handleMark(e, map);
-          break
+          this.createMarker(e);
+          break;
 
       }
 
 
     },
+    //render menu 
+    renderMenuSlide(options) {
 
-    // marker 单击事件
-    handleMark(e, instanceMap) {
-      const positon = [e.lnglat.lng, e.lnglat.lat]
-      instanceMap.marker.createMarker(positon, this.material.options);
-    }
-    // map 点击事件
-    // const handleClick = (...args) => {
-    //   const [click] = args;
+      this.materialOptions = options
 
-    //   switch (currentEvents.value) {
-    //     case 'marker':
-    //       map.marker.createMarker(, store.getMarkerOptions);
-    //     // case 'polygon':
+    },
 
-    //     //
-    //   }
-    // };
-    /**
-     * @description: login
-     */
-    // async setEditSave() {
-    //   const res = await fetchApi.info();
-    //   if (res) {
-    //     // save token
-    //     this.setInfo(res);
-    //   }
-    //   return res;
-    // },
   },
 });
 

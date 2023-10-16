@@ -13,23 +13,18 @@
       <slot name="main"></slot>
     </main>
     <section class="right-section">
-      <!-- <Slide> </Slide> -->
+      <Slide> </Slide>
     </section>
   </div>
 </template>
 
 <script lang="ts" setup>
-  import { useEditMapWithOut } from '/@/store/modules/editMap';
-  import EditorService from '/@/service/editor';
+  // import { useEditMapWithOut } from '/@/store/modules/editMap';
+  // import EditorService from '/@/service/editor';
   import LeftSlide from '/@/components/Slide/index.vue';
   import MaterialMenu from '../MaterialMenu/index.vue';
+  import EmbedPanel from '/@/components/EmbedPanel/index.vue';
   import { map_items } from '/@/config/material/map_item';
-  const store = useEditMapWithOut();
-  let editor = reactive(new EditorService('editor', store.setPosition));
-
-  onMounted(() => {
-    editor.init();
-  });
 </script>
 
 <style lang="less" scoped>

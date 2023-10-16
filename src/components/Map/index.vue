@@ -12,7 +12,6 @@
 
 <script setup lang="ts">
   import { type IMapProp } from './map';
-
   import InitMap from '/@/service/initMap';
   import { shanghai, suzhou, wuxi } from '/@/config/constant/polygon.area.js';
   import { useEditMapWithOut } from '/@/store/modules/editMap';
@@ -42,9 +41,10 @@
     // 实例化地图
     await map.init();
     // 事件注入
-    map.injectEvents('click', (e) => store.beforeMapClick(e, map));
-
-    map.polygon.pushPolygonToMap([shanghai, suzhou, wuxi]);
+    map.injectEvents('click', (e) => store.beforeMapClick(e));
+    // 全局保存
+    store.saveMapContructorAndMapInstane(map.AMap, map.map);
+    // map.polygon.pushPolygonToMap([shanghai, suzhou, wuxi]);
     // 全屏请求
     if (props.autoFullscreen) {
       handleFullScreen();

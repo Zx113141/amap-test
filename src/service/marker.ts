@@ -1,28 +1,48 @@
 
+export interface IMarker {
+    topWhenClick?: boolean,
+    draggable?: boolean,
+    cursor: string,
+    visible: boolean,
+    zIndex: number,
+    angle: number,
+    animation: "AMAP_ANIMATION_NONE" | 'AMAP_ANIMATION_DROP' | 'AMAP_ANIMATION_BOUNCE',
+    title: string,
+    clickable: boolean,
+    extData: any,
+    label: {
+        content: string,
+        offset: number[],
+        direction: 'top' | 'right' | 'bottom' | 'left' | 'center'
+    }
+}
+
+
 class Markers {
-    mapInstance: any = null
     AMap: any = null
 
     // marker array
     markers: any[] = []
-    constructor(mapInstance, AMap) {
-        this.mapInstance = mapInstance
+    constructor(AMap) {
         this.AMap = AMap
 
     }
 
-    createMarker(position, options) {
+    createMarker(mapInstance, position, options: IMarker | {}) {
         // console.log(position);
         const marker = new this.AMap.Marker({
-            map: this.mapInstance,
+            map: mapInstance,
             position,
             offset: new this.AMap.Pixel(-30, -60),
-            ...options
+            ...options,
+            extData: {
+                id: new Date().getTime()
+            },
         });
-        this.pushMarkerToMap(marker)
+        return marker
     }
-    pushMarkerToMap(marker) {
-        this.markers.push(marker);
+    getMarker() {
+
     }
 }
 
