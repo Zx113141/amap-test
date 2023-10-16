@@ -19,7 +19,7 @@ export const useEditMap = defineStore({
     markers: [],
     plugins: [],
     polygons: [],
-    material: null
+    material: 1
   }),
   getters: {
     getInfo(): Nullable<ResInfoList> {
@@ -30,16 +30,30 @@ export const useEditMap = defineStore({
     },
     getCanvasOrMaterial(): Nullable<EditMap> {
       return this.material || null
-    }
+    },
   },
   actions: {
     chooseMaterial(material) {
       this.material = material
     },
-    beforeMapClick(e) {
-      const [click] = e
-      const positon = [click.lnglat.lng, click.lnglat.lat]
+    beforeMapClick(e, map) {
+      if (!this.material) return
+      console.log([e.lnglat.lng, e.lnglat.lat]);
+      switch (this.material.name) {
+        case 'marker':
+          this.handleMark(e, map);
+          break
+
+      }
+
+
     },
+
+    // marker 单击事件
+    handleMark(e, instanceMap) {
+      const positon = [e.lnglat.lng, e.lnglat.lat]
+      instanceMap.marker.createMarker(positon, this.material.options);
+    }
     // map 点击事件
     // const handleClick = (...args) => {
     //   const [click] = args;
@@ -55,14 +69,14 @@ export const useEditMap = defineStore({
     /**
      * @description: login
      */
-    async setEditSave() {
-      const res = await fetchApi.info();
-      if (res) {
-        // save token
-        this.setInfo(res);
-      }
-      return res;
-    },
+    // async setEditSave() {
+    //   const res = await fetchApi.info();
+    //   if (res) {
+    //     // save token
+    //     this.setInfo(res);
+    //   }
+    //   return res;
+    // },
   },
 });
 

@@ -18,7 +18,6 @@
   import { useEditMapWithOut } from '/@/store/modules/editMap';
   // store
   const store = useEditMapWithOut();
-  const currentEvents = ref('marker');
   // props
   const props = defineProps<IMapProp>();
   // map html 实例
@@ -43,7 +42,7 @@
     // 实例化地图
     await map.init();
     // 事件注入
-    map.injectEvents('click', store.beforeMapClick);
+    map.injectEvents('click', (e) => store.beforeMapClick(e, map));
 
     map.polygon.pushPolygonToMap([shanghai, suzhou, wuxi]);
     // 全屏请求
@@ -54,7 +53,7 @@
 
   onUnmounted(() => {
     // 销毁事件
-    map.destroyEvents('click', handleClick);
+    map.destroyEvents('click', store.beforeMapClick);
     // map.value?.off('click', clickHandler);
   });
 </script>
