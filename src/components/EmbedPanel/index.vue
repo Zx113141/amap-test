@@ -7,6 +7,7 @@
 
   const PanelCompMap = {
     marker: defineAsyncComponent(() => import('../Panel-Components/marker.vue')),
+    polygon: defineAsyncComponent(() => import('../Panel-Components/polygon.vue')),
   };
   const store = useEditMapWithOut();
   const options = ref({});

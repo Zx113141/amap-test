@@ -1,5 +1,5 @@
 <template>
-  <div>marker</div>
+  <div>polygon</div>
 </template>
 
 <script></script>
