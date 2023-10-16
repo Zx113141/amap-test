@@ -1,5 +1,5 @@
 <template>
-  <ConfigProvider :locale="zhCN">
+  <ConfigProvider :locale="zhCN" :component-size="'small'">
     <router-view />
   </ConfigProvider>
 </template>

@@ -5,6 +5,7 @@ export const map_items = [
   {
     name: 'marker',
     options: {
+      type: 'marker',
       base: {
         width: '15px',
         height: '15px',

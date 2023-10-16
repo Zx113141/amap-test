@@ -23,7 +23,7 @@ export const useEditMap = defineStore({
     // plugins: [],
     // polygons: [],
     material: 1,
-    materialOptions: null
+    materialOptions: 1
   }),
   getters: {
     getCanvasOrMaterial(): Nullable<EditMap> {
@@ -31,22 +31,26 @@ export const useEditMap = defineStore({
     },
   },
   actions: {
+    // 保存当前构造函数和map实例
     saveMapContructorAndMapInstane(AMap, map) {
       this.AMap = AMap
       this.mapInstance = map
     },
-    createMarker(e) {
-      const markerStore = useMarkerWithOut()
-      const positon = [e.lnglat.lng, e.lnglat.lat]
-      console.log(this.material.options);
-      const marker = (new Markers(this.AMap)).createMarker(this.mapInstance, positon, mergeOptions(this.material.options))
-      markerStore.pushToMarkers(marker)
-    },
+
+    // 物料选择
     chooseMaterial(material) {
       this.material = material
       // implemnt right slide menu options
       this.renderMenuSlide(material.options)
     },
+
+    //render menu 
+    renderMenuSlide(options) {
+      this.materialOptions = options
+
+    },
+
+    // 初始化地图事件
     beforeMapClick(e) {
       if (!this.material) return
       switch (this.material.name) {
@@ -58,12 +62,16 @@ export const useEditMap = defineStore({
 
 
     },
-    //render menu 
-    renderMenuSlide(options) {
-
-      this.materialOptions = options
-
+    // 创建marker
+    createMarker(e) {
+      const markerStore = useMarkerWithOut()
+      const positon = [e.lnglat.lng, e.lnglat.lat]
+      const marker = (new Markers(this.AMap)).createMarker(this.mapInstance, positon, mergeOptions(this.material.options))
+      markerStore.pushToMarkers(marker)
     },
+
+
+
 
   },
 });

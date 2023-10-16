@@ -1,31 +1,19 @@
-import { store } from '/@/store'; import { store } from '/@/store';
 <template>
-  <a-collapse v-model:activeKey="activeKey" @change="changeActivekey">
-    <a-collapse-panel key="1" header="This is panel header 1">
-      <p>{{ text }}</p>
-    </a-collapse-panel>
-    <a-collapse-panel key="2" header="This is panel header 2">
-      <p>{{ text }}</p>
-    </a-collapse-panel>
-    <a-collapse-panel key="3" header="This is panel header 3">
-      <p>{{ text }}</p>
-    </a-collapse-panel>
-  </a-collapse>
+  <component :is="PanelCompMap[options.type]" v-bind="{ ...options.materialOptions }"> </component>
 </template>
 
 <script setup lang="ts">
   import { useEditMapWithOut } from '/@/store/modules/editMap';
+
+  const PanelCompMap = {
+    marker: defineAsyncComponent(() => import('../Panel-Components/marker.vue')),
+  };
   const store = useEditMapWithOut();
-  const menuKeys = ref([])
+  const options = ref({});
   watch(
     store,
     (newval) => {
-      menuKeys.value = Object.keys(newval.materialOptions).map((item) => {
-        return {
-          key:item,
-          
-        }
-      })
+      options.value = newval.materialOptions;
     },
     {
       deep: true,

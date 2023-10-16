@@ -13,7 +13,9 @@
       <slot name="main"></slot>
     </main>
     <section class="right-section">
-      <Slide> </Slide>
+      <Slide>
+        <embed-panel></embed-panel>
+      </Slide>
     </section>
   </div>
 </template>
