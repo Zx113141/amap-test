@@ -1,20 +1,18 @@
 
 export interface IMarker {
-    topWhenClick?: boolean,
-    draggable?: boolean,
-    cursor?: string,
-    visible?: boolean,
-    zIndex?: number,
-    angle?: number,
-    animation?: "AMAP_ANIMATION_NONE" | 'AMAP_ANIMATION_DROP' | 'AMAP_ANIMATION_BOUNCE',
-    title?: string,
-    clickable?: boolean,
+    topWhenClick: boolean,
+    draggable: boolean,
+    cursor: string,
+    visible: boolean,
+    zIndex: number,
+    angle: number,
+    animation: "AMAP_ANIMATION_NONE" | 'AMAP_ANIMATION_DROP' | 'AMAP_ANIMATION_BOUNCE',
+    title: string,
+    clickable: boolean,
     extData?: any,
-    label?: {
-        content: string,
-        offset: number[],
-        direction: 'top' | 'right' | 'bottom' | 'left' | 'center'
-    }
+    content?: string,
+    offset?: number[],
+    direction?: 'top' | 'right' | 'bottom' | 'left' | 'center'
 }
 
 
