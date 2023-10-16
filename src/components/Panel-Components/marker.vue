@@ -89,8 +89,17 @@ import { useMarkerWithOut } from '/@/store/modules/marker';
     height: '10px',
     icon: '//a.amap.com/jsapi_demos/static/demo-center/icons/poi-marker-default.png',
   });
-  
-  on
+
+  watch(
+    formState,
+    (newForm) => {
+      console.log(newForm);
+    },
+    {
+      immediate: true,
+      deep: true,
+    },
+  );
 </script>
 
 <style lang="less" scoped></style>
