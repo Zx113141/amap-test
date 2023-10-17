@@ -50,11 +50,19 @@ export const useEditMap = defineStore({
       // implemnt right slide menu options
 
     },
+    // 切换地图模式 
+    chooseToMap() {
+      this.material = {
+        name: 'map',
+        options: {},
+      }
+    },
     // 初始化地图事件
     beforeMapClick(e) {
       if (!this.material) return
       const construct = this[this.material.name].create(this.mapInstance, e, this.material.options)
       construct.on('click', this.handleConstruct)
+
     },
     // 获取options传递
     setOptions(options) {
@@ -73,7 +81,22 @@ export const useEditMap = defineStore({
           ...e.target.De,
         }
       }
+      const { name } = this.material
+
+      // this.chooseToMap()
+      if (this[name].structs.length > 2) {
+        // console.log(this[name].structs)
+        const deleteItem = this[name].structs.find((struct) => (struct.getExtData().id === e.target.getExtData().id))
+        this[name].structs = this[name].structs.filter((struct) => (struct.getExtData().id !== e.target.getExtData().id))
+        console.log(deleteItem)
+        deleteItem.setMap(null)
+        deleteItem = null
+      }
     },
+    // 移除构件当前构件
+    handleRemoveConstruct() {
+
+    }
   },
 });
 

@@ -24,7 +24,7 @@ class Markers {
     AMap: any = null
 
     // marker array
-    markers: any[] = []
+    structs: any[] = []
     constructor(AMap) {
         this.AMap = AMap
 
@@ -42,6 +42,7 @@ class Markers {
                 id: new Date().getTime()
             },
         });
+        this.structs.push(marker)
         return marker
     }
     removeMarker(item) {

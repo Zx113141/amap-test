@@ -1,7 +1,7 @@
 class Polygon {
     AMap: any = null
 
-    markers: any[] = []
+    structs: any[] = []
     constructor(AMap) {
         this.AMap = AMap
     }
@@ -28,6 +28,7 @@ class Polygon {
             console.log(e);
         })
         mapInstance.add(polygon);
+        this.structs.push(polygon)
     }
 
     // pushPolygonToMap(areas) {
