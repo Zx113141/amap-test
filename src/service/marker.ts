@@ -30,7 +30,7 @@ class Markers {
 
     }
     createMarker(mapInstance, position, options) {
-
+        // const store = useMarkerWithOut()
         const marker = new this.AMap.Marker({
             map: mapInstance,
             position,

@@ -10,8 +10,7 @@ interface EditMap {
   AMap: any,
   mapInstance: any
   material: any,
-  options: any,
-  mapOptions: any
+  marker: any
 }
 
 export const useEditMap = defineStore({
@@ -20,12 +19,11 @@ export const useEditMap = defineStore({
     // info
     AMap: null,
     mapInstance: null,
-    // markers: [],
-    // plugins: [],
-    // polygons: [],
-    material: 1,
-    options: 1,
-    mapOptions: null
+    marker: null,
+    material: {
+      name: 'map',
+      options: {},
+    }
   }),
   getters: {
     getCanvasOrMaterial(): Nullable<EditMap> {
@@ -38,15 +36,13 @@ export const useEditMap = defineStore({
       this.AMap = AMap
       this.mapInstance = map
     },
-
+    // 初始化构件信息
+    initConstruct() {
+      this.marker = new Markers(this.AMap)
+    },
     // 物料选择
     chooseMaterial(material) {
       this.material = material
-      if (this.material) {
-        this.options = material.options
-      } else {
-        this.options = this.mapOptions
-      }
       // implemnt right slide menu options
 
     },
@@ -59,16 +55,24 @@ export const useEditMap = defineStore({
           break;
 
       }
-
-
+    },
+    // 获取options传递
+    setOptions(options) {
+      this.material = {
+        name: this.material.name,
+        options
+      }
+    },
+    // 初始化构件点击
+    handleConstruct(e) {
+      this.material.options = e.target.De
     },
     // 创建marker
     createMarker(e) {
-      const markerStore = useMarkerWithOut()
-      const options = markerStore.getMarkerOptions()
       const positon = [e.lnglat.lng, e.lnglat.lat]
-      const marker = (new Markers(this.AMap)).createMarker(this.mapInstance, positon, options)
-      markerStore.pushToMarkers(marker)
+      const marker = this.marker.createMarker(this.mapInstance, positon, this.material.options)
+      marker.on('click', this.handleConstruct)
+      // marker.pushToMarkers(marker)
     },
 
 

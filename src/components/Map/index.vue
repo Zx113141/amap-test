@@ -44,6 +44,7 @@
     map.injectEvents('click', (e) => store.beforeMapClick(e));
     // 全局保存
     store.saveMapContructorAndMapInstane(map.AMap, map.map);
+    store.initConstruct();
     // map.polygon.pushPolygonToMap([shanghai, suzhou, wuxi]);
     // 全屏请求
     if (props.autoFullscreen) {

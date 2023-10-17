@@ -16,9 +16,9 @@
     options: Object,
   });
   watch(
-    store,
-    (newval) => {
-      active.value = newval.material?.name === props.name;
+    () => store.material.name,
+    (newName) => {
+      active.value = newName === props.name;
     },
     {
       deep: true,

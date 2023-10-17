@@ -30,7 +30,7 @@ import { useMarkerWithOut } from '/@/store/modules/marker';
       </a-radio-group>
     </a-form-item>
     <a-form-item label="旋转角度">
-      <a-input v-model:value="formState.angle" />
+      <a-input-number v-model:value="formState.angle" />
     </a-form-item>
     <a-form-item label="动画效果" name="animation">
       <a-radio-group v-model:value="formState['animation']">
@@ -43,47 +43,31 @@ import { useMarkerWithOut } from '/@/store/modules/marker';
 </template>
 
 <script lang="ts" setup>
-  import type { UnwrapRef } from 'vue';
+  import type { UnwrapRef, PropType } from 'vue';
   import type { IMarker } from '/@/service/marker';
-  import { useMarkerWithOut } from '/@/store/modules/marker';
-  const store = useMarkerWithOut();
+
   const labelCol = { span: 6 };
   const wrapperCol = { span: 18 };
   const props = defineProps({
     options: {
-      type: Object,
+      type: Object as PropType<IMarker>,
+      default: () => ({}),
+    },
+    setOptions: {
+      type: Function,
+      default: () => () => {},
     },
   });
-  watch(
-    props,
-    (newprops) => {
-      console.log(newprops);
-    },
-    {
-      deep: true,
-      immediate: true,
-    },
-  );
-  const formState: UnwrapRef<IMarker> = reactive({
-    title: '',
-    topWhenClick: true,
-    draggable: true,
-    visible: true,
-    zIndex: 100,
-    angle: 0,
-    animation: 'AMAP_ANIMATION_NONE',
-    clickable: true,
-    content: '可以输入内容哦',
-    direction: 'top',
-    width: '10',
-    height: '10',
-    icon: '//a.amap.com/jsapi_demos/static/demo-center/icons/poi-marker-default.png',
-  });
+  let formState: UnwrapRef<IMarker> = reactive(props.options);
+  // onMounted(() => {
+  //   formState = reactive({ ...formState, ...props.options });
+  // });
 
   watch(
     formState,
     (newForm) => {
-      store.setMarkerOptions(newForm);
+      console.log(newForm);
+      props.setOptions(newForm);
     },
     {
       immediate: true,

@@ -6,9 +6,9 @@ class Polygon {
         this.AMap = AMap
     }
 
-    addPolygon(data) {
+    addPolygon(path) {
         let polygon = new this.AMap.Polygon({
-            path: data,
+            path,
             fillColor: '#ccebc5',
             strokeOpacity: 1,
             fillOpacity: 0.5,
