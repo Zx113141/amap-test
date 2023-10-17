@@ -1,21 +1,16 @@
 class Polygon {
-    mapInstance: any = null
     AMap: any = null
-    constructor(mapInstance, AMap) {
-        this.mapInstance = mapInstance
+
+    markers: any[] = []
+    constructor(AMap) {
         this.AMap = AMap
     }
 
-    addPolygon(path) {
+    createPolygon(mapInstance, path, options) {
+        // console.log(mapInstance, path, options)
         let polygon = new this.AMap.Polygon({
             path,
-            fillColor: '#ccebc5',
-            strokeOpacity: 1,
-            fillOpacity: 0.5,
-            strokeColor: '#2b8cbe',
-            strokeWeight: 1,
-            strokeStyle: 'dashed',
-            strokeDasharray: [5, 5],
+            ...options
         });
         polygon.on('mouseover', () => {
             polygon.setOptions({
@@ -33,14 +28,14 @@ class Polygon {
         polygon.on('click', (e) => {
             console.log(e);
         })
-        this.mapInstance.add(polygon);
+        mapInstance.add(polygon);
     }
 
-    pushPolygonToMap(areas) {
-        areas.forEach((area) => {
-            this.addPolygon(area)
-        })
-    }
+    // pushPolygonToMap(areas) {
+    //     areas.forEach((area) => {
+    //         this.addPolygon(area)
+    //     })
+    // }
 }
 
 export default Polygon

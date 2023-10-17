@@ -42,6 +42,9 @@ class Markers {
         });
         return marker
     }
+    removeMarker(item) {
+        // this.markers.find(marker => marker)
+    }
     updateMarkerOptions(options) {
 
     }

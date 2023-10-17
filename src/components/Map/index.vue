@@ -13,7 +13,7 @@
 <script setup lang="ts">
   import { type IMapProp } from './map';
   import InitMap from '/@/service/initMap';
-  import { shanghai, suzhou, wuxi } from '/@/config/constant/polygon.area.js';
+
   import { useEditMapWithOut } from '/@/store/modules/editMap';
   // store
   const store = useEditMapWithOut();
@@ -24,8 +24,8 @@
   // init
   const initMap = () => {
     return new InitMap('container', {
-      center: [121.045332, 31.19884],
-      zoom: 8.8,
+      center: [106.648225, 26.612017],
+      zoom: 14,
       viewMode: '3D',
     });
   };

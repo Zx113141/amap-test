@@ -4,6 +4,9 @@ import { store } from '/@/store';
 import { useMarkerWithOut } from './marker'
 import { ResInfoList } from '/@/api/home/model';
 import Markers from '/@/service/marker';
+import Polygon from '/@/service/polygon';
+import { shanghai, suzhou, wuxi } from '/@/config/constant/polygon.area.js';
+
 import { mergeOptions } from '/@/utils/merge';
 
 interface EditMap {
@@ -39,6 +42,7 @@ export const useEditMap = defineStore({
     // 初始化构件信息
     initConstruct() {
       this.marker = new Markers(this.AMap)
+      this.polygon = new Polygon(this.AMap)
     },
     // 物料选择
     chooseMaterial(material) {
@@ -53,7 +57,9 @@ export const useEditMap = defineStore({
         case 'marker':
           this.createMarker(e);
           break;
-
+        case 'polygon':
+          this.createPolygon(e);
+          break;
       }
     },
     // 获取options传递
@@ -69,8 +75,11 @@ export const useEditMap = defineStore({
     handleConstruct(e) {
       this.material = {
         name: this.material.name,
-        options: e.target.De
+        options: {
+          ...e.target.De,
+        }
       }
+      //e.target.setIcon('//a.amap.com/jsapi_demos/static/demo-center/icons/poi-marker-red.png')
       // console.log(this.material);
     },
     // 创建marker
@@ -80,8 +89,19 @@ export const useEditMap = defineStore({
       // console.log(marker);
       marker.on('click', this.handleConstruct)
     },
-
-
+    // 创建polygon
+    createPolygon(e, data) {
+      const options = {
+        fillColor: '#ccebc5',
+        strokeOpacity: 1,
+        fillOpacity: 0.5,
+        strokeColor: '#2b8cbe',
+        strokeWeight: 1,
+        strokeStyle: 'dashed',
+        strokeDasharray: [5, 5],
+      }
+      this.polygon.createPolygon(this.mapInstance, shanghai, options)
+    }
 
 
   },
