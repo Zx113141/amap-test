@@ -29,7 +29,9 @@ class Markers {
         this.AMap = AMap
 
     }
-    createMarker(mapInstance, position, options) {
+    create(mapInstance, e, options) {
+        const position = [e.lnglat.lng, e.lnglat.lat]
+        // const marker = this.marker.createMarker(this.mapInstance, positon, this.material.options)
         // const store = useMarkerWithOut()
         const marker = new this.AMap.Marker({
             map: mapInstance,

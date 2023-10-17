@@ -53,14 +53,8 @@ export const useEditMap = defineStore({
     // 初始化地图事件
     beforeMapClick(e) {
       if (!this.material) return
-      switch (this.material.name) {
-        case 'marker':
-          this.createMarker(e);
-          break;
-        case 'polygon':
-          this.createPolygon(e);
-          break;
-      }
+      const construct = this[this.material.name].create(this.mapInstance, e, this.material.options)
+      construct.on('click', this.handleConstruct)
     },
     // 获取options传递
     setOptions(options) {
@@ -79,31 +73,7 @@ export const useEditMap = defineStore({
           ...e.target.De,
         }
       }
-      //e.target.setIcon('//a.amap.com/jsapi_demos/static/demo-center/icons/poi-marker-red.png')
-      // console.log(this.material);
     },
-    // 创建marker
-    createMarker(e) {
-      const positon = [e.lnglat.lng, e.lnglat.lat]
-      const marker = this.marker.createMarker(this.mapInstance, positon, this.material.options)
-      // console.log(marker);
-      marker.on('click', this.handleConstruct)
-    },
-    // 创建polygon
-    createPolygon(e, data) {
-      const options = {
-        fillColor: '#ccebc5',
-        strokeOpacity: 1,
-        fillOpacity: 0.5,
-        strokeColor: '#2b8cbe',
-        strokeWeight: 1,
-        strokeStyle: 'dashed',
-        strokeDasharray: [5, 5],
-      }
-      this.polygon.createPolygon(this.mapInstance, shanghai, options)
-    }
-
-
   },
 });
 

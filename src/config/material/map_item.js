@@ -1,6 +1,16 @@
 export const map_items = [
   {
     name: 'polygon',
+    options: {
+      fillColor: '#ccebc5',
+      strokeOpacity: 1,
+      fillOpacity: 0.5,
+      strokeColor: '#2b8cbe',
+      strokeWeight: 1,
+      strokeStyle: 'dashed',
+      strokeDasharray: [5, 5],
+      path: [],
+    },
   },
   {
     name: 'marker',

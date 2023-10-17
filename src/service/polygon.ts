@@ -5,11 +5,10 @@ class Polygon {
     constructor(AMap) {
         this.AMap = AMap
     }
-
-    createPolygon(mapInstance, path, options) {
+    createPolygon(mapInstance, e, options) {
+        // this.polygon.createPolygon(this.mapInstance, shanghai, options)
         // console.log(mapInstance, path, options)
         let polygon = new this.AMap.Polygon({
-            path,
             ...options
         });
         polygon.on('mouseover', () => {
