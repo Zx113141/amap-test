@@ -39,11 +39,14 @@ import { useMarkerWithOut } from '/@/store/modules/marker';
         <a-radio value="AMAP_ANIMATION_BOUNCE">弹跳</a-radio>
       </a-radio-group>
     </a-form-item>
+    <a-form-item>
+      <a-button @click="() => setOptions(formState)">保存</a-button>
+    </a-form-item>
   </a-form>
 </template>
 
 <script lang="ts" setup>
-  import type { UnwrapRef, PropType } from 'vue';
+  import type { ComputedRef, PropType } from 'vue';
   import type { IMarker } from '/@/service/marker';
 
   const labelCol = { span: 6 };
@@ -58,22 +61,11 @@ import { useMarkerWithOut } from '/@/store/modules/marker';
       default: () => () => {},
     },
   });
-  let formState: UnwrapRef<IMarker> = reactive(props.options);
-  // onMounted(() => {
-  //   formState = reactive({ ...formState, ...props.options });
-  // });
-
-  watch(
-    formState,
-    (newForm) => {
-      console.log(newForm);
-      props.setOptions(newForm);
-    },
-    {
-      immediate: true,
-      deep: true,
-    },
-  );
+  let formState: ComputedRef<IMarker> = computed(() => {
+    return {
+      ...props.options,
+    };
+  });
 </script>
 
 <style lang="less" scoped></style>

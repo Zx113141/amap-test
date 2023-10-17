@@ -30,7 +30,6 @@
   watch(
     () => editStore.material.name,
     () => {
-      // console.log(newval);
       comp.name = editStore.material.name;
       comp.options = editStore.material.options;
     },

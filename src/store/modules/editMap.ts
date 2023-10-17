@@ -58,6 +58,8 @@ export const useEditMap = defineStore({
     },
     // 获取options传递
     setOptions(options) {
+      // 直接赋值给不上，后续
+      // TODO 
       this.material = {
         name: this.material.name,
         options
@@ -65,14 +67,18 @@ export const useEditMap = defineStore({
     },
     // 初始化构件点击
     handleConstruct(e) {
-      this.material.options = e.target.De
+      this.material = {
+        name: this.material.name,
+        options: e.target.De
+      }
+      // console.log(this.material);
     },
     // 创建marker
     createMarker(e) {
       const positon = [e.lnglat.lng, e.lnglat.lat]
       const marker = this.marker.createMarker(this.mapInstance, positon, this.material.options)
+      // console.log(marker);
       marker.on('click', this.handleConstruct)
-      // marker.pushToMarkers(marker)
     },
 
 

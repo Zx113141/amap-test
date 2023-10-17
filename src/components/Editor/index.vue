@@ -27,8 +27,6 @@
   import MaterialMenu from '../MaterialMenu/index.vue';
   import EmbedPanel from '/@/components/EmbedPanel/index.vue';
   import { map_items } from '/@/config/material/map_item';
-  import { useEditMapWithOut } from '/@/store/modules/editMap';
-  const store = useEditMapWithOut();
 </script>
 
 <style lang="less" scoped>
