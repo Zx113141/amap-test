@@ -88,7 +88,6 @@ export const useEditMap = defineStore({
         // console.log(this[name].structs)
         const deleteItem = this[name].structs.find((struct) => (struct.getExtData().id === e.target.getExtData().id))
         this[name].structs = this[name].structs.filter((struct) => (struct.getExtData().id !== e.target.getExtData().id))
-        console.log(deleteItem)
         deleteItem.setMap(null)
         deleteItem = null
       }
