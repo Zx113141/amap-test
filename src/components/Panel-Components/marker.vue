@@ -1,17 +1,11 @@
 import { useMarkerWithOut } from '/@/store/modules/marker';
 <template>
   <a-form :model="formState" :label-col="labelCol" :wrapper-col="wrapperCol">
-    <a-form-item label="X坐标">
-      <a-input v-model:value="formState.position.x" placeholder="X"> </a-input>
-    </a-form-item>
-    <a-form-item label="Y坐标">
-      <a-input v-model:value="formState.position.y" placeholder="Y"> </a-input>
-    </a-form-item>
     <a-form-item label="宽">
-      <a-input v-model:value="formState.width" placeholder="宽"> </a-input>
+      <a-input suffix="PX" v-model:value="formState.width" placeholder="宽"> </a-input>
     </a-form-item>
     <a-form-item label="高">
-      <a-input v-model:value="formState.height" placeholder="高"> </a-input>
+      <a-input suffix="PX" v-model:value="formState.height" placeholder="高"> </a-input>
     </a-form-item>
     <a-form-item label="标题">
       <a-input v-model:value="formState.title" />
@@ -24,7 +18,7 @@ import { useMarkerWithOut } from '/@/store/modules/marker';
     </a-form-item>
 
     <a-form-item label="是否显示">
-      <a-switch v-model:checked="formState.topWhenClick" />
+      <a-switch v-model:checked="formState.visible" />
     </a-form-item>
 
     <a-form-item name="direction" label="显示方向">
@@ -71,10 +65,6 @@ import { useMarkerWithOut } from '/@/store/modules/marker';
     },
   );
   const formState: UnwrapRef<IMarker> = reactive({
-    position: {
-      x: 0,
-      y: 0,
-    },
     title: '',
     topWhenClick: true,
     draggable: true,
@@ -85,15 +75,15 @@ import { useMarkerWithOut } from '/@/store/modules/marker';
     clickable: true,
     content: '可以输入内容哦',
     direction: 'top',
-    width: '10px',
-    height: '10px',
+    width: '10',
+    height: '10',
     icon: '//a.amap.com/jsapi_demos/static/demo-center/icons/poi-marker-default.png',
   });
 
   watch(
     formState,
     (newForm) => {
-      console.log(newForm);
+      store.setMarkerOptions(newForm);
     },
     {
       immediate: true,

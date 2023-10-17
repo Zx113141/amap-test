@@ -1,5 +1,9 @@
 <template>
-  <component :is="PanelCompMap[options.type]" :options="{ ...options }"> </component>
+  <Transition>
+    <KeepAlive>
+      <component :is="PanelCompMap[options.type]" :options="{ ...options }"> </component>
+    </KeepAlive>
+  </Transition>
 </template>
 
 <script setup lang="ts">
@@ -14,7 +18,9 @@
   watch(
     store,
     (newval) => {
-      options.value = newval.materialOptions;
+      options.value = newval.options || {
+        type: 'map',
+      };
     },
     {
       deep: true,

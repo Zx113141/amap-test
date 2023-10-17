@@ -1,18 +1,22 @@
 
+
 export interface IMarker {
+    width: string,
+    height: string,
     topWhenClick: boolean,
     draggable: boolean,
-    cursor: string,
+    cursor?: string,
     visible: boolean,
     zIndex: number,
     angle: number,
     animation: "AMAP_ANIMATION_NONE" | 'AMAP_ANIMATION_DROP' | 'AMAP_ANIMATION_BOUNCE',
     title: string,
-    clickable: boolean,
+    clickable?: boolean,
     extData?: any,
     content?: string,
     offset?: number[],
-    direction?: 'top' | 'right' | 'bottom' | 'left' | 'center'
+    direction?: 'top' | 'right' | 'bottom' | 'left' | 'center',
+    icon: string
 }
 
 
@@ -25,9 +29,8 @@ class Markers {
         this.AMap = AMap
 
     }
+    createMarker(mapInstance, position, options) {
 
-    createMarker(mapInstance, position, options: IMarker | {}) {
-        // console.log(position);
         const marker = new this.AMap.Marker({
             map: mapInstance,
             position,
@@ -39,8 +42,8 @@ class Markers {
         });
         return marker
     }
-    getMarker() {
-        
+    updateMarkerOptions(options) {
+
     }
 }
 

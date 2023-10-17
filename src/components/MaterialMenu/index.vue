@@ -1,8 +1,7 @@
 <template>
   <div
     :class="['material', active ? 'active' : '']"
-    :draggable="true"
-    @click="() => store.chooseMaterial(props)"
+    @click.stop="() => store.chooseMaterial(props)"
   >
     {{ name }}
   </div>
@@ -19,7 +18,7 @@
   watch(
     store,
     (newval) => {
-      active.value = store.material.name === props.name;
+      active.value = newval.material?.name === props.name;
     },
     {
       deep: true,
@@ -31,7 +30,7 @@
 
 <style style="less" scoped>
   .material {
-    width: 60px;
+    width: 80px;
     height: 60px;
     border: 1px solid rgba(100, 100, 111, 0.2);
   }

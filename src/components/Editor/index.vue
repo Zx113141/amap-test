@@ -1,7 +1,7 @@
 <template>
   <div class="editor-area">
-    <section class="left-section">
-      <left-slide draggable="true">
+    <section class="left-section" @click="() => store.chooseMaterial(null)">
+      <left-slide>
         <material-menu
           v-for="item in map_items"
           :key="item.type"
@@ -27,6 +27,8 @@
   import MaterialMenu from '../MaterialMenu/index.vue';
   import EmbedPanel from '/@/components/EmbedPanel/index.vue';
   import { map_items } from '/@/config/material/map_item';
+  import { useEditMapWithOut } from '/@/store/modules/editMap';
+  const store = useEditMapWithOut();
 </script>
 
 <style lang="less" scoped>

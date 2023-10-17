@@ -10,7 +10,8 @@ interface EditMap {
   AMap: any,
   mapInstance: any
   material: any,
-  materialOptions: any
+  options: any,
+  mapOptions: any
 }
 
 export const useEditMap = defineStore({
@@ -23,7 +24,8 @@ export const useEditMap = defineStore({
     // plugins: [],
     // polygons: [],
     material: 1,
-    materialOptions: 1
+    options: 1,
+    mapOptions: null
   }),
   getters: {
     getCanvasOrMaterial(): Nullable<EditMap> {
@@ -40,16 +42,14 @@ export const useEditMap = defineStore({
     // 物料选择
     chooseMaterial(material) {
       this.material = material
+      if (this.material) {
+        this.options = material.options
+      } else {
+        this.options = this.mapOptions
+      }
       // implemnt right slide menu options
-      this.renderMenuSlide(material.options)
-    },
-
-    //render menu 
-    renderMenuSlide(options) {
-      this.materialOptions = options
 
     },
-
     // 初始化地图事件
     beforeMapClick(e) {
       if (!this.material) return
@@ -65,8 +65,9 @@ export const useEditMap = defineStore({
     // 创建marker
     createMarker(e) {
       const markerStore = useMarkerWithOut()
+      const options = markerStore.getMarkerOptions()
       const positon = [e.lnglat.lng, e.lnglat.lat]
-      const marker = (new Markers(this.AMap)).createMarker(this.mapInstance, positon, mergeOptions(this.material.options))
+      const marker = (new Markers(this.AMap)).createMarker(this.mapInstance, positon, options)
       markerStore.pushToMarkers(marker)
     },
 

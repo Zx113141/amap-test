@@ -2,6 +2,6 @@
   <div>polygon</div>
 </template>
 
-<script></script>
+<script lang="ts" setup></script>
 
 <style lang="less" scoped></style>

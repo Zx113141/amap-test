@@ -12,4 +12,11 @@ export const map_items = [
       base: {},
     },
   },
+  {
+    name: 'text',
+    options: {
+      type: 'text',
+      base: {},
+    },
+  },
 ];
