@@ -13,7 +13,10 @@ export interface IPoly {
 class Polygon {
     AMap: any = null
     name: string = 'Polygon'
+    // marker array
     structs: any[] = []
+    mapInstance: any = null
+    options: any = {}
     constructor(AMap) {
         this.AMap = AMap
     }
