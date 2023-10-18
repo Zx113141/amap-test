@@ -13,10 +13,14 @@
 <script setup lang="ts">
   import { type IMapProp } from './map';
   import InitMap from '/@/service/initMap';
-
+  import EngineService from '/@/service/engineService';
   import { useEditMapWithOut } from '/@/store/modules/editMap';
-  // store
+  const embedServie = {
+    cover: ['Markers', 'Polygon', 'Text'],
+  };
   const store = useEditMapWithOut();
+  // engine
+  const engine = new EngineService();
   // props
   const props = defineProps<IMapProp>();
   // map html 实例
@@ -26,7 +30,7 @@
     return new InitMap('container', {
       center: [106.648225, 26.612017],
       zoom: 14,
-      viewMode: '3D',
+      viewMode: '2D',
     });
   };
 
@@ -40,21 +44,26 @@
   onMounted(async () => {
     // 实例化地图
     await map.init();
-    // 事件注入
-    map.injectEvents('click', (e) => store.beforeMapClick(e));
-    // 全局保存
-    store.saveMapContructorAndMapInstane(map.AMap, map.map);
-    store.initConstruct();
-    // map.polygon.pushPolygonToMap([shanghai, suzhou, wuxi]);
+    // 实例化注入
+    engine.initEngine(map.AMap, map.map);
+    // engine 事件注入
+    engine.injectMapEvents('click', handleMapClick);
+    // engine Embed注入
+    engine.injectEmbedService(embedServie, map.map, (service: any[]) => {
+      console.log(service);
+      store.pushService(service);
+    });
     // 全屏请求
     if (props.autoFullscreen) {
       handleFullScreen();
     }
   });
-
+  const handleMapClick = (e) => {
+    store.getEvents(e);
+  };
   onUnmounted(() => {
     // 销毁事件
-    map.destroyEvents('click', store.beforeMapClick);
+    map.destroyEvents('click', handleMapClick);
     // map.value?.off('click', clickHandler);
   });
 </script>

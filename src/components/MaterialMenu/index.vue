@@ -1,7 +1,7 @@
 <template>
   <div
     :class="['material', active ? 'active' : '']"
-    @click.stop="() => store.chooseMaterial(props)"
+    @click.stop="() => store.setCurrentService(props.name)"
   >
     {{ name }}
   </div>
@@ -12,11 +12,13 @@
   const store = useEditMapWithOut();
   const active = ref(false);
   const props = defineProps({
-    name: String,
-    options: Object,
+    name: {
+      type: String,
+      default: '',
+    },
   });
   watch(
-    () => store.material.name,
+    () => store.struct.name,
     (newName) => {
       active.value = newName === props.name;
     },

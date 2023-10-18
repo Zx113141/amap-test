@@ -44,14 +44,6 @@ class InitMap {
     this.AMap = AMap
     // this.map.refreshResize();
   }
-
-  injectEvents(key, fn) {
-    this.map.on(key, fn);
-  }
-
-  destroyEvents(key, fn) {
-    this.map.off(key, fn);
-  }
 }
 
 export default InitMap;

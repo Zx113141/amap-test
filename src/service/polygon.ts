@@ -1,6 +1,6 @@
 class Polygon {
     AMap: any = null
-
+    name: string = 'Polygon'
     structs: any[] = []
     constructor(AMap) {
         this.AMap = AMap

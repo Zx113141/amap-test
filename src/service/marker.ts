@@ -22,30 +22,37 @@ export interface IMarker {
 
 class Markers {
     AMap: any = null
-
+    name: string = 'Markers'
     // marker array
     structs: any[] = []
-    constructor(AMap) {
+    mapInstance: any = null
+    options: any = {}
+    constructor(AMap, mapInstance) {
         this.AMap = AMap
-
+        this.mapInstance = mapInstance
     }
-    create(mapInstance, e, options) {
+    create(e) {
         const position = [e.lnglat.lng, e.lnglat.lat]
         // const marker = this.marker.createMarker(this.mapInstance, positon, this.material.options)
         // const store = useMarkerWithOut()
         const marker = new this.AMap.Marker({
-            map: mapInstance,
+            map: this.mapInstance,
             position,
             offset: new this.AMap.Pixel(-30, -60),
-            ...options,
+            ...this.options,
             extData: {
                 id: new Date().getTime()
             },
         });
+        // marker.on()
         this.structs.push(marker)
         return marker
     }
+    setEvents(e) {
+        this.create(e)
+    }
     removeMarker(item) {
+        console.log(1);
         // this.markers.find(marker => marker)
     }
     updateMarkerOptions(options) {

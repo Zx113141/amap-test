@@ -46,25 +46,35 @@ import { useMarkerWithOut } from '/@/store/modules/marker';
 </template>
 
 <script lang="ts" setup>
-  import type { ComputedRef, PropType } from 'vue';
+  import type { UnwrapRef, PropType } from 'vue';
   import type { IMarker } from '/@/service/marker';
 
   const labelCol = { span: 6 };
   const wrapperCol = { span: 18 };
   const props = defineProps({
-    options: {
-      type: Object as PropType<IMarker>,
-      default: () => ({}),
-    },
+    // options: {
+    //   type: Object as PropType<IMarker>,
+    //   default: () => ({}),
+    // },
     setOptions: {
       type: Function,
       default: () => () => {},
     },
   });
-  let formState: ComputedRef<IMarker> = computed(() => {
-    return {
-      ...props.options,
-    };
+  let formState: UnwrapRef<IMarker> = reactive({
+    title: '',
+    topWhenClick: true,
+    draggable: true,
+    visible: true,
+    zIndex: 100,
+    angle: 30,
+    animation: 'AMAP_ANIMATION_NONE',
+    clickable: true,
+    content: '',
+    direction: 'bottom',
+    // width: '10',
+    // height: '10',
+    icon: '//a.amap.com/jsapi_demos/static/demo-center/icons/poi-marker-default.png',
   });
 </script>
 
