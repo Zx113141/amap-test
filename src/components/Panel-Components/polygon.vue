@@ -1,8 +1,13 @@
 import { useMarkerWithOut } from '/@/store/modules/marker';
 <template>
   <a-form :model="formState" :label-col="labelCol" :wrapper-col="wrapperCol">
-    <a-form-item label="宽">
-      <a-input suffix="PX" v-model:value="formState.width" placeholder="宽"> </a-input>
+    <a-form-item label="省市区地理边界选择">
+      <a-cascader
+        v-model:value="formState.border"
+        :options="options"
+        placeholder="Please select"
+        change-on-select
+      />
     </a-form-item>
     <a-form-item label="高">
       <a-input suffix="PX" v-model:value="formState.height" placeholder="高"> </a-input>
@@ -46,14 +51,14 @@ import { useMarkerWithOut } from '/@/store/modules/marker';
 </template>
 
 <script lang="ts" setup>
-  import type { ComputedRef, PropType } from 'vue';
-  import type { IMarker } from '/@/service/marker';
+  import type { UnwrapRef, PropType } from 'vue';
+  import type { IPoly } from '/@/service/polygon';
 
   const labelCol = { span: 6 };
   const wrapperCol = { span: 18 };
   const props = defineProps({
     options: {
-      type: Object as PropType<IMarker>,
+      type: Object as PropType<IPoly>,
       default: () => ({}),
     },
     setOptions: {
@@ -61,10 +66,16 @@ import { useMarkerWithOut } from '/@/store/modules/marker';
       default: () => () => {},
     },
   });
-  let formState: ComputedRef<IMarker> = computed(() => {
-    return {
-      ...props.options,
-    };
+  let formState: UnwrapRef<IPoly> = reactive({
+    fillColor: '#ccebc5',
+    strokeOpacity: 1,
+    fillOpacity: 0.5,
+    strokeColor: '#2b8cbe',
+    strokeWeight: 1,
+    strokeStyle: 'dashed',
+    strokeDasharray: [5, 5],
+    path: [],
+    border: [],
   });
 </script>
 

@@ -1,3 +1,15 @@
+export interface IPoly {
+    fillColor?: string,
+    strokeOpacity?: number,
+    fillOpacity?: number,
+    strokeColor?: string,
+    strokeWeight?: number,
+    strokeStyle?: 'dashed' | 'point' | 'solid',
+    strokeDasharray?: number[],
+    path: [],
+}
+
+
 class Polygon {
     AMap: any = null
     name: string = 'Polygon'
