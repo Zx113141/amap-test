@@ -45,12 +45,12 @@ class Marker extends Cover {
         const marker = this.create(this.name, configs)
 
         marker.on('click', (e) => {
-            this.notify(e)
+            this.notify('click', e)
         })
     }
 
-    removeMarker(item) {
-        console.log(1);
+    removeMarker() {
+        this.remove(this)
         // this.markers.find(marker => marker)
     }
     updateMarkerOptions(options) {

@@ -30,8 +30,13 @@ class EmbedServie {
         return embedList
     }
     // // 订阅已经实例化的构件点击事件
-    subscribeEmbedClick(ctx, options) {
-        console.log(ctx, options);
+    subscribeEmbed(type, ctx, ...params: any) {
+        this[type](ctx, params)
+    }
+
+    // embed click 事件
+    click(ctx, params) {
+
     }
     // 初始化地图事件
     // beforeMapClick(e) {
