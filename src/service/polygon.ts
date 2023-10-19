@@ -21,7 +21,7 @@ class Polygon extends Cover {
         super(AMap, mapInstance, server)
     }
 
-    setEvents(e) {
+    createStruct(e) {
         // const position = [e.lnglat.lng, e.lnglat.lat]
         const configs = {
             map: this.mapInstance,
@@ -48,9 +48,6 @@ class Polygon extends Cover {
                 fillColor: '#ccebc5'
 
             })
-        })
-        polygon.on('click', (e) => {
-            console.log(e);
         })
         // mapInstance.add(polygon);
         // this.structs.push(polygon)

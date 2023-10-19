@@ -7,6 +7,7 @@ type Embed = Marker | Polygon
 class EmbedServie {
     Marker: any = Marker
     Polygon: any = Polygon
+    currentStruct: Nullable<Embed> = null
     embedList: Embed[] = []
     engineInstance: Nullable<EngineService> = null
     // material: any = null
@@ -33,7 +34,14 @@ class EmbedServie {
     subscribeEmbed(type, ctx, ...params: any) {
         this[type](ctx, params)
     }
-
+    getCurrent(currentStruct) {
+        this.currentStruct = currentStruct
+    }
+    // 
+    getEventsFromEngine(e) {
+        const struct = this.embedList.find((embed: Embed) => embed.name === this.currentStruct?.name)
+        struct?.createStruct(e)
+    }
     // embed click 事件
     click(ctx, params) {
 

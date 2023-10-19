@@ -122,10 +122,10 @@ import { useMarkerWithOut } from '/@/store/modules/marker';
     },
   ];
   onMounted(async () => {
-    await getPathByDistrict({
-      keywords: '贵州',
-      subdistrict: 1,
-    });
+    // await getPathByDistrict({
+    //   keywords: '贵州',
+    //   subdistrict: 1,
+    // });
   });
   const props = defineProps({
     options: {

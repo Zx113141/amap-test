@@ -31,7 +31,7 @@ class Marker extends Cover {
     constructor(AMap, mapInstance, server) {
         super(AMap, mapInstance, server)
     }
-    setEvents(e) {
+    createStruct(e) {
         const position = [e.lnglat.lng, e.lnglat.lat]
         const configs = {
             map: this.mapInstance,

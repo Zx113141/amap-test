@@ -58,7 +58,7 @@
     }
   });
   const handleMapClick = (e) => {
-    store.getEvents(e);
+    engine.getEvents(e)
   };
   onUnmounted(() => {
     // 销毁事件
