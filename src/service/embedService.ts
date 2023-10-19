@@ -2,7 +2,8 @@ import Polygon from './polygon'
 import Marker from './marker'
 import EngineService from './engineService'
 
-type Embed = Marker | Polygon
+
+export type Embed = Marker | Polygon
 
 class EmbedServie {
     Marker: any = Marker

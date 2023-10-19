@@ -1,18 +1,18 @@
 import { useMarkerWithOut } from '/@/store/modules/marker';
 <template>
-  <a-form :model="formState" :label-col="labelCol" :wrapper-col="wrapperCol">
+  <a-form :model="formState" :label-col="labelCol" :wrapper-col="wrapperCol" labelAlign="left">
     <a-form-item label="宽">
-      <a-input suffix="PX" v-model:value="formState.width" placeholder="宽"> </a-input>
+      <a-input-number suffix="PX" v-model:value="formState.width" placeholder="宽">
+      </a-input-number>
     </a-form-item>
     <a-form-item label="高">
-      <a-input suffix="PX" v-model:value="formState.height" placeholder="高"> </a-input>
+      <a-input-number suffix="PX" v-model:value="formState.height" placeholder="高">
+      </a-input-number>
     </a-form-item>
-    <a-form-item label="标题">
+    <a-form-item label="鼠标滑过内容">
       <a-input v-model:value="formState.title" />
     </a-form-item>
-    <a-form-item label="内容">
-      <a-input v-model:value="formState.content" />
-    </a-form-item>
+
     <a-form-item label="点击高亮">
       <a-switch v-model:checked="formState.topWhenClick" />
     </a-form-item>
@@ -20,9 +20,14 @@ import { useMarkerWithOut } from '/@/store/modules/marker';
     <a-form-item label="是否显示">
       <a-switch v-model:checked="formState.visible" />
     </a-form-item>
-
-    <a-form-item name="direction" label="显示方向">
-      <a-radio-group v-model:value="formState['direction']">
+    <a-form-item label="自定义显示内容">
+      <a-switch v-model:checked="formState.customContent" />
+    </a-form-item>
+    <a-form-item label="内容" v-if="formState.customContent">
+      <a-input v-model:value="formState.label.content" />
+    </a-form-item>
+    <a-form-item name="direction" label="文字显示方向" v-if="formState.customContent">
+      <a-radio-group v-model:value="formState.label['direction']">
         <a-radio value="top">上</a-radio>
         <a-radio value="bottom">下</a-radio>
         <a-radio value="left">左</a-radio>
@@ -40,7 +45,7 @@ import { useMarkerWithOut } from '/@/store/modules/marker';
       </a-radio-group>
     </a-form-item>
     <a-form-item>
-      <a-button @click="() => setOptions(formState)">保存</a-button>
+      <a-button @click="() => setOptions()">保存</a-button>
     </a-form-item>
   </a-form>
 </template>
@@ -49,8 +54,8 @@ import { useMarkerWithOut } from '/@/store/modules/marker';
   import type { UnwrapRef, PropType } from 'vue';
   import type { IMarker } from '/@/service/marker';
 
-  const labelCol = { span: 6 };
-  const wrapperCol = { span: 18 };
+  const labelCol = { span: 10 };
+  const wrapperCol = { span: 14 };
   const props = defineProps({
     // options: {
     //   type: Object as PropType<IMarker>,
@@ -70,12 +75,22 @@ import { useMarkerWithOut } from '/@/store/modules/marker';
     angle: 30,
     animation: 'AMAP_ANIMATION_NONE',
     clickable: true,
-    content: '',
-    direction: 'bottom',
-    // width: '10',
-    // height: '10',
+    label: {
+      content: '',
+      direction: 'bottom',
+    },
+    customContent: false,
+    width: 10,
+    height: 10,
     icon: '//a.amap.com/jsapi_demos/static/demo-center/icons/poi-marker-default.png',
   });
+  const setOptions = () => {
+    const options = { ...formState };
+    if (!formState.customContent) {
+      delete options['label'];
+    }
+    props.setOptions(options);
+  };
 </script>
 
 <style lang="less" scoped></style>
