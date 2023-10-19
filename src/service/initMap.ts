@@ -1,10 +1,5 @@
 import AMapLoader from '@amap/amap-jsapi-loader';
-// import {
-//   IMarkerOptions,
-//   IPluginOptions,
-//   IPolygonOptions,
-//   ILayersOptions,
-// } from '../components/Map/map';
+
 interface IOptions {
   key: string; // 申请好的Web端开发者Key，首次调用 load 时必填
   version: string; // 指定要加载的 JSAPI 的版本，缺省时默认为 1.4.15
@@ -19,7 +14,6 @@ interface IOptions {
     version?: string; // Loca 版本，缺省 1.3.2
   };
 }
-// TODO:seperate init all map plugins or other embed
 class InitMap {
   // domId
   domId: string;

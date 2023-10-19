@@ -1,3 +1,4 @@
+import Cover from "./cover"
 export interface IPoly {
     fillColor?: string,
     strokeOpacity?: number,
@@ -10,22 +11,31 @@ export interface IPoly {
 }
 
 
-class Polygon {
-    AMap: any = null
+class Polygon extends Cover {
     name: string = 'Polygon'
     // marker array
     structs: any[] = []
-    mapInstance: any = null
+
     options: any = {}
-    constructor(AMap) {
-        this.AMap = AMap
+    constructor(AMap, mapInstance, server) {
+        super(AMap, mapInstance, server)
     }
-    createPolygon(mapInstance, e, options) {
-        // this.polygon.createPolygon(this.mapInstance, shanghai, options)
-        // console.log(mapInstance, path, options)
-        let polygon = new this.AMap.Polygon({
-            ...options
-        });
+
+    setEvents(e) {
+        // const position = [e.lnglat.lng, e.lnglat.lat]
+        const configs = {
+            map: this.mapInstance,
+            offset: new this.AMap.Pixel(-30, -60),
+            ...this.options,
+            extData: {
+                id: new Date().getTime()
+            },
+        }
+        const polygon = this.create(this.name, configs)
+
+        polygon.on('click', (e) => {
+            this.notify('click', e)
+        })
         polygon.on('mouseover', () => {
             polygon.setOptions({
                 fillOpacity: 0.7,
@@ -42,8 +52,8 @@ class Polygon {
         polygon.on('click', (e) => {
             console.log(e);
         })
-        mapInstance.add(polygon);
-        this.structs.push(polygon)
+        // mapInstance.add(polygon);
+        // this.structs.push(polygon)
     }
 
     // pushPolygonToMap(areas) {
