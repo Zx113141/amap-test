@@ -11,7 +11,7 @@ class EngineService {
     }
 
     injectEmbedService(server, mapInstance, cb) {
-        const service: Nullable<EmbedServie> = new EmbedServie(this.AMap, mapInstance, server)
+        const service: Nullable<EmbedServie> = new EmbedServie(this.AMap, mapInstance, server, this)
         cb(service)
     }
     injectMapEvents(key, fn) {

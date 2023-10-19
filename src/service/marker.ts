@@ -28,8 +28,8 @@ class Marker extends Cover {
     structs: any[] = []
 
     options: any = {}
-    constructor(AMap, mapInstance) {
-        super(AMap, mapInstance)
+    constructor(AMap, mapInstance, server) {
+        super(AMap, mapInstance, server)
     }
     setEvents(e) {
         const position = [e.lnglat.lng, e.lnglat.lat]
@@ -43,16 +43,12 @@ class Marker extends Cover {
             },
         }
         const marker = this.create(this.name, configs)
+
         marker.on('click', (e) => {
-            this.publishClick(e)
+            this.notify(e)
         })
     }
-    publishClick(e) {
-        return {
-            e,
-            options: this.options
-        }
-    }
+
     removeMarker(item) {
         console.log(1);
         // this.markers.find(marker => marker)

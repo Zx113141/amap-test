@@ -1,5 +1,6 @@
 import Polygon from './polygon'
 import Marker from './marker'
+import EngineService from './engineService'
 
 type Embed = Marker | Polygon
 
@@ -7,29 +8,30 @@ class EmbedServie {
     Marker: any = Marker
     Polygon: any = Polygon
     embedList: Embed[] = []
+    engineInstance: Nullable<EngineService> = null
     // material: any = null
-    constructor(AMap, mapInstance, server) {
+    constructor(AMap, mapInstance, server, engineInstance) {
+        this.engineInstance = engineInstance
         this.embedList = this.initAllStruct(AMap, mapInstance, server)
 
     }
+    // 观察者模式 
     initAllStruct(AMap, mapInstance, server) {
         const embedList: any = []
         Object.keys(server).forEach((key) => {
             server[key].forEach((serve) => {
                 if (this[serve]) {
-                    // 当前实例化的插件embed
-                    const embed = new this[serve](AMap, mapInstance)
+                    // 创建观察者embed
+                    const embed = new this[serve](AMap, mapInstance, this)
                     embedList.push(embed)
                 }
             })
         })
         return embedList
     }
-    // // 订阅已经实例化的构件
-    subscribeEmbed(topic, callback) {
-        this.embedList.forEach((embed: Embed) => {
-
-        })
+    // // 订阅已经实例化的构件点击事件
+    subscribeEmbedClick(ctx, options) {
+        console.log(ctx, options);
     }
     // 初始化地图事件
     // beforeMapClick(e) {
