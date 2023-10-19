@@ -13,7 +13,7 @@ export const map_items = [
     // },
   },
   {
-    name: 'Markers',
+    name: 'Marker',
     // options: {
     //   title: '',
     //   topWhenClick: true,

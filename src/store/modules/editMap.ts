@@ -24,82 +24,25 @@ export const useEditMap = defineStore({
     // },
   },
   actions: {
+    // 获取embed下所有的服务
     pushService(service) {
       this.service = service
     },
+    // 获取当前embed所有服务(构件)
     setCurrentService(name: string) {
       this.struct = this.service.find(server => server.name === name)
-      console.log(this.service);
+
     },
+    // 获取构件配置
     setCurrentStruct(options) {
       this.struct.options = options
     },
+    // 构件事件传递
     getEvents(e) {
       if (this.struct) {
         this.struct.setEvents(e)
       }
     }
-    // // 保存当前构造函数和map实例
-    // saveMapContructorAndMapInstane(AMap, map) {
-    //   this.AMap = AMap
-    //   this.mapInstance = map
-    // },
-    // // 初始化构件信息
-    // initConstruct() {
-    //   this.marker = new Markers(this.AMap)
-    //   this.polygon = new Polygon(this.AMap)
-    // },
-    // // 物料选择
-    // chooseMaterial(material) {
-    //   this.material = material
-    //   // implemnt right slide menu options
-    // },
-    // // 切换地图模式 
-    // chooseToMap() {
-    //   this.material = {
-    //     name: 'map',
-    //     options: {},
-    //   }
-    // },
-    // 初始化地图事件
-    // beforeMapClick(e) {
-    //   if (!this.material) return
-    //   const construct = this[this.material.name].create(this.mapInstance, e, this.material.options,)
-    //   construct.on('click', this.handleConstruct)
-    // },
-    // // 获取options传递
-    // setOptions(options) {
-    //   // 直接赋值给不上，后续
-    //   // TODO:
-
-    //   this.material = {
-    //     name: this.material.name,
-    //     options
-    //   }
-    // },
-    // // 初始化构件点击
-    // handleConstruct(e) {
-    //   this.material = {
-    //     name: this.material.name,
-    //     options: {
-    //       ...e.target.De,
-    //     }
-    //   }
-    //   const { name } = this.material
-
-    //   // this.chooseToMap()
-    //   if (this[name].structs.length > 2) {
-    //     // console.log(this[name].structs)
-    //     let deleteItem = this[name].structs.find((struct) => (struct.getExtData().id === e.target.getExtData().id))
-    //     this[name].structs = this[name].structs.filter((struct) => (struct.getExtData().id !== e.target.getExtData().id))
-    //     deleteItem.setMap(null)
-    //     deleteItem = null
-    //   }
-    // },
-    // // 移除构件当前构件
-    // handleRemoveConstruct() {
-
-    // }
   },
 });
 

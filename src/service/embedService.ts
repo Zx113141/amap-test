@@ -1,21 +1,23 @@
 import Polygon from './polygon'
-import Markers from './marker'
+import Marker from './marker'
 
 
 class EmbedServie {
-    Markers: any = Markers
+    Marker: any = Marker
     Polygon: any = Polygon
-    instance: any = null
+    embed: any = null
     // material: any = null
     constructor(AMap, mapInstance, server) {
         if (this[server]) {
-            this.instance = new this[server](AMap, mapInstance)
+            // 当前实例化的插件embed
+            this.embed = new this[server](AMap, mapInstance)
         }
 
     }
-    geInstance() {
-        return this.instance
-    }
+    // // 订阅已经实例化的构件
+    // subscribeEmbed(topic, callback) {
+
+    // }
     // 初始化地图事件
     // beforeMapClick(e) {
     //     if (!this.material) return
@@ -25,12 +27,7 @@ class EmbedServie {
     // }
     // 初始化构件点击
     handleConstruct(e) {
-        // this.material = {
-        //     name: this.material.name,
-        //     options: {
-        //         ...e.target.De,
-        //     }
-        // }
+
     }
     // // 移除构件,当前构件
     // handleRemoveConstruct() {

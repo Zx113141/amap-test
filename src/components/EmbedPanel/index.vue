@@ -9,7 +9,7 @@
 <script setup lang="ts">
   import { useEditMapWithOut } from '/@/store/modules/editMap';
   const PanelCompMap = {
-    Markers: defineAsyncComponent(() => import('../Panel-Components/marker.vue')),
+    Marker: defineAsyncComponent(() => import('../Panel-Components/marker.vue')),
     Polygon: defineAsyncComponent(() => import('../Panel-Components/polygon.vue')),
   };
   const editStore = useEditMapWithOut();

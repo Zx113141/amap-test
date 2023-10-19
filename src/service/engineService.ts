@@ -4,7 +4,7 @@ class EngineService {
     mapInstance: any  // 高德地图实例
 
     AMap: any         // 高德地图构造函数 
-
+    // service: Nullable<EmbedServie> = null
     initEngine(AMap, mapInstance) {
         this.AMap = AMap
         this.mapInstance = mapInstance
@@ -15,8 +15,7 @@ class EngineService {
         Object.keys(server).forEach((key) => {
             server[key].forEach((serve) => {
                 // console.log();
-                const embedService = new EmbedServie(this.AMap, mapInstance, serve).geInstance()
-                // embedService.mapInstance = this.mapInstance
+                const embedService = new EmbedServie(this.AMap, mapInstance, serve).embed
                 service.push(embedService)
             })
         })
@@ -24,6 +23,10 @@ class EngineService {
     }
     injectMapEvents(key, fn) {
         this.mapInstance.on(key, fn);
+    }
+
+    destroyEvents(key, fn) {
+        this.mapInstance.off(key, fn);
     }
 }
 

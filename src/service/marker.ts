@@ -1,3 +1,4 @@
+import Cover from "./cover"
 
 
 export interface IMarker {
@@ -20,22 +21,19 @@ export interface IMarker {
 }
 
 
-class Markers {
-    AMap: any = null
-    name: string = 'Markers'
+class Marker extends Cover {
+
+    name: string = 'Marker'
     // marker array
     structs: any[] = []
-    mapInstance: any = null
+
     options: any = {}
     constructor(AMap, mapInstance) {
-        this.AMap = AMap
-        this.mapInstance = mapInstance
+        super(AMap, mapInstance)
     }
-    create(e) {
+    setEvents(e) {
         const position = [e.lnglat.lng, e.lnglat.lat]
-        // const marker = this.marker.createMarker(this.mapInstance, positon, this.material.options)
-        // const store = useMarkerWithOut()
-        const marker = new this.AMap.Marker({
+        const configs = {
             map: this.mapInstance,
             position,
             offset: new this.AMap.Pixel(-30, -60),
@@ -43,13 +41,16 @@ class Markers {
             extData: {
                 id: new Date().getTime()
             },
-        });
-        // marker.on()
-        this.structs.push(marker)
-        return marker
+        }
+        const marker = this.create(this.name, configs)
+        marker.on('click', (e) => {
+        })
     }
-    setEvents(e) {
-        this.create(e)
+    publish(e) {
+        return {
+            e,
+            options: this.options
+        }
     }
     removeMarker(item) {
         console.log(1);
@@ -60,4 +61,4 @@ class Markers {
     }
 }
 
-export default Markers
+export default Marker

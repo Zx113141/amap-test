@@ -16,7 +16,7 @@
   import EngineService from '/@/service/engineService';
   import { useEditMapWithOut } from '/@/store/modules/editMap';
   const embedServie = {
-    cover: ['Markers', 'Polygon', 'Text'],
+    cover: ['Marker', 'Polygon', 'Text'],
   };
   const store = useEditMapWithOut();
   // engine
@@ -50,7 +50,6 @@
     engine.injectMapEvents('click', handleMapClick);
     // engine Embed注入
     engine.injectEmbedService(embedServie, map.map, (service: any[]) => {
-      console.log(service);
       store.pushService(service);
     });
     // 全屏请求
@@ -63,7 +62,7 @@
   };
   onUnmounted(() => {
     // 销毁事件
-    map.destroyEvents('click', handleMapClick);
+    engine.destroyEvents('click', handleMapClick);
     // map.value?.off('click', clickHandler);
   });
 </script>
