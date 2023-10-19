@@ -4,3 +4,5 @@
     构件事件与embedService联动绑定
     编写事件组件
     编写其他构件实例
+
+test for git contribute
