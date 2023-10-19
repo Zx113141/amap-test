@@ -1,6 +1,6 @@
 <template>
   <div class="editor-area">
-    <section class="left-section" @click="() => store.chooseMaterial(null)">
+    <section class="left-section" @click="() => sotre.setCurrentService('')">
       <left-slide>
         <material-menu
           v-for="item in map_items"
@@ -21,12 +21,14 @@
 </template>
 
 <script lang="ts" setup>
-  // import { useEditMapWithOut } from '/@/store/modules/editMap';
+  import { useEditMapWithOut } from '/@/store/modules/editMap';
   // import EditorService from '/@/service/editor';
   import LeftSlide from '/@/components/Slide/index.vue';
   import MaterialMenu from '../MaterialMenu/index.vue';
   import EmbedPanel from '/@/components/EmbedPanel/index.vue';
   import { map_items } from '/@/config/material/map_item';
+
+  const sotre = useEditMapWithOut();
 </script>
 
 <style lang="less" scoped>

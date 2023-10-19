@@ -57,16 +57,18 @@ class Marker extends Cover {
         })
     }
     calculateIconSize() {
-        const width = this.options.width || 10
-        const height = this.options.height || 10
+        const width = this.options.width || 36
+        const height = this.options.height || 36
+        const imgSrc = this.options.icon || '//a.amap.com/jsapi_demos/static/demo-center/icons/poi-marker-default.png'
         return new this.AMap.Icon({
+            image: imgSrc,
             imageSize: new this.AMap.Size(width, height),
             size: new this.AMap.Size(width, height),
         })
     }
     calculatePixelOffset() {
-        const width = this.options.width || 10
-        const height = this.options.height || 10
+        const width = this.options.width || 36
+        const height = this.options.height || 36
         return new this.AMap.Pixel(-width / 2, -height)
     }
     removeMarker() {

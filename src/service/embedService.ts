@@ -40,8 +40,7 @@ class EmbedServie {
     }
     // 
     getEventsFromEngine(e) {
-        const struct = this.embedList.find((embed: Embed) => embed.name === this.currentStruct?.name)
-        struct?.createStruct(e)
+        this.currentStruct?.createStruct(e)
     }
     // embed click 事件
     click(ctx, params) {

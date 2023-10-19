@@ -1,4 +1,3 @@
-import { useMarkerWithOut } from '/@/store/modules/marker';
 <template>
   <a-form :model="formState" :label-col="labelCol" :wrapper-col="wrapperCol" labelAlign="left">
     <a-form-item label="宽">
@@ -80,8 +79,8 @@ import { useMarkerWithOut } from '/@/store/modules/marker';
       direction: 'bottom',
     },
     customContent: false,
-    width: 10,
-    height: 10,
+    width: 36,
+    height: 36,
     icon: '//a.amap.com/jsapi_demos/static/demo-center/icons/poi-marker-default.png',
   });
   const setOptions = () => {
