@@ -44,9 +44,10 @@ class Marker extends Cover {
         }
         const marker = this.create(this.name, configs)
         marker.on('click', (e) => {
+            this.publishClick(e)
         })
     }
-    publish(e) {
+    publishClick(e) {
         return {
             e,
             options: this.options

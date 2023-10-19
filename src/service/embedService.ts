@@ -1,23 +1,36 @@
 import Polygon from './polygon'
 import Marker from './marker'
 
+type Embed = Marker | Polygon
 
 class EmbedServie {
     Marker: any = Marker
     Polygon: any = Polygon
-    embed: any = null
+    embedList: Embed[] = []
     // material: any = null
     constructor(AMap, mapInstance, server) {
-        if (this[server]) {
-            // 当前实例化的插件embed
-            this.embed = new this[server](AMap, mapInstance)
-        }
+        this.embedList = this.initAllStruct(AMap, mapInstance, server)
 
     }
+    initAllStruct(AMap, mapInstance, server) {
+        const embedList: any = []
+        Object.keys(server).forEach((key) => {
+            server[key].forEach((serve) => {
+                if (this[serve]) {
+                    // 当前实例化的插件embed
+                    const embed = new this[serve](AMap, mapInstance)
+                    embedList.push(embed)
+                }
+            })
+        })
+        return embedList
+    }
     // // 订阅已经实例化的构件
-    // subscribeEmbed(topic, callback) {
+    subscribeEmbed(topic, callback) {
+        this.embedList.forEach((embed: Embed) => {
 
-    // }
+        })
+    }
     // 初始化地图事件
     // beforeMapClick(e) {
     //     if (!this.material) return

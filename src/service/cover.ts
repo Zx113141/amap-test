@@ -11,6 +11,13 @@ class Cover {
         })
         return struct
     }
+
+
+    update() {
+
+    }
+
+
 }
 
 export default Cover

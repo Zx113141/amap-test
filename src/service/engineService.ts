@@ -11,14 +11,7 @@ class EngineService {
     }
 
     injectEmbedService(server, mapInstance, cb) {
-        let service: any[] = []
-        Object.keys(server).forEach((key) => {
-            server[key].forEach((serve) => {
-                // console.log();
-                const embedService = new EmbedServie(this.AMap, mapInstance, serve).embed
-                service.push(embedService)
-            })
-        })
+        const service: Nullable<EmbedServie> = new EmbedServie(this.AMap, mapInstance, server)
         cb(service)
     }
     injectMapEvents(key, fn) {
