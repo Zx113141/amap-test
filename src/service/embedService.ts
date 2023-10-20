@@ -1,5 +1,5 @@
-import Polygon from './polygon'
-import Marker from './marker'
+import Polygon from './base/polygon'
+import Marker from './base/marker'
 import EngineService from './engineService'
 
 

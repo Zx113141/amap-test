@@ -23,6 +23,8 @@ class InitMap {
   map: any = null;
   // contructor
   AMap: any = null
+  // loca
+  Loca: any = null
   constructor(domId, options) {
     this.domId = domId;
     this.options = options;
@@ -32,9 +34,17 @@ class InitMap {
   async init() {
     const AMap = await AMapLoader.load({
       key: 'f31603ec0edd29e60f2721d9422ed9f6',
-      version: '1.4.15',
+      version: '2.0',
+      Loca: {
+        version: '2.0.0'
+      }
     });
+
     this.map = new AMap.Map(this.domId, { ...this.options });
+    this.Loca = new window.Loca.Container({
+      map: this.map
+    })
+    console.log(this.Loca);
     this.AMap = AMap
     // this.map.refreshResize();
   }
