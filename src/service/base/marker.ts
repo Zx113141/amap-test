@@ -29,6 +29,7 @@ export interface IMarker {
 class Marker extends Cover {
 
     name: string = 'Marker'
+    cate: string = 'base'
     // marker array
     structs: any[] = []
 

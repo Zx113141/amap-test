@@ -16,7 +16,9 @@ export const useEditMap = defineStore({
     // info
     service: null,
     struct: {
-      name: 'map'
+      name: 'map',
+      cate: 'base',
+      menu: []
     }
   }),
   getters: {
@@ -30,17 +32,18 @@ export const useEditMap = defineStore({
       this.service = service
     },
     // 获取当前embed所有服务(构件)
-    setCurrentService(name: string) {
-      if (!name) {
+    setCurrentService(materMenu: any) {
+      if (!materMenu) {
         this.struct = {
-          name: 'map'
+          name: 'map',
+          cate: 'base',
+          menu: []
         }
         this.service?.getCurrent(null)
       } else {
-        this.struct = (this.service as EmbedService).embedList.find(server => server.name === name)
+        this.struct = (this.service as EmbedService).embedList.find(server => server.name === materMenu.name)
         this.service?.getCurrent(this.struct)
       }
-
     },
     // 获取构件配置
     setCurrentStruct(options) {

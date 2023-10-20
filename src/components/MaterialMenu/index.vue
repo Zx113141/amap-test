@@ -1,7 +1,7 @@
 <template>
   <div
     :class="['material', active ? 'active' : '']"
-    @click.stop="() => store.setCurrentService(props.name)"
+    @click.stop="() => store.setCurrentService({ name: props.name, cate: props.key })"
   >
     {{ name }}
   </div>
@@ -13,6 +13,10 @@
   const active = ref(false);
   const props = defineProps({
     name: {
+      type: String,
+      default: '',
+    },
+    key: {
       type: String,
       default: '',
     },

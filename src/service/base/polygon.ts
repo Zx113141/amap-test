@@ -15,7 +15,7 @@ class Polygon extends Cover {
     name: string = 'Polygon'
     // marker array
     structs: any[] = []
-
+    cate: string = 'base'
     options: any = {}
     constructor(AMap, mapInstance, server) {
         super(AMap, mapInstance, server)

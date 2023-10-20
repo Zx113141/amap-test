@@ -3,21 +3,12 @@
     <section class="left-section" @click="() => sotre.setCurrentService('')">
       <left-slide>
         <a-collapse>
-          <a-collapse-panel key="base" header="地图基础功能(Base Function)">
-            <div style="display: flex; column-gap: 8px">
+          <a-collapse-panel :key="item.key" :header="item.name" v-for="item in map_items">
+            <div class="menu">
               <material-menu
-                v-for="item in map_items"
-                :key="item.type"
-                v-bind="{ ...item }"
-              ></material-menu>
-            </div>
-          </a-collapse-panel>
-          <a-collapse-panel key="pro" header="进阶地图工具(Loca)">
-            <div style="display: flex; column-gap: 8px">
-              <material-menu
-                v-for="item in map_items"
-                :key="item.type"
-                v-bind="{ ...item }"
+                v-for="child in item.children"
+                :key="child.type"
+                v-bind="{ ...child }"
               ></material-menu>
             </div>
           </a-collapse-panel>
@@ -29,7 +20,7 @@
     </main>
     <section class="right-section">
       <Slide>
-        <embed-panel></embed-panel>
+        <material-config :item="map_items"></material-config>
       </Slide>
     </section>
   </div>
@@ -40,7 +31,7 @@
   // import EditorService from '/@/service/editor';
   import LeftSlide from '/@/components/Slide/index.vue';
   import MaterialMenu from '../MaterialMenu/index.vue';
-  import EmbedPanel from '/@/components/EmbedPanel/index.vue';
+  import MaterialConfig from '../MaterialConfig/index.vue';
   import { map_items } from '/@/config/material/map_item';
 
   const sotre = useEditMapWithOut();
@@ -61,6 +52,12 @@
 
       z-index: 9999;
       background: white;
+      .menu {
+        display: flex;
+        column-gap: 8px;
+        row-gap: 8px;
+        flex-wrap: wrap;
+      }
     }
     .right-section {
       position: absolute;

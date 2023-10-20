@@ -1,36 +1,80 @@
 export const map_items = [
   {
-    name: 'Polygon',
-    // options: {
-    //   fillColor: '#ccebc5',
-    //   strokeOpacity: 1,
-    //   fillOpacity: 0.5,
-    //   strokeColor: '#2b8cbe',
-    //   strokeWeight: 1,
-    //   strokeStyle: 'dashed',
-    //   strokeDasharray: [5, 5],
-    //   path: [],
-    // },
+    name: '地图基础功能(Base Function)',
+    key: 'base',
+    children: [
+      {
+        name: 'Polygon',
+        menu: [
+          {
+            name: '基础配置',
+            key: 'base',
+          },
+          {
+            name: '事件处理',
+            events: '',
+          },
+        ],
+      },
+      {
+        name: 'Marker',
+        menu: [
+          {
+            name: '基础配置',
+            key: 'base',
+          },
+          {
+            name: '事件处理',
+            events: '',
+          },
+        ],
+      },
+      {
+        name: 'Text',
+        menu: [
+          {
+            name: '基础配置',
+            key: 'base',
+          },
+          {
+            name: '事件处理',
+            events: '',
+          },
+        ],
+      },
+    ],
   },
   {
-    name: 'Marker',
-    // options: {
-    //   title: '',
-    //   topWhenClick: true,
-    //   draggable: true,
-    //   visible: true,
-    //   zIndex: 100,
-    //   angle: 30,
-    //   animation: 'AMAP_ANIMATION_NONE',
-    //   clickable: true,
-    //   content: '',
-    //   direction: 'bottom',
-    //   // width: '10',
-    //   // height: '10',
-    //   icon: '//a.amap.com/jsapi_demos/static/demo-center/icons/poi-marker-default.png',
-    // },
-  },
-  {
-    name: 'Text',
+    name: '进阶地图工具(Loca)',
+    key: 'base',
+    children: [
+      {
+        name: 'Camera',
+      },
+      {
+        name: 'Marker',
+      },
+      {
+        name: 'RoundPointLayer',
+      },
+      {
+        name: 'ScatterLayer',
+      },
+      {
+        name: 'IconLayer',
+      },
+      {
+        name: 'LineLayer',
+      },
+      {
+        name: 'PolygonLayer',
+      },
+      {
+        name: 'HeatMapLayer',
+      },
+      {
+        name: 'GridLayer/HexagonLayer',
+      },
+    ],
   },
 ];
