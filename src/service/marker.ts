@@ -55,6 +55,8 @@ class Marker extends Cover {
         marker.on('click', (e) => {
             this.notify('click', e)
         })
+        marker.on('rightclick', (e) => this.removeMarker(e))
+        this.structs.push(marker)
     }
     calculateIconSize() {
         const width = this.options.width || 36
@@ -71,9 +73,8 @@ class Marker extends Cover {
         const height = this.options.height || 36
         return new this.AMap.Pixel(-width / 2, -height)
     }
-    removeMarker() {
-        this.remove(this)
-        // this.markers.find(marker => marker)
+    removeMarker(e) {
+        this.remove(this, e)
     }
     updateMarkerOptions(options) {
 

@@ -17,9 +17,8 @@ class Cover {
         })
         return struct
     }
-    remove(ctx) {
-        ctx.setMap(null)
-        this.notify('remove', ctx)
+    remove(ctx, e) {
+        (this.embedService as EmbedServie).handleRemove(ctx, e)
     }
 
     update() {

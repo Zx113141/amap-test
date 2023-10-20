@@ -36,7 +36,6 @@ class EmbedServie {
     }
     // // 订阅已经实例化的构件点击事件
     subscribeEmbed(type, ctx, ...params: any) {
-        console.log(type);
         this[type](ctx, params)
     }
     getCurrent(currentStruct) {
@@ -54,7 +53,6 @@ class EmbedServie {
         }
 
     }
-
     // 处理地图点击事件，判断是否添加构件
     handleClick(e) {
         if (this.currentStruct) {
@@ -63,8 +61,14 @@ class EmbedServie {
             this.engineInstance?.handleMapClick(e)
         }
     }
-    handleRemove() {
-
+    // 移除当前构件
+    handleRemove(ctx, e) {
+        const id = e.target.getExtData().id
+        const name = ctx.name
+        e.target.setMap(null)
+        e.target = null
+        const embed = this.embedList.find((embed) => embed.name === name) as Embed
+        embed.structs = embed.structs.filter((struct) => struct.getExtData().id !== id)
     }
     handleAdd() {
 
