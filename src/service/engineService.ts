@@ -23,6 +23,11 @@ class EngineService {
     destroyEvents(key, fn) {
         this.mapInstance.off(key, fn);
     }
+
+    // map 事件对象处理
+    handleMapClick(e) {
+        // do somethings
+    }
 }
 
 export default EngineService

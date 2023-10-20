@@ -35,6 +35,7 @@ export const useEditMap = defineStore({
         this.struct = {
           name: 'map'
         }
+        this.service?.getCurrent(null)
       } else {
         this.struct = (this.service as EmbedService).embedList.find(server => server.name === name)
         this.service?.getCurrent(this.struct)

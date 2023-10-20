@@ -46,23 +46,20 @@
     await map.init();
     // 实例化注入
     engine.initEngine(map.AMap, map.map);
-    // engine 事件注入
-    engine.injectMapEvents('click', handleMapClick);
     // engine Embed注入
-    engine.injectEmbedService(embedServie, map.map, (service: any[]) => {
+    engine.injectEmbedService(embedServie, map.map, (service: any) => {
       store.pushService(service);
     });
+    // engine 事件注入
+    engine.injectMapEvents('click', (e) => engine.getEvents(e));
     // 全屏请求
     if (props.autoFullscreen) {
       handleFullScreen();
     }
   });
-  const handleMapClick = (e) => {
-    engine.getEvents(e)
-  };
   onUnmounted(() => {
     // 销毁事件
-    engine.destroyEvents('click', handleMapClick);
+    engine.destroyEvents('click', (e) => engine.getEvents(e));
     // map.value?.off('click', clickHandler);
   });
 </script>

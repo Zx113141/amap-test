@@ -4,6 +4,9 @@ import EngineService from './engineService'
 
 
 export type Embed = Marker | Polygon
+export enum EVENTS_MAP {
+    CLICK = 'click'
+}
 
 class EmbedServie {
     Marker: any = Marker
@@ -33,6 +36,7 @@ class EmbedServie {
     }
     // // 订阅已经实例化的构件点击事件
     subscribeEmbed(type, ctx, ...params: any) {
+        console.log(type);
         this[type](ctx, params)
     }
     getCurrent(currentStruct) {
@@ -40,35 +44,24 @@ class EmbedServie {
     }
     // 
     getEventsFromEngine(e) {
-        this.currentStruct?.createStruct(e)
-    }
-    // embed click 事件
-    click(ctx, params) {
+        const { type } = e
+        switch (type) {
+            case EVENTS_MAP.CLICK:
+                this.handleClick(e);
+                break
+            default:
+                return;
+        }
 
     }
-    // 初始化地图事件
-    // beforeMapClick(e) {
-    //     if (!this.material) return
-    //     console.log(this.material);
-    //     const construct = this[this.material.type].create(this.mapInstance, e, this.material.options)
-    //     construct.on('click', this.handleConstruct)
-    // }
-    // 初始化构件点击
-    handleConstruct(e) {
 
-    }
-    // // 移除构件,当前构件
-    // handleRemoveConstruct() {
-    //     const { name } = this.material
-    //     if (this[name].structs.length > 2) {
-    //         let deleteItem = this[name].structs.find((struct) => (struct.getExtData().id === e.target.getExtData().id))
-    //         this[name].structs = this[name].structs.filter((struct) => (struct.getExtData().id !== e.target.getExtData().id))
-    //         deleteItem.setMap(null)
-    //         deleteItem = null
-    //     }
-    // }
-    handleClick() {
-
+    // 处理地图点击事件，判断是否添加构件
+    handleClick(e) {
+        if (this.currentStruct) {
+            this.currentStruct?.createStruct(e)
+        } else {
+            this.engineInstance?.handleMapClick(e)
+        }
     }
     handleRemove() {
 
