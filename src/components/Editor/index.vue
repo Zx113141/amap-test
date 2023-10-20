@@ -2,11 +2,26 @@
   <div class="editor-area">
     <section class="left-section" @click="() => sotre.setCurrentService('')">
       <left-slide>
-        <material-menu
-          v-for="item in map_items"
-          :key="item.type"
-          v-bind="{ ...item }"
-        ></material-menu>
+        <a-collapse>
+          <a-collapse-panel key="base" header="地图基础功能(Base Function)">
+            <div style="display: flex; column-gap: 8px">
+              <material-menu
+                v-for="item in map_items"
+                :key="item.type"
+                v-bind="{ ...item }"
+              ></material-menu>
+            </div>
+          </a-collapse-panel>
+          <a-collapse-panel key="pro" header="进阶地图工具(Loca)">
+            <div style="display: flex; column-gap: 8px">
+              <material-menu
+                v-for="item in map_items"
+                :key="item.type"
+                v-bind="{ ...item }"
+              ></material-menu>
+            </div>
+          </a-collapse-panel>
+        </a-collapse>
       </left-slide>
     </section>
     <main id="editor">
