@@ -12,7 +12,7 @@ export const map_items = [
           },
           {
             name: '事件处理',
-            events: '',
+            key: 'events',
           },
         ],
       },
@@ -25,7 +25,7 @@ export const map_items = [
           },
           {
             name: '事件处理',
-            events: '',
+            key: 'events',
           },
         ],
       },
@@ -38,7 +38,7 @@ export const map_items = [
           },
           {
             name: '事件处理',
-            events: '',
+            key: 'events',
           },
         ],
       },
@@ -50,9 +50,6 @@ export const map_items = [
     children: [
       {
         name: 'Camera',
-      },
-      {
-        name: 'Marker',
       },
       {
         name: 'RoundPointLayer',

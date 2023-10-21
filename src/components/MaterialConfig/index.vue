@@ -2,7 +2,7 @@
   <a-collapse>
     <a-collapse-panel :key="menu.key" :header="menu.name" v-for="menu in menu_items">
       <div class="menu">
-        <embed-base-panel :comp="comp"></embed-base-panel>
+        <component :is="edit_map[menu.key]" :comp="comp"></component>
       </div>
     </a-collapse-panel>
   </a-collapse>
@@ -10,7 +10,12 @@
 
 <script setup lang="ts">
   import { useEditMapWithOut } from '/@/store/modules/editMap';
-  import EmbedBasePanel from '../EmbedBasePanel/index.vue';
+  // import EmbedBasePanel from '../EmbedBasePanel/index.vue';
+  // import EmbedBaseEvents from '../EmbedBaseEvents/index.vue';
+  const edit_map = {
+    base: defineAsyncComponent(() => import('../EmbedBasePanel/index.vue')),
+    events: defineAsyncComponent(() => import('../EmbedBaseEvents/index.vue')),
+  };
   const editStore = useEditMapWithOut();
   const menu_items = ref([]);
   const props = defineProps({

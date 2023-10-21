@@ -36,7 +36,7 @@ class EmbedServie {
     }
     // // 订阅已经实例化的构件点击事件
     subscribeEmbed(type, ctx, ...params: any) {
-        this[type](ctx, params)
+        this.handleStructEvents(type, ctx, params)
     }
     getCurrent(currentStruct) {
         this.currentStruct = currentStruct
@@ -70,7 +70,15 @@ class EmbedServie {
         const embed = this.embedList.find((embed) => embed.name === name) as Embed
         embed.structs = embed.structs.filter((struct) => struct.getExtData().id !== id)
     }
-    handleAdd() {
+
+    // 处理构件事务
+    handleStructEvents(type, ctx, params) {
+        switch (type) {
+            case EVENTS_MAP.CLICK:
+                this.execeptClick(ctx, params)
+        }
+    }
+    execeptClick () {
 
     }
 }
