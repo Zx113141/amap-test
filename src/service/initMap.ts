@@ -41,10 +41,6 @@ class InitMap {
     });
 
     this.map = new AMap.Map(this.domId, { ...this.options });
-    this.Loca = new window.Loca.Container({
-      map: this.map
-    })
-    console.log(this.Loca);
     this.AMap = AMap
     // this.map.refreshResize();
   }

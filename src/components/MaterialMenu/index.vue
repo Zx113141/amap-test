@@ -1,7 +1,7 @@
 <template>
   <div
     :class="['material', active ? 'active' : '']"
-    @click.stop="() => store.setCurrentService({ name: props.name, cate: props.key })"
+    @click.stop="() => store.setCurrentService({ name: props.name, cate: props.cate })"
   >
     {{ name }}
   </div>
@@ -16,7 +16,7 @@
       type: String,
       default: '',
     },
-    key: {
+    cate: {
       type: String,
       default: '',
     },
@@ -24,6 +24,7 @@
   watch(
     () => store.struct.name,
     (newName) => {
+      // console.log(store.struct);
       active.value = newName === props.name;
     },
     {

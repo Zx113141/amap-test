@@ -1,5 +1,6 @@
 import Polygon from './base/polygon'
 import Marker from './base/marker'
+import PointerLayer from './pro/pointLayer'
 import EngineService from './engineService'
 
 
@@ -8,26 +9,40 @@ export enum EVENTS_MAP {
     CLICK = 'click'
 }
 
+export enum ServerConstruct {
+    COVER = 'cover',
+    LOCA = 'loca'
+}
+
 class EmbedServie {
     Marker: any = Marker
     Polygon: any = Polygon
+    PointerLayer: any = PointerLayer
     currentStruct: Nullable<Embed> = null
     embedList: Embed[] = []
     engineInstance: Nullable<EngineService> = null
     // material: any = null
-    constructor(AMap, mapInstance, server, engineInstance) {
+    constructor(AMap, Loca, mapInstance, server, engineInstance) {
         this.engineInstance = engineInstance
-        this.embedList = this.initAllStruct(AMap, mapInstance, server)
+        this.embedList = this.initAllStruct(AMap, Loca, mapInstance, server)
 
     }
     // 观察者模式 
-    initAllStruct(AMap, mapInstance, server) {
+    initAllStruct(AMap, Loca, mapInstance, server) {
         const embedList: any = []
         Object.keys(server).forEach((key) => {
             server[key].forEach((serve) => {
                 if (this[serve]) {
                     // 创建观察者embed
-                    const embed = new this[serve](AMap, mapInstance, this)
+                    let embed
+                    switch (key) {
+                        case ServerConstruct.COVER:
+                            embed = new this[serve](AMap, mapInstance, this);
+                            break;
+                        case ServerConstruct.LOCA:
+                            embed = new this[serve](Loca, mapInstance, this);
+                            break;
+                    }
                     embedList.push(embed)
                 }
             })
@@ -75,10 +90,10 @@ class EmbedServie {
     handleStructEvents(type, ctx, params) {
         switch (type) {
             case EVENTS_MAP.CLICK:
-                this.execeptClick(ctx, params)
+            // this.execeptClick(ctx, params)
         }
     }
-    execeptClick () {
+    execeptClick() {
 
     }
 }

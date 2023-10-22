@@ -32,8 +32,8 @@ export const useEditMap = defineStore({
       this.service = service
     },
     // 获取当前embed所有服务(构件)
-    setCurrentService(materMenu: any) {
-      if (!materMenu) {
+    setCurrentService(material: any) {
+      if (!material) {
         this.struct = {
           name: 'map',
           cate: 'base',
@@ -41,7 +41,10 @@ export const useEditMap = defineStore({
         }
         this.service?.getCurrent(null)
       } else {
-        this.struct = (this.service as EmbedService).embedList.find(server => server.name === materMenu.name)
+        // console.log(material);
+
+        this.struct = (this.service as EmbedService).embedList.find(server => server.name === material.name)
+        // console.log(this.struct, material.name);
         this.service?.getCurrent(this.struct)
       }
     },

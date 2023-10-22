@@ -46,13 +46,23 @@ export const map_items = [
   },
   {
     name: '进阶地图工具(Loca)',
-    key: 'base',
+    key: 'loca',
     children: [
       {
         name: 'Camera',
       },
       {
-        name: 'RoundPointLayer',
+        name: 'PointLayer',
+        menu: [
+          {
+            name: '基础配置',
+            key: 'base',
+          },
+          {
+            name: '事件处理',
+            key: 'events',
+          },
+        ],
       },
       {
         name: 'ScatterLayer',

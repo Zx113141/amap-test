@@ -8,6 +8,7 @@
               <material-menu
                 v-for="child in item.children"
                 :key="child.type"
+                :cate="item.key"
                 v-bind="{ ...child }"
               ></material-menu>
             </div>

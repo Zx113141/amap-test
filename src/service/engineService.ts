@@ -2,16 +2,17 @@ import EmbedServie from "./embedService"
 
 class EngineService {
     mapInstance: any  // 高德地图实例
-
+    Loca: any
     AMap: any         // 高德地图构造函数 
     service: Nullable<EmbedServie> = null
-    initEngine(AMap, mapInstance) {
+    initEngine(AMap, Loca, mapInstance) {
         this.AMap = AMap
         this.mapInstance = mapInstance
+        this.Loca = Loca
     }
 
     injectEmbedService(server, mapInstance, cb) {
-        this.service = new EmbedServie(this.AMap, mapInstance, server, this)
+        this.service = new EmbedServie(this.AMap, this.Loca, mapInstance, server, this)
         cb(this.service)
     }
     injectMapEvents(key, fn) {

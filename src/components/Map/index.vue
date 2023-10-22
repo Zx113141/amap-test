@@ -17,6 +17,7 @@
   import { useEditMapWithOut } from '/@/store/modules/editMap';
   const embedServie = {
     cover: ['Marker', 'Polygon', 'Text'],
+    loca: ['PointerLayer'],
   };
   const store = useEditMapWithOut();
   // engine
@@ -31,6 +32,7 @@
       center: [106.648225, 26.612017],
       zoom: 14,
       viewMode: '2D',
+      mapStyle: 'amap://styles/45311ae996a8bea0da10ad5151f72979',
     });
   };
 
@@ -45,7 +47,7 @@
     // 实例化地图
     await map.init();
     // 实例化注入
-    engine.initEngine(map.AMap, map.map);
+    engine.initEngine(map.AMap, map.Loca, map.map);
     // engine Embed注入
     engine.injectEmbedService(embedServie, map.map, (service: any) => {
       store.pushService(service);
