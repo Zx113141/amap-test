@@ -15,9 +15,13 @@ export enum ServerConstruct {
 }
 
 class EmbedServie {
+    // base struct
     Marker: any = Marker
     Polygon: any = Polygon
+    // loca struct
     PointerLayer: any = PointerLayer
+
+
     currentStruct: Nullable<Embed> = null
     embedList: Embed[] = []
     mapServiceInstance: Nullable<MapService> = null
