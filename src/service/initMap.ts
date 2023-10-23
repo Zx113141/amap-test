@@ -39,10 +39,7 @@ class InitMap {
         version: '2.0.0'
       }
     });
-
-    this.map = new AMap.Map(this.domId, { ...this.options });
     this.Loca = window.Loca
-
     this.AMap = AMap
     // this.map.refreshResize();
   }

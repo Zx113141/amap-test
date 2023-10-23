@@ -17,50 +17,67 @@ export enum ServerConstruct {
     LOCA = 'loca'
 }
 
-class EmbedServie {
+class EmbedService {
     // base struct
     Marker: any = Marker
     Polygon: any = Polygon
     // loca struct
     PointerLayer: any = PointerLayer
 
+    /**
+     * @author {zhangxu}
+     * @description map instance and map domId
+     * **/
+    // mapInstance
+    mapInstance: any = null
+    // domID
+    domId: string = ''
 
+    /**
+     * @author {zhangxu}
+     * @description struct list manage
+     * **/
+    // special struct for amp instance list
     currentStruct: Nullable<Embed> = null
     embedList: Embed[] = []
-    mapServiceInstance: Nullable<MapService> = null
-    // material: any = null
-    constructor(AMap, Loca, mapInstance, server, mapServiceInstance) {
-        this.mapServiceInstance = mapServiceInstance
-        this.embedList = this.initAllStruct(AMap, Loca, mapInstance, server)
 
+    // current render menu item
+    embedMenu: any[] = []
+    constructor(domId, embedList) {
+        this.embedMenu = embedList
+        this.domId = domId
     }
-    // 观察者模式 
-    initAllStruct(AMap, Loca, mapInstance, server) {
+    // 实例化mapService
+    initMapService(domId, AMap, mapOptions) {
+        this.mapInstance = new MapService(domId, AMap, mapOptions)
+    }
+    initAllStruct(AMap, Loca, mapOptions) {
+        this.initMapService(this.domId, AMap, mapOptions)
         const embedList: any = []
-        Object.keys(server).forEach((key) => {
-            server[key].forEach((serve) => {
+        Object.keys(this.embedMenu).forEach((key) => {
+            this.embedMenu[key].forEach((serve) => {
                 if (this[serve]) {
                     // 创建观察者embed
                     let embed
                     switch (key) {
                         case ServerConstruct.COVER:
-                            embed = new this[serve](AMap, mapInstance, this);
+                            embed = new this[serve](AMap, this.mapInstance.struct, this);
                             break;
                         case ServerConstruct.LOCA:
-                            embed = new this[serve](Loca, mapInstance, this);
+                            embed = new this[serve](Loca, this.mapInstance.struct, this);
                             break;
                     }
                     embedList.push(embed)
                 }
             })
         })
-        embedList.push(this.mapServiceInstance)
-        console.log(embedList);
+
+        embedList.push(this.mapInstance)
         return embedList
     }
     // // 订阅已经实例化的构件点击事件
     subscribeEmbed(type, ctx, ...params: any) {
-        this.handleStructEvents(type, ctx, params)
+        // this.handleStructEvents(type, ctx, params)
     }
     getCurrent(currentStruct) {
         this.currentStruct = currentStruct
@@ -95,16 +112,16 @@ class EmbedServie {
         embed.structs = embed.structs.filter((struct) => struct.getExtData().id !== id)
     }
 
-    // 处理构件事务
-    handleStructEvents(type, ctx, params) {
-        switch (type) {
-            case EVENTS_MAP.CLICK:
-            // this.execeptClick(ctx, params)
-        }
-    }
-    execeptClick() {
+    // // 处理构件事务
+    // handleStructEvents(type, ctx, params) {
+    //     switch (type) {
+    //         case EVENTS_MAP.CLICK:
+    //         // this.execeptClick(ctx, params)
+    //     }
+    // }
+    // execeptClick() {
 
-    }
+    // }
 }
 
-export default EmbedServie
+export default EmbedService

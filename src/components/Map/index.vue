@@ -13,15 +13,15 @@
 <script setup lang="ts">
   import { type IMapProp } from './map';
   import InitMap from '/@/service/initMap';
-  import MapService from '/@/service/mapService';
+  import EmbedService from '/@/service/EmbedService';
   import { useEditMapWithOut } from '/@/store/modules/editMap';
-  const embedServie = {
+  const embedList = {
     cover: ['Marker', 'Polygon', 'Text'],
     loca: ['PointerLayer'],
   };
   const store = useEditMapWithOut();
-  // mapService
-  const mapService = new MapService();
+  // embedService
+  const embedService = new EmbedService('container', embedList);
   // props
   const props = defineProps<IMapProp>();
   // map html 实例
@@ -47,13 +47,11 @@
     // 实例化地图
     await map.init();
     // 实例化注入
-    mapService.initMapService(map.AMap, map.Loca, map.map);
+    embedService.initAllStruct(map.AMap, map.Loca, map.options);
     // engine Embed注入
-    mapService.injectEmbedService(embedServie, map.map, (service: any) => {
-      store.pushService(service);
-    });
+    store.pushService(embedService.injectEmbedService());
     // engine 事件注入
-    mapService.injectMapEvents('click', (e) => mapService.getEvents(e));
+    // mapService.injectMapEvents('click', (e) => mapService.getEvents(e));
     // 全屏请求
     if (props.autoFullscreen) {
       handleFullScreen();
@@ -61,7 +59,7 @@
   });
   onUnmounted(() => {
     // 销毁事件
-    mapService.destroyEvents('click', (e) => mapService.getEvents(e));
+    // mapService.destroyEvents('click', (e) => mapService.getEvents(e));
     // map.value?.off('click', clickHandler);
   });
 </script>
