@@ -34,10 +34,15 @@ class MapService {
     destroyEvents(key, fn) {
         this.struct.off('click', this.handleMapClick);
     }
+    methodUper(str: string) {
+        return 'set' + str.slice(0, 1).toUpperCase() + str.slice(1)
+    }
     setOptions(options) {
+
         Object.keys(options).forEach((key) => {
+
             if (key === 'mapStyle') {
-                this.struct.setMapStyle('amap://styles/' + options[key])
+                this.struct[this.methodUper(key)]('amap://styles/' + options[key])
             }
         })
         // amap://styles/normal
