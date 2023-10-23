@@ -11,9 +11,9 @@
 </template>
 
 <script setup lang="ts">
-  import { type IMapProp } from './map';
+  // import { type IMapProp } from './map';
   import InitMap from '/@/service/initMap';
-  import EmbedService from '/@/service/EmbedService';
+  import EmbedService from '/@/service/embedService';
   import { useEditMapWithOut } from '/@/store/modules/editMap';
   const embedList = {
     cover: ['Marker', 'Polygon', 'Text'],
@@ -23,7 +23,7 @@
   // embedService
   const embedService = new EmbedService('container', embedList);
   // props
-  const props = defineProps<IMapProp>();
+  // const props = defineProps<IMapProp>();
   // map html 实例
   const mapRef = ref<HTMLDivElement>();
   // init
@@ -35,11 +35,11 @@
       mapStyle: 'amap://styles/normal',
     });
   };
-
-  // 全屏请求
-  const handleFullScreen = () => {
-    mapRef.value?.requestFullscreen && mapRef.value.requestFullscreen();
-  };
+  // TODO:
+  // // 全屏请求
+  // const handleFullScreen = () => {
+  //   mapRef.value?.requestFullscreen && mapRef.value.requestFullscreen();
+  // };
   // map 实例
   let map: any = reactive(initMap());
 
@@ -48,19 +48,20 @@
     await map.init();
     // 实例化注入
     embedService.initAllStruct(map.AMap, map.Loca, map.options);
-    // engine Embed注入
-    store.pushService(embedService.injectEmbedService());
-    // engine 事件注入
-    // mapService.injectMapEvents('click', (e) => mapService.getEvents(e));
-    // 全屏请求
-    if (props.autoFullscreen) {
-      handleFullScreen();
-    }
+    // store Embed list注入
+    store.pushService(embedService);
+    // embedService 事件注入
+    // embedService.injectMapEvents('click', (e) => mapService.getEvents(e));
+    // TODO:
+    // // 全屏请求
+    // if (props.autoFullscreen) {
+    //   handleFullScreen();
+    // }
   });
   onUnmounted(() => {
+    embedService.destory('all');
     // 销毁事件
     // mapService.destroyEvents('click', (e) => mapService.getEvents(e));
-    // map.value?.off('click', clickHandler);
   });
 </script>
 

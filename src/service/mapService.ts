@@ -1,44 +1,40 @@
-
+import EmbedService from "./embedService"
 
 class MapService {
     name: string = 'MapService'
     cate: string = 'base'
     // map array
+    embedService: EmbedService
     struct: any = null
     options: any = {
 
     }
 
-    constructor(domId, AMap, mapOptions) {
+    constructor(domId, AMap, mapOptions, ctx) {
         this.struct = new AMap.Map(domId, {
             ...mapOptions
         })
         this.options = mapOptions
+        this.embedService = ctx
+        this.injectMapEvents()
     }
-    initMapService(AMap, Loca, mapInstance) {
-        // this.AMap = AMap
-        // this.mapInstance = mapInstance
-        // this.Loca = Loca
-    }
-
     injectEmbedService(server, mapInstance, cb) {
         // this.service = new EmbedServie(this.AMap, this.Loca, mapInstance, server, this)
         // cb(this.service)
     }
-    injectMapEvents(key, fn) {
-        // this.mapInstance.on(key, fn);
+    injectMapEvents() {
+        this.struct.on('click', this.handleMapClick.bind(this));
+    }
+    handleMapClick(e) {
+        this.embedService.handleClick(e)
     }
     getEvents(e) {
         // this.service?.getEventsFromEngine(e)
     }
     destroyEvents(key, fn) {
-        // this.mapInstance.off(key, fn);
+        this.struct.off('click', this.handleMapClick);
     }
 
-    // map 事件对象处理
-    handleMapClick(e) {
-        // do somethings
-    }
 }
 
 export default MapService

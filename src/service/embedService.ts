@@ -29,7 +29,7 @@ class EmbedService {
      * @description map instance and map domId
      * **/
     // mapInstance
-    mapInstance: any = null
+    mapInstance: Nullable<MapService> = null
     // domID
     domId: string = ''
 
@@ -49,11 +49,12 @@ class EmbedService {
     }
     // 实例化mapService
     initMapService(domId, AMap, mapOptions) {
-        this.mapInstance = new MapService(domId, AMap, mapOptions)
+        this.mapInstance = new MapService(domId, AMap, mapOptions, this)
     }
     initAllStruct(AMap, Loca, mapOptions) {
         this.initMapService(this.domId, AMap, mapOptions)
-        const embedList: any = []
+
+        const mepInstance = (this.mapInstance as MapService).struct
         Object.keys(this.embedMenu).forEach((key) => {
             this.embedMenu[key].forEach((serve) => {
                 if (this[serve]) {
@@ -61,20 +62,21 @@ class EmbedService {
                     let embed
                     switch (key) {
                         case ServerConstruct.COVER:
-                            embed = new this[serve](AMap, this.mapInstance.struct, this);
+                            embed = new this[serve](AMap, mepInstance, this);
                             break;
                         case ServerConstruct.LOCA:
-                            embed = new this[serve](Loca, this.mapInstance.struct, this);
+                            embed = new this[serve](Loca, mepInstance, this);
                             break;
                     }
-                    embedList.push(embed)
+                    this.embedList.push(embed)
                 }
             })
         })
-
-        embedList.push(this.mapInstance)
-        return embedList
+        this.embedList.push(this.mapInstance)
     }
+
+    // init events for struct 
+
     // // 订阅已经实例化的构件点击事件
     subscribeEmbed(type, ctx, ...params: any) {
         // this.handleStructEvents(type, ctx, params)
@@ -99,7 +101,7 @@ class EmbedService {
         if (this.currentStruct) {
             this.currentStruct?.createStruct(e)
         } else {
-            this.mapServiceInstance?.handleMapClick(e)
+            this.mapInstance?.handleMapClick(e)
         }
     }
     // 移除当前构件
@@ -112,6 +114,10 @@ class EmbedService {
         embed.structs = embed.structs.filter((struct) => struct.getExtData().id !== id)
     }
 
+    // 销毁事件
+    destory(key) {
+
+    }
     // // 处理构件事务
     // handleStructEvents(type, ctx, params) {
     //     switch (type) {
