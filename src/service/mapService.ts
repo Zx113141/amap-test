@@ -24,7 +24,7 @@ class MapService {
     handleMapClick(e) {
         this.embedService.handleClick(e)
     }
-    destroyEvents(key, fn) {
+    destroyEvents() {
         this.struct.off('click', this.handleMapClick);
     }
     methodUper(str: string) {
@@ -35,7 +35,8 @@ class MapService {
         Object.keys(options).forEach((key) => {
 
             if (key === 'mapStyle') {
-                this.struct[this.methodUper(key)]('amap://styles/' + options[key])
+    
+                this.struct[this.methodUper(key)](options[key] )
             }
         })
         // amap://styles/normal
