@@ -1,7 +1,7 @@
 import Polygon from './base/polygon'
 import Marker from './base/marker'
 import PointerLayer from './pro/pointLayer'
-import EngineService from './engineService'
+import MapService from './mapService'
 
 
 export type Embed = Marker | Polygon
@@ -20,10 +20,10 @@ class EmbedServie {
     PointerLayer: any = PointerLayer
     currentStruct: Nullable<Embed> = null
     embedList: Embed[] = []
-    engineInstance: Nullable<EngineService> = null
+    mapServiceInstance: Nullable<MapService> = null
     // material: any = null
-    constructor(AMap, Loca, mapInstance, server, engineInstance) {
-        this.engineInstance = engineInstance
+    constructor(AMap, Loca, mapInstance, server, mapServiceInstance) {
+        this.mapServiceInstance = mapServiceInstance
         this.embedList = this.initAllStruct(AMap, Loca, mapInstance, server)
 
     }
@@ -73,7 +73,7 @@ class EmbedServie {
         if (this.currentStruct) {
             this.currentStruct?.createStruct(e)
         } else {
-            this.engineInstance?.handleMapClick(e)
+            this.mapServiceInstance?.handleMapClick(e)
         }
     }
     // 移除当前构件

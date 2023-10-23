@@ -1,11 +1,11 @@
 import EmbedServie from "./embedService"
 
-class EngineService {
+class MapService {
     mapInstance: any  // 高德地图实例
     Loca: any
     AMap: any         // 高德地图构造函数 
     service: Nullable<EmbedServie> = null
-    initEngine(AMap, Loca, mapInstance) {
+    initSapService(AMap, Loca, mapInstance) {
         this.AMap = AMap
         this.mapInstance = mapInstance
         this.Loca = Loca
@@ -31,4 +31,4 @@ class EngineService {
     }
 }
 
-export default EngineService
+export default MapService

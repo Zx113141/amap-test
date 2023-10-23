@@ -13,15 +13,15 @@
 <script setup lang="ts">
   import { type IMapProp } from './map';
   import InitMap from '/@/service/initMap';
-  import EngineService from '/@/service/engineService';
+  import MapService from '/@/service/mapService';
   import { useEditMapWithOut } from '/@/store/modules/editMap';
   const embedServie = {
     cover: ['Marker', 'Polygon', 'Text'],
     loca: ['PointerLayer'],
   };
   const store = useEditMapWithOut();
-  // engine
-  const engine = new EngineService();
+  // mapService
+  const mapService = new MapService();
   // props
   const props = defineProps<IMapProp>();
   // map html 实例
@@ -47,13 +47,13 @@
     // 实例化地图
     await map.init();
     // 实例化注入
-    engine.initEngine(map.AMap, map.Loca, map.map);
+    mapService.initSapService(map.AMap, map.Loca, map.map);
     // engine Embed注入
-    engine.injectEmbedService(embedServie, map.map, (service: any) => {
+    mapService.injectEmbedService(embedServie, map.map, (service: any) => {
       store.pushService(service);
     });
     // engine 事件注入
-    engine.injectMapEvents('click', (e) => engine.getEvents(e));
+    mapService.injectMapEvents('click', (e) => mapService.getEvents(e));
     // 全屏请求
     if (props.autoFullscreen) {
       handleFullScreen();
@@ -61,7 +61,7 @@
   });
   onUnmounted(() => {
     // 销毁事件
-    engine.destroyEvents('click', (e) => engine.getEvents(e));
+    mapService.destroyEvents('click', (e) => mapService.getEvents(e));
     // map.value?.off('click', clickHandler);
   });
 </script>
@@ -72,4 +72,3 @@
     height: 100%;
   }
 </style>
-./instance/init ../../config/constant/polygon.area.js
