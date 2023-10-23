@@ -6,7 +6,7 @@ import { message } from 'ant-design-vue';
 interface EditMap {
 
   // material: any,
-  service: EmbedService
+  service: Nullable<EmbedService>
   struct: any
 }
 
@@ -14,7 +14,7 @@ export const useEditMap = defineStore({
   id: 'map-edit',
   state: (): EditMap => ({
     // info
-    service: {},
+    service: null,
     struct: {
       name: STRUCT_NAME.MAP_SERVICE,
       cate: MENU_CATE.BASE,
@@ -44,8 +44,9 @@ export const useEditMap = defineStore({
     // 获取构件配置
     setCurrentStruct(options) {
       this.struct.options = options
+
       if (this.struct.name === STRUCT_NAME.MAP_SERVICE) {
-        this.service.notify(STRUCT_NAME.MAP_SERVICE, 'setOptions', options)
+        (this.service as EmbedService).notify(STRUCT_NAME.MAP_SERVICE, 'setOptions', options)
       }
       message.success('配置保存成功')
     },

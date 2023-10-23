@@ -50,8 +50,6 @@
     embedService.initAllStruct(map.AMap, map.Loca, map.options);
     // store Embed list注入
     store.pushService(embedService);
-    // embedService 事件注入
-    // embedService.injectMapEvents('click', (e) => mapService.getEvents(e));
     // TODO:
     // // 全屏请求
     // if (props.autoFullscreen) {
@@ -60,8 +58,6 @@
   });
   onUnmounted(() => {
     embedService.destory('all');
-    // 销毁事件
-    // mapService.destroyEvents('click', (e) => mapService.getEvents(e));
   });
 </script>
 
