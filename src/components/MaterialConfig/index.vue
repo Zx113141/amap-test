@@ -1,5 +1,5 @@
 <template>
-  <a-collapse>
+  <a-collapse :activeKey="['events', 'base']">
     <a-collapse-panel :key="menu.key" :header="menu.name" v-for="menu in menu_items">
       <div class="menu">
         <component :is="edit_map[menu.key]" :comp="comp"></component>

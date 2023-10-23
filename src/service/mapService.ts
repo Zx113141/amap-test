@@ -1,10 +1,13 @@
 import EmbedServie from "./embedService"
 
 class MapService {
+    name: string = 'map'
+    cate: string = 'base'
     mapInstance: any  // 高德地图实例
     Loca: any
     AMap: any         // 高德地图构造函数 
     service: Nullable<EmbedServie> = null
+    options: any = null
     initMapService(AMap, Loca, mapInstance) {
         this.AMap = AMap
         this.mapInstance = mapInstance

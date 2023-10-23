@@ -2,7 +2,7 @@
   <div class="editor-area">
     <section class="left-section" @click="() => sotre.setCurrentService('')">
       <left-slide>
-        <a-collapse>
+        <a-collapse :active-key="['base', 'loca']">
           <a-collapse-panel :key="item.key" :header="item.name" v-for="item in map_items">
             <div class="menu">
               <material-menu
@@ -51,7 +51,7 @@
     .left-section {
       position: absolute;
 
-      z-index: 9999;
+      z-index: 30;
       background: white;
       .menu {
         display: flex;
@@ -65,7 +65,7 @@
 
       right: 0;
       top: 0;
-      z-index: 9999;
+      z-index: 30;
       background: white;
     }
   }

@@ -32,7 +32,7 @@
       center: [106.648225, 26.612017],
       zoom: 14,
       viewMode: '3D',
-      mapStyle: 'amap://styles/45311ae996a8bea0da10ad5151f72979',
+      mapStyle: 'amap://styles/normal',
     });
   };
 

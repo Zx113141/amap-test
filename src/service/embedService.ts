@@ -3,7 +3,10 @@ import Marker from './base/marker'
 import PointerLayer from './pro/pointLayer'
 import MapService from './mapService'
 
-
+/**
+ * in order to manage struct such as [map, marker, polygon, and all of Amap instance]
+ * when we need to init map, init this constructor
+ * **/
 export type Embed = Marker | Polygon
 export enum EVENTS_MAP {
     CLICK = 'click'
@@ -51,6 +54,8 @@ class EmbedServie {
                 }
             })
         })
+        embedList.push(this.mapServiceInstance)
+        console.log(embedList);
         return embedList
     }
     // // 订阅已经实例化的构件点击事件

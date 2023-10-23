@@ -34,15 +34,9 @@ export const useEditMap = defineStore({
     // 获取当前embed所有服务(构件)
     setCurrentService(material: any) {
       if (!material) {
-        this.struct = {
-          name: 'map',
-          cate: 'base',
-          menu: []
-        }
+        this.struct = (this.service as EmbedService).embedList.find(server => server.name === 'map')
         this.service?.getCurrent(null)
       } else {
-        // console.log(material);
-
         this.struct = (this.service as EmbedService).embedList.find(server => server.name === material.name)
         // console.log(this.struct, material.name);
         this.service?.getCurrent(this.struct)
@@ -51,6 +45,7 @@ export const useEditMap = defineStore({
     // 获取构件配置
     setCurrentStruct(options) {
       this.struct.options = options
+      // 
       message.success('配置保存成功')
     },
 
