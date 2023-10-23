@@ -18,7 +18,6 @@ export const useEditMap = defineStore({
     struct: {
       name: STRUCT_NAME.MAP_SERVICE,
       cate: MENU_CATE.BASE,
-      menu: []
     }
   }),
   getters: {
