@@ -5,7 +5,7 @@ class MapService {
     Loca: any
     AMap: any         // 高德地图构造函数 
     service: Nullable<EmbedServie> = null
-    initSapService(AMap, Loca, mapInstance) {
+    initMapService(AMap, Loca, mapInstance) {
         this.AMap = AMap
         this.mapInstance = mapInstance
         this.Loca = Loca

@@ -47,7 +47,7 @@
     // 实例化地图
     await map.init();
     // 实例化注入
-    mapService.initSapService(map.AMap, map.Loca, map.map);
+    mapService.initMapService(map.AMap, map.Loca, map.map);
     // engine Embed注入
     mapService.injectEmbedService(embedServie, map.map, (service: any) => {
       store.pushService(service);
