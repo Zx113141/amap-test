@@ -10,17 +10,17 @@
   const props = defineProps({
     comp: {
       name: {
-        default: 'map',
+        default: 'MapService',
       },
       setOptions: {
         default: () => () => {},
       },
     },
-  })
+  });
   const PanelCompMap = {
     Marker: defineAsyncComponent(() => import('../Panel-Components/marker.vue')),
     Polygon: defineAsyncComponent(() => import('../Panel-Components/polygon.vue')),
-    map: defineAsyncComponent(() => import('../Panel-Components/map.vue')),
+    MapService: defineAsyncComponent(() => import('../Panel-Components/map.vue')),
   };
 </script>
 
