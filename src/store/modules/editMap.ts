@@ -1,4 +1,4 @@
-import EmbedService from '/@/service/embedService';
+import EmbedService, { STRUCT_NAME, MENU_CATE } from '/@/service/embedService';
 // import { * asecharts } from 'echarts/core';
 import { defineStore } from 'pinia';
 import { store } from '/@/store';
@@ -6,7 +6,7 @@ import { message } from 'ant-design-vue';
 interface EditMap {
 
   // material: any,
-  service: Nullable<EmbedService>
+  service: EmbedService
   struct: any
 }
 
@@ -14,10 +14,10 @@ export const useEditMap = defineStore({
   id: 'map-edit',
   state: (): EditMap => ({
     // info
-    service: null,
+    service: {},
     struct: {
-      name: 'MapService',
-      cate: 'base',
+      name: STRUCT_NAME.MAP_SERVICE,
+      cate: MENU_CATE.BASE,
       menu: []
     }
   }),
@@ -34,7 +34,7 @@ export const useEditMap = defineStore({
     // 获取当前embed所有服务(构件)
     setCurrentService(material: any) {
       if (!material) {
-        this.struct = (this.service as EmbedService).embedList.find(server => server.name === 'MapService')
+        this.struct = (this.service as EmbedService).embedList.find(server => server.name === STRUCT_NAME.MAP_SERVICE)
         this.service?.getCurrent(null)
       } else {
         this.struct = (this.service as EmbedService).embedList.find(server => server.name === material.name)
@@ -45,7 +45,9 @@ export const useEditMap = defineStore({
     // 获取构件配置
     setCurrentStruct(options) {
       this.struct.options = options
-      // 
+      if (this.struct.name === STRUCT_NAME.MAP_SERVICE) {
+        this.service.notify(STRUCT_NAME.MAP_SERVICE, 'setOptions', options)
+      }
       message.success('配置保存成功')
     },
 

@@ -12,8 +12,19 @@ export enum EVENTS_MAP {
     CLICK = 'click'
 }
 
-export enum ServerConstruct {
+export enum SERVER_CONSTRUCT {
     COVER = 'cover',
+    LOCA = 'loca'
+}
+
+export enum STRUCT_NAME {
+    MAP_SERVICE = 'MapService',
+    POLYGON = 'Polygon',
+    MARKER = 'Marker',
+}
+
+export enum MENU_CATE {
+    BASE = 'base',
     LOCA = 'loca'
 }
 
@@ -29,7 +40,7 @@ class EmbedService {
      * @description map instance and map domId
      * **/
     // mapInstance
-    mapInstance: Nullable<MapService> = null
+    MapService: Nullable<MapService> = null
     // domID
     domId: string = ''
 
@@ -49,22 +60,22 @@ class EmbedService {
     }
     // 实例化mapService
     initMapService(domId, AMap, mapOptions) {
-        this.mapInstance = new MapService(domId, AMap, mapOptions, this)
+        this.MapService = new MapService(domId, AMap, mapOptions, this)
     }
     initAllStruct(AMap, Loca, mapOptions) {
         this.initMapService(this.domId, AMap, mapOptions)
 
-        const mepInstance = (this.mapInstance as MapService).struct
+        const mepInstance = (this.MapService as MapService).struct
         Object.keys(this.embedMenu).forEach((key) => {
             this.embedMenu[key].forEach((serve) => {
                 if (this[serve]) {
                     // 创建观察者embed
                     let embed
                     switch (key) {
-                        case ServerConstruct.COVER:
+                        case SERVER_CONSTRUCT.COVER:
                             embed = new this[serve](AMap, mepInstance, this);
                             break;
-                        case ServerConstruct.LOCA:
+                        case SERVER_CONSTRUCT.LOCA:
                             embed = new this[serve](Loca, mepInstance, this);
                             break;
                     }
@@ -72,7 +83,7 @@ class EmbedService {
                 }
             })
         })
-        this.embedList.push(this.mapInstance)
+        this.embedList.push(this.MapService)
     }
 
     // init events for struct 
@@ -101,7 +112,7 @@ class EmbedService {
         if (this.currentStruct) {
             this.currentStruct?.createStruct(e)
         } else {
-            this.mapInstance?.handleMapClick(e)
+            this.MapService?.handleMapClick(e)
         }
     }
     // 移除当前构件
@@ -117,6 +128,10 @@ class EmbedService {
     // 销毁事件
     destory(key) {
 
+    }
+
+    notify(name, functionType, ...args) {
+        const res = this[name][functionType](...args)
     }
     // // 处理构件事务
     // handleStructEvents(type, ctx, params) {

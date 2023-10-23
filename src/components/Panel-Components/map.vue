@@ -8,7 +8,7 @@
       <a-select v-model:value="formState.mapStyle" :options="options"> </a-select>
     </a-form-item>
     <a-form-item>
-      <a-button @click="() => setOptions()">保存</a-button>
+      <a-button @click="() => setOptions(formState)">保存</a-button>
     </a-form-item>
   </a-form>
 </template>

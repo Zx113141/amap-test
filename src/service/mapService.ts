@@ -34,6 +34,15 @@ class MapService {
     destroyEvents(key, fn) {
         this.struct.off('click', this.handleMapClick);
     }
+    setOptions(options) {
+        Object.keys(options).forEach((key) => {
+            if (key === 'mapStyle') {
+                this.struct.setMapStyle('amap://styles/' + options[key])
+            }
+        })
+        // amap://styles/normal
+
+    }
 
 }
 
