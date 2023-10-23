@@ -18,18 +18,11 @@ class MapService {
         this.embedService = ctx
         this.injectMapEvents()
     }
-    injectEmbedService(server, mapInstance, cb) {
-        // this.service = new EmbedServie(this.AMap, this.Loca, mapInstance, server, this)
-        // cb(this.service)
-    }
     injectMapEvents() {
         this.struct.on('click', this.handleMapClick.bind(this));
     }
     handleMapClick(e) {
         this.embedService.handleClick(e)
-    }
-    getEvents(e) {
-        // this.service?.getEventsFromEngine(e)
     }
     destroyEvents(key, fn) {
         this.struct.off('click', this.handleMapClick);

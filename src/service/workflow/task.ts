@@ -1,6 +1,17 @@
 class Task {
-    taslQueue:any
-    
+    taskQueue: any
+
+    constructor() {
+
+    }
+
+    pushTask() {
+
+    }
+
+    destroyTask() {
+
+    }
 }
 
 export default Task

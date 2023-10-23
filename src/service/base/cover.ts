@@ -8,8 +8,8 @@ class Cover {
         this.mapInstance = mapInstance
         this.AMap = AMap
     }
-    notify(type: string, ...args: any) {
-        (this.embedService as EmbedServie).subscribeEmbed(type, this, args)
+    notify(type: string, ctx, ...args: any) {
+        (this.embedService as EmbedServie).subscribeEmbed(type, ctx, args)
     }
     create(name, options) {
         const struct = new this.AMap[name]({

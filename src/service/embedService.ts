@@ -64,12 +64,10 @@ class EmbedService {
     }
     initAllStruct(AMap, Loca, mapOptions) {
         this.initMapService(this.domId, AMap, mapOptions)
-
         const mepInstance = (this.MapService as MapService).struct
         Object.keys(this.embedMenu).forEach((key) => {
             this.embedMenu[key].forEach((serve) => {
                 if (this[serve]) {
-                    // 创建观察者embed
                     let embed
                     switch (key) {
                         case SERVER_CONSTRUCT.COVER:
@@ -89,24 +87,25 @@ class EmbedService {
     // init events for struct 
 
     // // 订阅已经实例化的构件点击事件
-    subscribeEmbed(type, ctx, ...params: any) {
+    subscribeEmbed(type: string, ctx: Embed, ...params: any) {
+        console.log();
         // this.handleStructEvents(type, ctx, params)
     }
     getCurrent(currentStruct) {
         this.currentStruct = currentStruct
     }
-    // 
-    getEventsFromEngine(e) {
-        const { type } = e
-        switch (type) {
-            case EVENTS_MAP.CLICK:
-                this.handleClick(e);
-                break
-            default:
-                return;
-        }
+    // // 
+    // getEventsFromEngine(e) {
+    //     const { type } = e
+    //     switch (type) {
+    //         case EVENTS_MAP.CLICK:
+    //             this.handleClick(e);
+    //             break
+    //         default:
+    //             return;
+    //     }
 
-    }
+    // }
     // 处理地图点击事件，判断是否添加构件
     handleClick(e) {
         if (this.currentStruct) {
