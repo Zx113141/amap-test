@@ -5,7 +5,7 @@ export interface IPoly {
     fillOpacity?: number,
     strokeColor?: string,
     strokeWeight?: number,
-    strokeStyle?: 'dashed' | 'point' | 'solid',
+    strokeStyle?: 'dashed' | 'solid',
     strokeDasharray?: number[],
     path: [],
 }

@@ -16,7 +16,7 @@
   import EmbedService from '/@/service/embedService';
   import { useEditMapWithOut } from '/@/store/modules/editMap';
   const embedList = {
-    cover: ['Marker', 'Polygon', 'Text'],
+    cover: ['Marker', 'Polygon', 'Text', 'MouseTool'],
     loca: ['PointerLayer'],
   };
   const store = useEditMapWithOut();

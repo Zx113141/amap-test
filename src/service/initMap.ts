@@ -39,6 +39,7 @@ class InitMap {
         version: '2.0.0'
       }
     });
+
     this.Loca = window.Loca
     this.AMap = AMap
     // this.map.refreshResize();

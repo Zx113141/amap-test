@@ -11,11 +11,20 @@ class Cover {
     notify(type: string, ctx, ...args: any) {
         (this.embedService as EmbedServie).subscribeEmbed(type, ctx, args)
     }
-    create(name, options) {
-        const struct = new this.AMap[name]({
-            ...options
-        })
-        return struct
+    create(name, options, isPlugin: boolean = false) {
+        if (!isPlugin) {
+            const struct = new this.AMap[name](options)
+            return struct
+        } else {
+            let struct
+            let that = this
+            this.AMap.plugin(`AMap.${name}`, function () {//异步加载插件
+
+                struct = new that.AMap[name](options)
+            });
+            return struct
+        }
+
     }
     remove(ctx, e) {
         (this.embedService as EmbedServie).handleRemove(ctx, e)

@@ -2,6 +2,7 @@ import Polygon from './base/polygon'
 import Marker from './base/marker'
 import PointerLayer from './pro/pointLayer'
 import MapService from './mapService'
+import MouseTool from './base/mouseTool'
 
 /**
  * in order to manage struct such as [map, marker, polygon, and all of Amap instance]
@@ -32,6 +33,7 @@ class EmbedService {
     // base struct
     Marker: any = Marker
     Polygon: any = Polygon
+    MouseTool: any = MouseTool
     // loca struct
     PointerLayer: any = PointerLayer
 

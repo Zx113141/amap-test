@@ -30,7 +30,7 @@
       </a-radio-group>
     </a-form-item>
     <a-form-item>
-      <a-button @click="() => setOptions(formState)">保存</a-button>
+      <a-button @click="() => handleSetOptions(formState)">保存</a-button>
     </a-form-item>
   </a-form>
 </template>
@@ -41,6 +41,15 @@
   import { get } from '/@/utils/http';
   const labelCol = { span: 8 };
   const wrapperCol = { span: 16 };
+
+  const handleSetOptions = async () => {
+    // console.log(formState);
+    const params = {
+      keywords: formState.border[formState.border.length - 1] || '贵州',
+      subdistrict: 1,
+    };
+    await getPathByDistrict(params);
+  };
   const getPathByDistrict = async (params) => {
     const { keywords, subdistrict } = params;
     fetch(
@@ -48,7 +57,7 @@
     )
       .then((response) => response.body)
       .then((rb) => {
-        const reader = rb?.getReader();
+        const reader = rb?.getReader() as ReadableStreamBYOBReader;
         return new ReadableStream({
           start(controller) {
             // The following function handles each data chunk
@@ -92,15 +101,6 @@
           path: polyline,
         });
       });
-
-    // const response = await fetch(
-    //   `https://restapi.amap.com/v3/config/district?keywords=${keywords}&subdistrict=${subdistrict}&key=${window.SERVER_KEY}&extensions=all`,
-    // );
-    // const reader = response.body?.getReader();
-    // const res = await reader?.read();
-    // const read = new FileReader()
-    // read.readAsArrayBuffer(res?.value)
-    // console.log(res);
   };
   const district = [
     {
@@ -140,7 +140,7 @@
     fillColor: '#ccebc5',
     strokeOpacity: 1,
     fillOpacity: 0.5,
-    strokeColor: '#2b8cbe',
+    strokeColor: 'red',
     strokeWeight: 1,
     strokeStyle: 'dashed',
     strokeDasharray: [5, 5],

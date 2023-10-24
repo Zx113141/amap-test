@@ -17,6 +17,19 @@ export const map_items = [
         ],
       },
       {
+        name: 'MouseTool',
+        menu: [
+          {
+            name: '基础配置',
+            key: 'base',
+          },
+          {
+            name: '事件处理',
+            key: 'events',
+          },
+        ],
+      },
+      {
         name: 'Marker',
         menu: [
           {

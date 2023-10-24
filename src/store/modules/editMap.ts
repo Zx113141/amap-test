@@ -32,6 +32,7 @@ export const useEditMap = defineStore({
     },
     // 获取当前embed所有服务(构件)
     setCurrentService(material: any) {
+      console.log(material, this.service);
       if (!material) {
         this.struct = (this.service as EmbedService).embedList.find(server => server.name === STRUCT_NAME.MAP_SERVICE)
         this.service?.getCurrent(null)

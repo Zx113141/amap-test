@@ -21,6 +21,7 @@
     Marker: defineAsyncComponent(() => import('../Panel-Components/marker.vue')),
     Polygon: defineAsyncComponent(() => import('../Panel-Components/polygon.vue')),
     MapService: defineAsyncComponent(() => import('../Panel-Components/map.vue')),
+    MouseTool: defineAsyncComponent(() => import('../Panel-Components/mouseTool.vue')),
   };
 </script>
 
