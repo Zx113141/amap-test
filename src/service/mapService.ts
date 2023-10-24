@@ -19,7 +19,7 @@ class MapService {
         this.injectMapEvents()
     }
     injectMapEvents() {
-        this.struct.on('click', this.handleMapClick.bind(this));
+        // this.struct.on('click', this.handleMapClick.bind(this));
     }
     handleMapClick(e) {
         this.embedService.handleClick(e)
@@ -35,8 +35,8 @@ class MapService {
         Object.keys(options).forEach((key) => {
 
             if (key === 'mapStyle') {
-    
-                this.struct[this.methodUper(key)](options[key] )
+
+                this.struct[this.methodUper(key)](options[key])
             }
         })
         // amap://styles/normal

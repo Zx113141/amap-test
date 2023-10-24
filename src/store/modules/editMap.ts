@@ -1,3 +1,4 @@
+
 import EmbedService, { STRUCT_NAME, MENU_CATE } from '/@/service/embedService';
 // import { * asecharts } from 'echarts/core';
 import { defineStore } from 'pinia';
@@ -32,7 +33,7 @@ export const useEditMap = defineStore({
     },
     // 获取当前embed所有服务(构件)
     setCurrentService(material: any) {
-      console.log(material, this.service);
+      // console.log(material, this.service);
       if (!material) {
         this.struct = (this.service as EmbedService).embedList.find(server => server.name === STRUCT_NAME.MAP_SERVICE)
         this.service?.getCurrent(null)
@@ -45,12 +46,15 @@ export const useEditMap = defineStore({
     // 获取构件配置
     setCurrentStruct(options) {
       this.struct.options = options
-
-      if (this.struct.name === STRUCT_NAME.MAP_SERVICE) {
-        (this.service as EmbedService).notify(STRUCT_NAME.MAP_SERVICE, 'setOptions', options)
+      switch (this.struct.name) {
+        case STRUCT_NAME.MAP_SERVICE:
+        case STRUCT_NAME.MOUSE_TOOL:
+          (this.service as EmbedService).notify(this.struct.name, 'setOptions', options)
       }
+
       message.success('配置保存成功')
     },
+
 
   },
 });

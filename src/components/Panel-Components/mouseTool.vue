@@ -21,7 +21,7 @@
     },
   });
   const formState = reactive({
-    type: 'normal',
+    type: 'polyline',
     // animation: 'AMAP_ANIMATION_BOUNCE',
   });
   const options = ref<SelectProps['options']>(mouse_tool);

@@ -23,50 +23,76 @@ class MouseTool extends Cover {
     cate: string = 'base'
     // marker array
     structs: any[] = []
-    rect:any = null
+    rect: any = null
     options: any = {}
     constructor(AMap, mapInstance, server) {
         super(AMap, mapInstance, server)
     }
-    createStruct(e) {
+    createStruct(e?: any) {
+
         if (!this.rect) {
             this.rect = this.create(this.name, this.mapInstance, true)
+            let that = this
+            this.rect.on('draw', function (event) {
+                that.structs.push(event.obj)
+            })
         }
-        const res = this.rect[this.options.type]({
-            ...this.options,
+    }
+    setOptions(options) {
+
+        const config = {
+            strokeColor: 'red',
+            strokeWeight: 6,
+            strokeOpacity: 0.5,
+            strokeDasharray: [30, 10],
+            // strokeStyle还支持 solid
+            strokeStyle: 'dashed',
+            fillColor: 'blue',
+            fillOpacity: 0.5,
+            cursor: 'pointer',
+            zIndex: 50,
+            // ...this.options,
             extData: {
                 id: new Date().getTime()
             },
-        })
+        }
+        this.createStruct()
 
-     
-        // switch (this.options.type) {
-        //     case MOUSE_TOOL_TYPE.POLYGON:
-        //         this.drawPolygon(rect);
-        //         break;
-        //     case MOUSE_TOOL_TYPE.POLYLINE:
-        //         this.drawPolyline(rect);
-        //         break;
-        //     case MOUSE_TOOL_TYPE.RECT_ANGLE:
-        //         this.drawRectAngle(rect);
-        //         break;
-        //     case MOUSE_TOOL_TYPE.CIRCLE:
-        //         this.drawCircle(rect);
-        //         break;
-        // }
+        switch (options.type) {
 
+            case MOUSE_TOOL_TYPE.POLYGON:
+                this.drawPolygon(config);
+                break;
+            case MOUSE_TOOL_TYPE.POLYLINE:
+                this.drawPolyline(config);
+                break;
+            case MOUSE_TOOL_TYPE.RECT_ANGLE:
+                this.drawRectAngle(config);
+                break;
+            case MOUSE_TOOL_TYPE.CIRCLE:
+                this.drawCircle(config);
+                break;
+        }
+    }
+    drawPolygon(config) {
+        this.rect.polygon(config)
+    }
+    drawPolyline(config) {
 
-
-        rect.on('click', (e) => {
-            this.notify('click', this, e)
-        })
-        rect.on('rightclick', (e) => this.removeMarker(e))
-        this.structs.push(rect)
+        this.rect.polyline(config)
+    }
+    drawRectAngle(config) {
+        // console.log(this.options.type);
+        this.rect.rectangle(config)
+    }
+    drawCircle(config) {
+        // console.log(this.options.type);
+        this.rect.circle(config)
     }
 
-    removeMarker(e) {
-        this.remove(this, e)
-    }
+    // removeMarker(e) {
+    //     this.remove(this, e)
+    // }
 
 }
 

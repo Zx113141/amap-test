@@ -8,7 +8,7 @@ import MouseTool from './base/mouseTool'
  * in order to manage struct such as [map, marker, polygon, and all of Amap instance]
  * when we need to init map, init this constructor
  * **/
-export type Embed = Marker | Polygon
+export type Embed = Marker | Polygon | MouseTool | PointerLayer
 export enum EVENTS_MAP {
     CLICK = 'click'
 }
@@ -22,6 +22,7 @@ export enum STRUCT_NAME {
     MAP_SERVICE = 'MapService',
     POLYGON = 'Polygon',
     MARKER = 'Marker',
+    MOUSE_TOOL = 'MouseTool'
 }
 
 export enum MENU_CATE {
@@ -132,7 +133,15 @@ class EmbedService {
     }
 
     notify(name, functionType, ...args) {
-        const res = this[name][functionType](...args)
+        if (this[name][functionType]) {
+            const res = this[name][functionType](...args)
+        } else {
+            const embed = this.embedList.find(embed => embed.name === name)
+            if (embed) {
+                embed[functionType](...args)
+            }
+        }
+
     }
     // // 处理构件事务
     // handleStructEvents(type, ctx, params) {
