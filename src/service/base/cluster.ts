@@ -1,3 +1,7 @@
+interface IIndexCluster {
+    
+}
+
 
 class IndexCluster {
     mapInstance: any = null
