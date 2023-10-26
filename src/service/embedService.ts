@@ -3,12 +3,13 @@ import Marker from './base/marker'
 import PointerLayer from './pro/pointLayer'
 import MapService from './mapService'
 import MouseTool from './base/mouseTool'
+import IndexCluster from './base/cluster'
 
 /**
  * in order to manage struct such as [map, marker, polygon, and all of Amap instance]
  * when we need to init map, init this constructor
  * **/
-export type Embed = Marker | Polygon | MouseTool | PointerLayer
+export type Embed = Marker | Polygon | MouseTool | PointerLayer | IndexCluster
 export enum EVENTS_MAP {
     CLICK = 'click'
 }
@@ -37,7 +38,7 @@ class EmbedService {
     MouseTool: any = MouseTool
     // loca struct
     PointerLayer: any = PointerLayer
-
+    IndexCluster: any = IndexCluster
     /**
      * @author {zhangxu}
      * @description map instance and map domId

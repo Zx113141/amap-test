@@ -43,7 +43,7 @@ export const map_items = [
         ],
       },
       {
-        name: 'Text',
+        name: 'IndexCluster',
         menu: [
           {
             name: '基础配置',
