@@ -29,12 +29,19 @@ class Cover {
     remove(ctx, e) {
         (this.embedService as EmbedServie).handleRemove(ctx, e)
     }
-
-    update() {
-
+    calcuBoundsLng (x,y) {
+  
+        const pixel = new this.AMap.Pixel(x, y);
+        const lnglat = this.mapInstance.containerToLngLat(pixel);
+ 
+        return lnglat
     }
 
-
+    editStruct (name, e) {
+        // TODO: to do this we need plugin
+        // const rectangleEditor = new this.AMap[name](this.mapInstance, e.target)
+        // console.log(rectangleEditor)
+    }
 }
 
 export default Cover

@@ -1,4 +1,4 @@
-import Cover from "./cover"
+import Cover from "../base/cover"
 
 
 export interface IMouseTool {
@@ -20,7 +20,7 @@ export enum MOUSE_TOOL_TYPE {
 class MouseTool extends Cover {
 
     name: string = 'MouseTool'
-    cate: string = 'base'
+    cate: string = 'plugin'
     // marker array
     structs: any[] = []
     rect: any = null

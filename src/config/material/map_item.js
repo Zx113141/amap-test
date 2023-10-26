@@ -17,7 +17,7 @@ export const map_items = [
         ],
       },
       {
-        name: 'MouseTool',
+        name: 'Rectangle',
         menu: [
           {
             name: '基础配置',
@@ -57,6 +57,10 @@ export const map_items = [
       },
     ],
   },
+  
+];
+
+export const map_pro = [
   {
     name: '进阶地图工具(Loca)',
     key: 'loca',
@@ -97,4 +101,4 @@ export const map_items = [
       },
     ],
   },
-];
+]

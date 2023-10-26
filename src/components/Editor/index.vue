@@ -3,7 +3,7 @@
     <section class="left-section" @click="() => sotre.setCurrentService('')">
       <left-slide>
         <a-collapse :active-key="['base', 'loca']">
-          <a-collapse-panel :key="item.key" :header="item.name" v-for="item in map_items">
+          <a-collapse-panel :key="item.key" :header="item.name" v-for="item in menu">
             <div class="menu">
               <material-menu
                 v-for="child in item.children"
@@ -33,9 +33,13 @@
   import LeftSlide from '/@/components/Slide/index.vue';
   import MaterialMenu from '../MaterialMenu/index.vue';
   import MaterialConfig from '../MaterialConfig/index.vue';
-  import { map_items } from '/@/config/material/map_item';
+  import { map_items,map_pro } from '/@/config/material/map_item';
 
   const sotre = useEditMapWithOut();
+  const menu = [
+    ...map_items,
+    ...map_pro
+  ]
 </script>
 
 <style lang="less" scoped>

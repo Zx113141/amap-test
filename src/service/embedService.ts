@@ -2,28 +2,32 @@ import Polygon from './base/polygon'
 import Marker from './base/marker'
 import PointerLayer from './pro/pointLayer'
 import MapService from './mapService'
-import MouseTool from './base/mouseTool'
+// import MouseTool from './base/mouseTool'
 import IndexCluster from './base/cluster'
+import Rectangle from './base/rectangle'
 
 /**
  * in order to manage struct such as [map, marker, polygon, and all of Amap instance]
  * when we need to init map, init this constructor
  * **/
-export type Embed = Marker | Polygon | MouseTool | PointerLayer | IndexCluster
+export type Embed = Marker | Polygon | Rectangle | PointerLayer | IndexCluster
 export enum EVENTS_MAP {
     CLICK = 'click'
 }
 
 export enum SERVER_CONSTRUCT {
     COVER = 'cover',
-    LOCA = 'loca'
+    LOCA = 'loca',
+    PLUGIN = 'plugin'
 }
 
 export enum STRUCT_NAME {
     MAP_SERVICE = 'MapService',
     POLYGON = 'Polygon',
     MARKER = 'Marker',
-    MOUSE_TOOL = 'MouseTool'
+    // MOUSE_TOOL = 'MouseTool'
+    INDEX_CLUSTER='IndexCluster',
+    RECTANGLE='Rectangle'
 }
 
 export enum MENU_CATE {
@@ -35,7 +39,9 @@ class EmbedService {
     // base struct
     Marker: any = Marker
     Polygon: any = Polygon
-    MouseTool: any = MouseTool
+    Rectangle:any=Rectangle
+    // plugin struct
+    // MouseTool: any = MouseTool
     // loca struct
     PointerLayer: any = PointerLayer
     IndexCluster: any = IndexCluster
