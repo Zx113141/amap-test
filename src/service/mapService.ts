@@ -19,7 +19,7 @@ class MapService {
         this.injectMapEvents()
     }
     injectMapEvents() {
-        // this.struct.on('click', this.handleMapClick.bind(this));
+        this.struct.on('click', this.handleMapClick.bind(this));
     }
     handleMapClick(e) {
         this.embedService.handleClick(e)
