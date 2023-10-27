@@ -1,8 +1,8 @@
-import EmbedServie from "../embedService"
+import EmbedService from "../embedService"
 class Cover {
     AMap: any = null
     mapInstance: any = null
-    private embedService: Nullable<EmbedServie> = null
+    private embedService: Nullable<EmbedService> = null
     constructor(AMap, mapInstance, embedService) {
         this.embedService = embedService
         this.mapInstance = mapInstance
@@ -29,15 +29,15 @@ class Cover {
     remove(ctx, e) {
         (this.embedService as EmbedServie).handleRemove(ctx, e)
     }
-    calcuBoundsLng (x,y) {
-  
+    calcuBoundsLng(x, y) {
+
         const pixel = new this.AMap.Pixel(x, y);
         const lnglat = this.mapInstance.containerToLngLat(pixel);
- 
+
         return lnglat
     }
 
-    editStruct (name, e) {
+    editStruct(name, e) {
         // TODO: to do this we need plugin
         // const rectangleEditor = new this.AMap[name](this.mapInstance, e.target)
         // console.log(rectangleEditor)
