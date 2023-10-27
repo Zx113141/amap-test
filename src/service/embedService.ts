@@ -6,13 +6,14 @@ import MapService from './mapService'
 import IndexCluster from './base/cluster'
 import Rectangle from './base/rectangle'
 import RectangleEditor from './plugin/utils/rectangleEditor'
-
+import Circle from './base/circle'
+import CircleEditor from './plugin/utils/circleEditor'
 /**
  * in order to manage struct such as [map, marker, polygon, and all of Amap instance]
  * when we need to init map, init this constructor
  * **/
-export type Embed = Marker | Polygon | Rectangle | PointerLayer | IndexCluster
-export type Plugin = RectangleEditor
+export type Embed = Marker | Polygon | Rectangle | PointerLayer | IndexCluster | Circle
+export type Plugin = RectangleEditor | CircleEditor
 export enum EVENTS_MAP {
     CLICK = 'click'
 }
@@ -43,8 +44,10 @@ class EmbedService {
     Marker: any = Marker
     Polygon: any = Polygon
     Rectangle: any = Rectangle
+    Circle: any = Circle
     // plugin utils
     RectangleEditor: any = RectangleEditor
+    CircleEditor: any = CircleEditor
     // MouseTool: any = MouseTool
     // loca struct
     PointerLayer: any = PointerLayer
@@ -123,14 +126,6 @@ class EmbedService {
             editor.close()
             ctx.editable = false
         }
-        // console.log(new this[name]((this.MapService as MapService).struct, target));
-        // if (!ctx.editbale) {
-        //     editor.open()
-        // } else {
-        //     editor.close()
-        // }
-
-
     }
     // init events for struct 
 

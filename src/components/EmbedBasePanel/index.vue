@@ -22,6 +22,7 @@
     Polygon: defineAsyncComponent(() => import('../Panel-Components/polygon.vue')),
     MapService: defineAsyncComponent(() => import('../Panel-Components/map.vue')),
     Rectangle: defineAsyncComponent(() => import('../Panel-Components/rectangle.vue')),
+    Circle: defineAsyncComponent(() => import('../Panel-Components/circle.vue')),
   };
 </script>
 

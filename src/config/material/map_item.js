@@ -30,6 +30,19 @@ export const map_items = [
         ],
       },
       {
+        name: 'Circle',
+        menu: [
+          {
+            name: '基础配置',
+            key: 'base',
+          },
+          {
+            name: '事件处理',
+            key: 'events',
+          },
+        ],
+      },
+      {
         name: 'Marker',
         menu: [
           {
@@ -57,7 +70,6 @@ export const map_items = [
       },
     ],
   },
-  
 ];
 
 export const map_pro = [
@@ -101,4 +113,4 @@ export const map_pro = [
       },
     ],
   },
-]
+];

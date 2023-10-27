@@ -13,6 +13,7 @@ class Cover {
     }
     create(name, options,) {
         const struct = new this.AMap[name](options)
+        this.mapInstance.setFitView([struct])
         return struct
 
     }
