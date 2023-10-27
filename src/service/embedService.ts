@@ -5,12 +5,14 @@ import MapService from './mapService'
 // import MouseTool from './base/mouseTool'
 import IndexCluster from './base/cluster'
 import Rectangle from './base/rectangle'
+import RectangleEditor from './plugin/utils/rectangleEditor'
 
 /**
  * in order to manage struct such as [map, marker, polygon, and all of Amap instance]
  * when we need to init map, init this constructor
  * **/
 export type Embed = Marker | Polygon | Rectangle | PointerLayer | IndexCluster
+export type Plugin = RectangleEditor
 export enum EVENTS_MAP {
     CLICK = 'click'
 }
@@ -26,21 +28,23 @@ export enum STRUCT_NAME {
     POLYGON = 'Polygon',
     MARKER = 'Marker',
     // MOUSE_TOOL = 'MouseTool'
-    INDEX_CLUSTER='IndexCluster',
-    RECTANGLE='Rectangle'
+    INDEX_CLUSTER = 'IndexCluster',
+    RECTANGLE = 'Rectangle'
 }
 
 export enum MENU_CATE {
     BASE = 'base',
-    LOCA = 'loca'
+    LOCA = 'loca',
+    PLUGIN = 'plugin'
 }
 
 class EmbedService {
     // base struct
     Marker: any = Marker
     Polygon: any = Polygon
-    Rectangle:any=Rectangle
-    // plugin struct
+    Rectangle: any = Rectangle
+    // plugin utils
+    RectangleEditor: any = RectangleEditor
     // MouseTool: any = MouseTool
     // loca struct
     PointerLayer: any = PointerLayer
@@ -53,7 +57,6 @@ class EmbedService {
     MapService: Nullable<MapService> = null
     // domID
     domId: string = ''
-
     /**
      * @author {zhangxu}
      * @description struct list manage
@@ -62,6 +65,8 @@ class EmbedService {
     currentStruct: Nullable<Embed> = null
     embedList: Embed[] = []
 
+    // plugin instance list
+    pluginList: Plugin[] = []
     // current render menu item
     embedMenu: any[] = []
     constructor(domId, embedList) {
@@ -79,9 +84,14 @@ class EmbedService {
             this.embedMenu[key].forEach((serve) => {
                 if (this[serve]) {
                     let embed
+
                     switch (key) {
                         case SERVER_CONSTRUCT.COVER:
                             embed = new this[serve](AMap, mepInstance, this);
+                            break;
+                        case SERVER_CONSTRUCT.PLUGIN:
+                            const plugin = new this[serve](AMap, mepInstance, this);
+                            this.pluginList.push(plugin)
                             break;
                         case SERVER_CONSTRUCT.LOCA:
                             embed = new this[serve](Loca, mepInstance, this);
@@ -93,7 +103,35 @@ class EmbedService {
         })
         this.embedList.push(this.MapService)
     }
+    // 在初始化过程存入已经实例化plugin 下次直接读取缓存
+    pushPlugin(plugin) {
+        this.pluginList.push(plugin)
+    }
 
+    // 获取可通过插件进行编辑对象
+    getCoverByPluginEdit(name, ctx, e) {
+        const { target } = e
+        const plugin = this.pluginList.find((plugin) => plugin.name === name)
+        if (!plugin) return
+        const editor = plugin.init(target)
+
+        if (!ctx.editable) {
+            editor.open()
+            ctx.editable = true
+
+        } else {
+            editor.close()
+            ctx.editable = false
+        }
+        // console.log(new this[name]((this.MapService as MapService).struct, target));
+        // if (!ctx.editbale) {
+        //     editor.open()
+        // } else {
+        //     editor.close()
+        // }
+
+
+    }
     // init events for struct 
 
     // // 订阅已经实例化的构件点击事件
@@ -104,18 +142,7 @@ class EmbedService {
     getCurrent(currentStruct) {
         this.currentStruct = currentStruct
     }
-    // // 
-    // getEventsFromEngine(e) {
-    //     const { type } = e
-    //     switch (type) {
-    //         case EVENTS_MAP.CLICK:
-    //             this.handleClick(e);
-    //             break
-    //         default:
-    //             return;
-    //     }
 
-    // }
     // 处理地图点击事件，判断是否添加构件
     handleClick(e) {
         if (this.currentStruct) {
@@ -150,6 +177,8 @@ class EmbedService {
         }
 
     }
+
+
     // // 处理构件事务
     // handleStructEvents(type, ctx, params) {
     //     switch (type) {

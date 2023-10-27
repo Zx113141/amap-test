@@ -2,7 +2,7 @@ import EmbedService from "../embedService"
 class Cover {
     AMap: any = null
     mapInstance: any = null
-    private embedService: Nullable<EmbedService> = null
+    private embedService: EmbedService
     constructor(AMap, mapInstance, embedService) {
         this.embedService = embedService
         this.mapInstance = mapInstance
@@ -11,19 +11,9 @@ class Cover {
     notify(type: string, ctx, ...args: any) {
         (this.embedService as EmbedService).subscribeEmbed(type, ctx, args)
     }
-    create(name, options, isPlugin: boolean = false) {
-        if (!isPlugin) {
-            const struct = new this.AMap[name](options)
-            return struct
-        } else {
-            let struct
-            let that = this
-            this.AMap.plugin(`AMap.${name}`, function () {//异步加载插件
-
-                struct = new that.AMap[name](options)
-            });
-            return struct
-        }
+    create(name, options,) {
+        const struct = new this.AMap[name](options)
+        return struct
 
     }
     remove(ctx, e) {
@@ -37,7 +27,8 @@ class Cover {
         return lnglat
     }
 
-    editStruct(name, e) {
+    editStruct(name, ctx, e) {
+        this.embedService.getCoverByPluginEdit(name, ctx, e)
         // TODO: to do this we need plugin
         // const rectangleEditor = new this.AMap[name](this.mapInstance, e.target)
         // console.log(rectangleEditor)

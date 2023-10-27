@@ -19,7 +19,7 @@ class Rectangle extends Cover {
     cate: string = 'base'
     // marker array
     structs: any[] = []
-
+    editable: boolean = false
     options: any = {}
     constructor(AMap, mapInstance, server) {
         super(AMap, mapInstance, server)
@@ -50,7 +50,7 @@ class Rectangle extends Cover {
         rectangle.on('click', (e) => {
             this.notify('click', this, e)
         })
-        rectangle.on('rightclick', (e) => this.editStruct('RectangleEditor',e))
+        rectangle.on('rightclick', (e) => this.editStruct('RectangleEditor', this, e))
         this.structs.push(rectangle)
     }
     removeMarker(e) {
@@ -61,7 +61,7 @@ class Rectangle extends Cover {
 
     }
 
-  
+
 }
 
 export default Rectangle

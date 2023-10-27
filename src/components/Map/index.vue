@@ -18,7 +18,7 @@
   const embedList = {
     cover: ['Marker', 'Polygon', 'Text', 'Rectangle', 'IndexCluster'],
     loca: ['PointerLayer'],
-    plugin:[]
+    plugin: ['RectangleEditor'],
   };
   const store = useEditMapWithOut();
   // embedService
