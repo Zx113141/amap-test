@@ -9,7 +9,7 @@ class Cover {
         this.AMap = AMap
     }
     notify(type: string, ctx, ...args: any) {
-        (this.embedService as EmbedServie).subscribeEmbed(type, ctx, args)
+        (this.embedService as EmbedService).subscribeEmbed(type, ctx, args)
     }
     create(name, options, isPlugin: boolean = false) {
         if (!isPlugin) {
@@ -27,7 +27,7 @@ class Cover {
 
     }
     remove(ctx, e) {
-        (this.embedService as EmbedServie).handleRemove(ctx, e)
+        (this.embedService as EmbedService).handleRemove(ctx, e)
     }
     calcuBoundsLng(x, y) {
 
