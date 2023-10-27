@@ -23,12 +23,15 @@ class LocaPro {
         })
         return struct
     }
-    createContainer(name, options) {
+    createContainer(options, name?: string) {
         this.loca = new this.Loca.Container({
             map: this.mapInstance,
             opacity: 1,
         })
-        return this.create(name, options)
+        if (name) {
+            return this.create(name, options)
+        }
+        return this.loca
 
     }
     remove(ctx, e) {

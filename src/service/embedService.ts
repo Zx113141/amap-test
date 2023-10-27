@@ -8,6 +8,7 @@ import Rectangle from './base/rectangle'
 import RectangleEditor from './plugin/utils/rectangleEditor'
 import Circle from './base/circle'
 import CircleEditor from './plugin/utils/circleEditor'
+import Camera from './pro/camera'
 /**
  * in order to manage struct such as [map, marker, polygon, and all of Amap instance]
  * when we need to init map, init this constructor
@@ -51,6 +52,7 @@ class EmbedService {
     // MouseTool: any = MouseTool
     // loca struct
     PointerLayer: any = PointerLayer
+    Camera: any = Camera
     IndexCluster: any = IndexCluster
     /**
      * @author {zhangxu}

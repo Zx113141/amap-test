@@ -79,6 +79,12 @@ export const map_pro = [
     children: [
       {
         name: 'Camera',
+        menu: [
+          {
+            name: '基础配置',
+            key: 'base',
+          },
+        ],
       },
       {
         name: 'PointLayer',
