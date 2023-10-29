@@ -51,10 +51,7 @@ class Marker extends Cover {
         }
         const marker = this.create(this.name, configs)
 
-        marker.on('click', (e) => {
-            this.notify('click', this, e)
-        })
-        marker.on('rightclick', (e) => this.removeMarker(e))
+
         this.structs.push(marker)
     }
     calculateIconSize() {

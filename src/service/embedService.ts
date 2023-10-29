@@ -157,9 +157,8 @@ class EmbedService {
         }
     }
     // 移除当前构件
-    handleRemove(ctx, e) {
+    handleRemove(name, e) {
         const id = e.target.getExtData().id
-        const name = ctx.name
         e.target.setMap(null)
         e.target = null
         const embed = this.embedList.find((embed) => embed.name === name) as Embed

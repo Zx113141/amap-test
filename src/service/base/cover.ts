@@ -16,10 +16,16 @@ class Cover {
             ...options,
             map: this.mapInstance,
             extData: {
-                id: window.btoa('' + new Date().getTime())
+                id: window.btoa('' + new Date().getTime()),
+                name,
             },
         })
+
         this.mapInstance.setFitView([struct])
+        struct.on('click', (e) => {
+            this.notify('click', this, e)
+        })
+        struct.on('rightclick', (e) => this.remove(struct.getExtData().name, e))
         return struct
 
     }
