@@ -67,7 +67,9 @@ class EmbedService {
      * @description struct list manage
      * **/
     // special struct for amp instance list
-    currentStruct: Nullable<Embed> = null
+    currentEmbed: Nullable<Embed> = null
+    currentStruct: any = null
+
     embedList: Embed[] = []
 
     // plugin instance list
@@ -102,10 +104,13 @@ class EmbedService {
                             embed = new this[serve](Loca, mepInstance, this);
                             break;
                     }
-                    this.embedList.push(embed)
+                    if (embed) {
+                        this.embedList.push(embed)
+                    }
                 }
             })
         })
+        console.log(this.embedList);
         this.embedList.push(this.MapService)
     }
     // 在初始化过程存入已经实例化plugin 下次直接读取缓存
@@ -136,14 +141,17 @@ class EmbedService {
         console.log();
         // this.handleStructEvents(type, ctx, params)
     }
-    getCurrent(currentStruct) {
-        this.currentStruct = currentStruct
+    getCurrentEmbed(currentEmbed) {
+        this.currentEmbed = currentEmbed
+    }
+    getCurrentStruct(struct) {
+        this.currentStruct = struct
     }
 
     // 处理地图点击事件，判断是否添加构件
     handleClick(e) {
-        if (this.currentStruct) {
-            this.currentStruct?.createStruct(e)
+        if (this.currentEmbed) {
+            this.currentEmbed?.createStruct(e)
         } else {
             this.MapService?.handleMapClick(e)
         }

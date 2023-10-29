@@ -37,10 +37,10 @@
     comp.setOptions = editStore.setCurrentStruct;
   });
   watch(
-    () => editStore.struct.name,
+    () => editStore.embed.name,
     (newName) => {
       comp.name = newName;
-      comp.struct = editStore.struct;
+      comp.struct = editStore.embed;
       // props.item.forEach((menu) => {
       //   if (editStore.struct.cate === menu.key) {
       //     const menuItems = menu.children.find((item) => item.name === newName);

@@ -41,15 +41,13 @@ class Marker extends Cover {
 
         const position = [e.lnglat.lng, e.lnglat.lat]
         const configs = {
-            map: this.mapInstance,
+
             position,
             offset: this.calculatePixelOffset(),
 
             ...this.options,
             icon: this.calculateIconSize(),
-            extData: {
-                id: new Date().getTime()
-            },
+
         }
         const marker = this.create(this.name, configs)
 

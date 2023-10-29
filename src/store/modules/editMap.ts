@@ -1,5 +1,5 @@
 
-import EmbedService, { STRUCT_NAME, MENU_CATE } from '/@/service/embedService';
+import EmbedService, { STRUCT_NAME, MENU_CATE, Embed } from '/@/service/embedService';
 // import { * asecharts } from 'echarts/core';
 import { defineStore } from 'pinia';
 import { store } from '/@/store';
@@ -8,6 +8,7 @@ interface EditMap {
 
   // material: any,
   service: Nullable<EmbedService>
+  embed: any,
   struct: any
 }
 
@@ -16,10 +17,11 @@ export const useEditMap = defineStore({
   state: (): EditMap => ({
     // info
     service: null,
-    struct: {
+    embed: {
       name: STRUCT_NAME.MAP_SERVICE,
       cate: MENU_CATE.BASE,
-    }
+    },
+    struct: null
   }),
   getters: {
     // getCanvasOrMaterial(): Nullable<EditMap> {
@@ -35,26 +37,34 @@ export const useEditMap = defineStore({
     setCurrentService(material: any) {
       // console.log(material, this.service);
       if (!material) {
-        this.struct = (this.service as EmbedService).embedList.find(server => server.name === STRUCT_NAME.MAP_SERVICE)
-        this.service?.getCurrent(null)
+        this.embed = (this.service as EmbedService).embedList.find(server => server.name === STRUCT_NAME.MAP_SERVICE)
+        this.service?.getCurrentEmbed(null)
       } else {
-        this.struct = (this.service as EmbedService).embedList.find(server => server.name === material.name)
-        // console.log(this.struct, material.name);
-        this.service?.getCurrent(this.struct)
+        this.embed = (this.service as EmbedService).embedList.find(server => server.name === material.name)
+        // console.log(this.embed, material.name);
+        this.service?.getCurrentEmbed(this.embed)
       }
     },
     // 获取构件配置
     setCurrentStruct(options) {
-      this.struct.options = options
-      switch (this.struct.name) {
+      this.embed.options = options
+      switch (this.embed.name) {
         case STRUCT_NAME.MAP_SERVICE:
         case STRUCT_NAME.MOUSE_TOOL:
-          (this.service as EmbedService).notify(this.struct.name, 'setOptions', options)
+          (this.service as EmbedService).notify(this.embed.name, 'setOptions', options)
       }
 
       message.success('配置保存成功')
     },
+    // 根据Id 选中构件
+    selectStructById({ name, id }) {
+      const struct_list = this.service?.embedList.find((embed: Embed) => embed.name === name)?.structs
+      if (struct_list) {
+        this.struct = struct_list.find((struct: any) => struct.getExtData().id === id)
 
+        this.service?.getCurrentStruct(this.struct)
+      }
+    },
 
   },
 });

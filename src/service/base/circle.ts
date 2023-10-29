@@ -48,9 +48,7 @@ class Circle extends Cover {
             center,
             ...config,
             // ...this.options,
-            extData: {
-                id: new Date().getTime()
-            },
+
         }
 
         const circle = this.create(this.name, configs)

@@ -24,12 +24,10 @@ class Polygon extends Cover {
     createStruct(e) {
         // const position = [e.lnglat.lng, e.lnglat.lat]
         const configs = {
-            map: this.mapInstance,
+
             offset: new this.AMap.Pixel(-30, -60),
             ...this.options,
-            extData: {
-                id: new Date().getTime()
-            },
+
         }
         const polygon = this.create(this.name, configs)
 

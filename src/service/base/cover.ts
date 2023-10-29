@@ -12,7 +12,13 @@ class Cover {
         (this.embedService as EmbedService).subscribeEmbed(type, ctx, args)
     }
     create(name, options,) {
-        const struct = new this.AMap[name](options)
+        const struct = new this.AMap[name]({
+            ...options,
+            map: this.mapInstance,
+            extData: {
+                id: window.btoa('' + new Date().getTime())
+            },
+        })
         this.mapInstance.setFitView([struct])
         return struct
 

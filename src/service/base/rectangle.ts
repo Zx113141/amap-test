@@ -36,13 +36,11 @@ class Rectangle extends Cover {
         const bounds = new this.AMap.Bounds(southWest, northEast)
         const position = [e.lnglat.lng, e.lnglat.lat]
         const configs = {
-            map: this.mapInstance,
+
             bounds,
             position,
             ...this.options,
-            extData: {
-                id: new Date().getTime()
-            },
+
         }
 
         const rectangle = this.create(this.name, configs)

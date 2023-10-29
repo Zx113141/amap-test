@@ -22,7 +22,7 @@
     },
   });
   watch(
-    () => store.struct.name,
+    () => store.embed.name,
     (newName) => {
       // console.log(store.struct);
       active.value = newName === props.name;

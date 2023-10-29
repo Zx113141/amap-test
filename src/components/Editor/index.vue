@@ -14,6 +14,7 @@
             </div>
           </a-collapse-panel>
         </a-collapse>
+        <instance-list></instance-list>
       </left-slide>
     </section>
     <main id="editor">
@@ -33,13 +34,11 @@
   import LeftSlide from '/@/components/Slide/index.vue';
   import MaterialMenu from '../MaterialMenu/index.vue';
   import MaterialConfig from '../MaterialConfig/index.vue';
-  import { map_items,map_pro } from '/@/config/material/map_item';
+  import { map_items, map_pro } from '/@/config/material/map_item';
+  import InstanceList from '/@/components/InstanceList/index.vue';
 
   const sotre = useEditMapWithOut();
-  const menu = [
-    ...map_items,
-    ...map_pro
-  ]
+  const menu = [...map_items, ...map_pro];
 </script>
 
 <style lang="less" scoped>
