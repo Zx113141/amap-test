@@ -10,7 +10,12 @@
         </ul>
       </a-tab-pane>
       <a-tab-pane key="struct_list" tab="全局">
-        <a-tree :show-line="true" :tree-data="embedList" @select="onSelect">
+        <a-tree
+          :show-line="true"
+          :tree-data="embedList"
+          @select="onSelect"
+          v-if="activeKey == 'struct_list'"
+        >
           <template #icon><carry-out-outlined /></template>
           <template #title="{ dataRef }">
             <template v-if="dataRef.key === '0-0-0-1'">
@@ -19,13 +24,14 @@
             </template>
             <template v-else>{{ dataRef.title }}</template>
           </template>
-          <template #switcherIcon="{ dataRef, defaultIcon }">
-            <SmileTwoTone v-if="dataRef.key === '0-0-2'" />
-            <component :is="defaultIcon" v-else />
-          </template>
+          <template #switcherIcon="{ switcherCls }"
+            ><down-outlined :class="switcherCls"
+          /></template>
         </a-tree>
       </a-tab-pane>
-      <a-tab-pane key="3" tab="Tab 3">Content of Tab 3</a-tab-pane>
+      <a-tab-pane key="to-do" tab="Tab 3"
+        ><span v-if="activeKey == 'struct_list'"> // todo </span></a-tab-pane
+      >
     </a-tabs>
   </div>
 </template>
@@ -34,7 +40,7 @@
   const activeKey = ref('record');
   import { useEditMap } from '/@/store/modules/editMap';
   import { Embed } from '/@/service/embedService';
-  import { CarryOutOutlined, SmileTwoTone } from '@ant-design/icons-vue';
+  import { CarryOutOutlined } from '@ant-design/icons-vue';
   import type { TreeProps } from 'ant-design-vue';
   const store = useEditMap();
   const embedList = ref<TreeProps['treeData']>([]);
