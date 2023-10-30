@@ -1,3 +1,8 @@
+import circle from '/@/assets/struct_icons/circle.svg';
+import cluster from '/@/assets/struct_icons/cluster.svg';
+import marker from '/@/assets/struct_icons/map-marker.svg';
+import polygon from '/@/assets/struct_icons/Polygon.svg';
+import text from '/@/assets/struct_icons/text.svg';
 export const map_items = [
   {
     name: '地图基础功能(Base Function)',
@@ -5,6 +10,7 @@ export const map_items = [
     children: [
       {
         name: 'Polygon',
+        icon: polygon,
         menu: [
           {
             name: '基础配置',
@@ -31,6 +37,7 @@ export const map_items = [
       },
       {
         name: 'Circle',
+        icon: circle,
         menu: [
           {
             name: '基础配置',
@@ -44,6 +51,8 @@ export const map_items = [
       },
       {
         name: 'Marker',
+        icon: marker,
+
         menu: [
           {
             name: '基础配置',
@@ -57,6 +66,7 @@ export const map_items = [
       },
       {
         name: 'IndexCluster',
+        icon: cluster,
         menu: [
           {
             name: '基础配置',

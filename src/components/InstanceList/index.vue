@@ -1,103 +1,64 @@
 <template>
   <div class="struct-list">
-    <a-tabs v-model:activeKey="activeKey" :tab-position="'left'" animated size="small">
-      <a-tab-pane key="embedList" tab="组件">
-        <slot name="embed" v-if="activeKey == 'embedList'"></slot>
-      </a-tab-pane>
-      <a-tab-pane key="struct_list" tab="全局">
-        <a-tree
-          :show-line="true"
-          :tree-data="embedList"
-          @select="onSelect"
-          v-if="activeKey == 'struct_list'"
-        >
-          <template #icon><carry-out-outlined /></template>
-          <template #title="{ dataRef }">
-            <template v-if="dataRef.key === '0-0-0-1'">
-              <div>multiple line title</div>
-              <div>multiple line title</div>
-            </template>
-            <template v-else>{{ dataRef.title }}</template>
-          </template>
-          <template #switcherIcon="{ switcherCls }"
-            ><down-outlined :class="switcherCls"
-          /></template>
-        </a-tree>
-      </a-tab-pane>
-      <a-tab-pane key="record" tab="历史"><span> </span></a-tab-pane>
-    </a-tabs>
+    <div class="icon-list">
+      <div :class="['icon', activeKey === comp.key ? 'active' : '']" v-for="comp in components">
+        <component
+          :is="comp.component"
+          :key="comp.key"
+          @click="() => onTabChange(comp.key)"
+          style="font-size: 22px"
+        />
+      </div>
+    </div>
+    <div class="tab-content">
+      <div class="tabs">
+        <div class="tab-title"> </div>
+        <div v-if="activeKey == 'app_store'">
+          <slot name="app_store"></slot>
+        </div>
+        <div v-else-if="activeKey == 'struct_list'"> <slot name="struct_list"></slot></div>
+        <div v-else> history_list </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
-  const activeKey = ref('record');
-  import { useEditMap } from '/@/store/modules/editMap';
-  import { Embed } from '/@/service/embedService';
-  import { CarryOutOutlined } from '@ant-design/icons-vue';
-  import type { TreeProps } from 'ant-design-vue';
-  const store = useEditMap();
-  const embedList = ref<TreeProps['treeData']>([]);
+  import { BarsOutlined, ApartmentOutlined, AppstoreOutlined } from '@ant-design/icons-vue';
 
-  const onSelect: TreeProps['onSelect'] = (selectedKeys, info) => {
-    const id = info.selectedNodes[0].id;
-    if (id) {
-      store.selectStructById({
-        name: info.name,
-        id,
-      });
-    }
+  const activeKey = ref('app_store');
+
+  const onTabChange = (key: string) => {
+    if (key === activeKey.value) return;
+    activeKey.value = key;
   };
-
-  watch(
-    () => store.service?.embedList,
-    (newVal) => {
-      if (newVal && newVal.length > 0) {
-        embedList.value = newVal.map((embed: Embed, index: number) => {
-          return {
-            title: embed.name,
-            key: '0' + index,
-            children: embed.structs
-              ? embed.structs.map((struct, i) => {
-                  return {
-                    title:
-                      embed.name + '-' + struct.getExtData().id.substring(10).replace('==', ''),
-                    key: '0' + index + (i + 1),
-                    id: struct.getExtData().id,
-                    name: embed.name,
-                  };
-                })
-              : [],
-          };
-        });
-      }
+  const components = [
+    {
+      component: AppstoreOutlined,
+      key: 'app_store',
     },
     {
-      deep: true,
-      immediate: true,
+      component: ApartmentOutlined,
+      key: 'struct_list',
     },
-  );
+    {
+      component: BarsOutlined,
+      key: 'history_list',
+    },
+  ];
 </script>
 
 <style lang="less">
   .struct-list {
-    padding: 4px;
-    .ant-tabs-left > .ant-tabs-nav .ant-tabs-tab,
-    .ant-tabs-right > .ant-tabs-nav .ant-tabs-tab,
-    .ant-tabs-left > div > .ant-tabs-nav .ant-tabs-tab,
-    .ant-tabs-right > div > .ant-tabs-nav .ant-tabs-tab {
-      padding: 4px;
-    }
-    overflow: auto;
-    ul {
-      margin: 0;
-      padding: 0;
-      list-style: none;
-      li {
+    display: flex;
+    align-items: flex-start;
+    .icon-list {
+      .icon {
         padding: 10px;
       }
-      li:hover {
-        box-shadow: rgba(100, 100, 111, 0.2) 1.95px 1.95px 2.6px;
-      }
+    }
+    .active {
+      border-left: 3px solid #1890ff;
     }
   }
 </style>

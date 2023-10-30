@@ -42,15 +42,6 @@
     (newName) => {
       comp.name = newName;
       comp.struct = editStore.embed;
-      // props.item.forEach((menu) => {
-      //   if (editStore.struct.cate === menu.key) {
-      //     const menuItems = menu.children.find((item) => item.name === newName);
-      //     if (menuItems && menuItems?.menu) {
-      //       menu_items.value = menuItems.menu;
-      //     }
-      //   }
-      // });
-      // console.log(comp.name, menu_items.value);
     },
 
     {

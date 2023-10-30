@@ -3,7 +3,7 @@
     <section class="left-section" @click="() => sotre.setCurrentService('')">
       <left-slide>
         <instance-list>
-          <template #embed>
+          <template #app_store>
             <a-collapse v-model:active-key="activeKey">
               <a-collapse-panel :key="item.key" :header="item.name" v-for="item in menu">
                 <div class="menu">
@@ -16,6 +16,9 @@
                 </div>
               </a-collapse-panel>
             </a-collapse>
+          </template>
+          <template #struct_list>
+            <struct-modal />
           </template>
         </instance-list>
       </left-slide>
@@ -39,13 +42,14 @@
   import MaterialConfig from '../MaterialConfig/index.vue';
   import { map_items, map_pro } from '/@/config/material/map_item';
   import InstanceList from '/@/components/InstanceList/index.vue';
+  import StructModal from '/@/components/StructModal/index.vue';
 
   const sotre = useEditMapWithOut();
   const menu = [...map_items, ...map_pro];
   const activeKey = ref(['base', 'loca']);
 </script>
 
-<style lang="less" scoped>
+<style lang="less">
   .editor-area {
     position: relative;
     width: 100%;
@@ -57,14 +61,15 @@
     }
     .left-section {
       position: absolute;
-
+      .ant-collapse-content-box {
+        padding: 0 !important;
+      }
       z-index: 30;
       background: white;
       .menu {
         display: flex;
-        column-gap: 8px;
-        row-gap: 8px;
         flex-wrap: wrap;
+        // justify-content: space-eve;
       }
     }
     .right-section {
@@ -75,5 +80,8 @@
       z-index: 30;
       background: white;
     }
+  }
+  .ant-collapse > .ant-collapse-item > .ant-collapse-header {
+    padding: 8px 4px;
   }
 </style>
