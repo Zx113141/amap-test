@@ -2,19 +2,22 @@
   <div class="editor-area">
     <section class="left-section" @click="() => sotre.setCurrentService('')">
       <left-slide>
-        <a-collapse :active-key="['base', 'loca']">
-          <a-collapse-panel :key="item.key" :header="item.name" v-for="item in menu">
-            <div class="menu">
-              <material-menu
-                v-for="child in item.children"
-                :key="child.type"
-                :cate="item.key"
-                v-bind="{ ...child }"
-              ></material-menu>
-            </div>
-          </a-collapse-panel>
-        </a-collapse>
-        <instance-list></instance-list>
+        <instance-list>
+          <template #embed>
+            <a-collapse v-model:active-key="activeKey">
+              <a-collapse-panel :key="item.key" :header="item.name" v-for="item in menu">
+                <div class="menu">
+                  <material-menu
+                    v-for="child in item.children"
+                    :key="child.type"
+                    :cate="item.key"
+                    v-bind="{ ...child }"
+                  ></material-menu>
+                </div>
+              </a-collapse-panel>
+            </a-collapse>
+          </template>
+        </instance-list>
       </left-slide>
     </section>
     <main id="editor">
@@ -39,6 +42,7 @@
 
   const sotre = useEditMapWithOut();
   const menu = [...map_items, ...map_pro];
+  const activeKey = ref(['base', 'loca']);
 </script>
 
 <style lang="less" scoped>

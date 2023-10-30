@@ -1,5 +1,5 @@
 <template>
-  <a-collapse :activeKey="['events', 'base']">
+  <a-collapse v-model:active-key="activeKey">
     <a-collapse-panel :key="'base'" :header="'基础配置'">
       <div class="menu">
         <embed-base-panel :comp="comp"></embed-base-panel>
@@ -17,6 +17,7 @@
   import { useEditMapWithOut } from '/@/store/modules/editMap';
   import EmbedBasePanel from '../EmbedBasePanel/index.vue';
   import EmbedBaseEvents from '../EmbedBaseEvents/index.vue';
+  const activeKey = ref(['events', 'base']);
   // const edit_map = {
   //   base: defineAsyncComponent(() => import('../EmbedBasePanel/index.vue')),
   //   events: defineAsyncComponent(() => import('../EmbedBaseEvents/index.vue')),

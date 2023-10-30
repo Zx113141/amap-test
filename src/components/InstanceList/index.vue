@@ -1,13 +1,8 @@
 <template>
   <div class="struct-list">
     <a-tabs v-model:activeKey="activeKey" :tab-position="'left'" animated size="small">
-      <a-tab-pane key="record" tab="历史">
-        <ul v-if="activeKey === 'record'">
-          <li>1</li>
-          <li>2</li>
-          <li>3</li>
-          <li>4</li>
-        </ul>
+      <a-tab-pane key="embedList" tab="组件">
+        <slot name="embed" v-if="activeKey == 'embedList'"></slot>
       </a-tab-pane>
       <a-tab-pane key="struct_list" tab="全局">
         <a-tree
@@ -29,9 +24,7 @@
           /></template>
         </a-tree>
       </a-tab-pane>
-      <a-tab-pane key="to-do" tab="Tab 3"
-        ><span v-if="activeKey == 'struct_list'"> // todo </span></a-tab-pane
-      >
+      <a-tab-pane key="record" tab="历史"><span> </span></a-tab-pane>
     </a-tabs>
   </div>
 </template>
