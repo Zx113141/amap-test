@@ -30,7 +30,7 @@
       </a-radio-group>
     </a-form-item>
     <a-form-item>
-      <a-button @click="() => handleSetOptions(formState)">保存</a-button>
+      <a-button @click="() => handleSetOptions(formState)">保存并绘制</a-button>
     </a-form-item>
   </a-form>
 </template>

@@ -53,6 +53,7 @@ class Marker extends Cover {
 
 
         this.structs.push(marker)
+        console.log(this.embedService);
     }
     calculateIconSize() {
         const width = this.options.width || 36

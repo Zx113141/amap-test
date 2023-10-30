@@ -31,7 +31,7 @@
   // });
   const comp = reactive({
     name: 'MapService',
-    setOptions: (options: any) => {},
+    setOptions: () => {},
     struct: null,
   });
   onMounted(() => {

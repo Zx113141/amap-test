@@ -13,7 +13,6 @@
 </template>
 
 <script setup lang="ts">
-  import Icon from '@ant-design/icons-vue';
   import { useEditMapWithOut } from '/@/store/modules/editMap';
   // const Icon = (icon) => createFromIconfontCN({ scriptUrl: icon });
   const store = useEditMapWithOut();

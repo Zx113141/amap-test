@@ -53,7 +53,7 @@ export const useEditMap = defineStore({
         case STRUCT_NAME.MOUSE_TOOL:
           (this.service as EmbedService).notify(this.embed.name, 'setOptions', options)
       }
-
+      (this.service as EmbedService).notify(this.embed.name, 'createStruct', options)
       message.success('配置保存成功')
     },
     // 根据Id 选中构件

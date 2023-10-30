@@ -2,7 +2,7 @@ import EmbedService from "../embedService"
 class Cover {
     AMap: any = null
     mapInstance: any = null
-    private embedService: EmbedService
+    embedService: EmbedService
     constructor(AMap, mapInstance, embedService) {
         this.embedService = embedService
         this.mapInstance = mapInstance
