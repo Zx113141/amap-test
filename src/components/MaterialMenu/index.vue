@@ -57,8 +57,8 @@
     flex-direction: column;
     box-sizing: content-box;
     .material-icon {
-      padding: 16px 0px;
-      border-bottom: 1px dashed #aaa;
+      padding: 8px 0px;
+      /* border-bottom: 1px dashed #aaa; */
     }
   }
   .active {

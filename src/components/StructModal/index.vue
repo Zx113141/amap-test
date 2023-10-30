@@ -1,6 +1,6 @@
 <template>
   <a-tree :show-line="true" :tree-data="embedList" @select="onSelect">
-    <template #icon><carry-out-outlined /></template>
+    <!-- <template #icon><carry-out-outlined style="font-size: 20px" /></template> -->
     <template #title="{ dataRef }">
       <template v-if="dataRef.key === '0-0-0-1'">
         <div>multiple line title</div>
@@ -8,7 +8,7 @@
       </template>
       <template v-else>{{ dataRef.title }}</template>
     </template>
-    <template #switcherIcon="{ switcherCls }"><down-outlined :class="switcherCls" /></template>
+    <!-- <template #switcherIcon="{ switcherCls }"><down-outlined :class="switcherCls" /></template> -->
   </a-tree>
 </template>
 
