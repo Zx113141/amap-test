@@ -84,4 +84,7 @@
   .ant-collapse > .ant-collapse-item > .ant-collapse-header {
     padding: 8px 4px;
   }
+  .ant-collapse {
+    border-left: none;
+  }
 </style>

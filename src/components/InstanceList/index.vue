@@ -50,9 +50,12 @@
 
 <style lang="less">
   .struct-list {
+    height: 100%;
     display: flex;
     align-items: flex-start;
     .icon-list {
+      height: 100%;
+      border-right: 1px solid #d9d9d9;
       .icon {
         padding: 10px;
       }
