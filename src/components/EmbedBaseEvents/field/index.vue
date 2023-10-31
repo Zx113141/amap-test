@@ -1,20 +1,45 @@
 <template>
-  <a-button class="editable-add-btn" style="margin-bottom: 8px" @click="handleAdd">Add</a-button>
-  <a-table bordered :data-source="dataSource" :columns="columns">
+  <a-table :data-source="dataSource" :columns="columns" :pagination="false">
     <template #bodyCell="{ column, text, record }">
-      <template v-if="column.dataIndex === 'name'">
+      <template v-if="column.dataIndex === 'event'">
+        <!-- v-model:value="editableData[record.key].event" -->
+        <a-select>
+          <a-select-option :value="event.value" v-for="event in event_list">{{
+            event.label
+          }}</a-select-option>
+        </a-select>
+      </template>
+      <template v-else-if="column.dataIndex === 'reactive_embed'">
+        <!-- v-model:value="editableData[record.key].reactive_embed" -->
+        <a-select>
+          <a-select-option :value="event.value" v-for="event in event_list">{{
+            event.label
+          }}</a-select-option>
+        </a-select>
+      </template>
+      <template v-else-if="column.dataIndex === 'reactive_field'">
+        <!-- v-model:value="editableData[record.key].reactive_field" -->
+        <a-select>
+          <a-select-option :value="event.value" v-for="event in event_list">{{
+            event.label
+          }}</a-select-option>
+        </a-select> </template
+      ><template v-else-if="column.dataIndex === 'struct_id'">
+        {{ text }}
+      </template>
+      <!-- <template v-if="column.dataIndex !== 'operation'">
         <div class="editable-cell">
           <div v-if="editableData[record.key]" class="editable-cell-input-wrapper">
-            <a-input v-model:value="editableData[record.key].name" @pressEnter="save(record.key)" />
-            <check-outlined class="editable-cell-icon-check" @click="save(record.key)" />
+            
+             <check-outlined class="editable-cell-icon-check" @click="save(record.key)" /> 
           </div>
           <div v-else class="editable-cell-text-wrapper">
             {{ text || ' ' }}
             <edit-outlined class="editable-cell-icon" @click="edit(record.key)" />
           </div>
         </div>
-      </template>
-      <template v-else-if="column.dataIndex === 'operation'">
+      </template> -->
+      <template v-else>
         <a-popconfirm
           v-if="dataSource.length"
           title="Sure to delete?"
@@ -25,80 +50,87 @@
       </template>
     </template>
   </a-table>
+  <div class="btn">
+    <a-button class="editable-add-btn" style="width: 100%" @click="handleAdd" type="dashed"
+      >添加事件</a-button
+    >
+  </div>
 </template>
 
 <script lang="ts" setup>
   //   import { computed, defineComponent, reactive, ref } from 'vue';
-  import type { Ref, UnwrapRef } from 'vue';
-  import { CheckOutlined, EditOutlined } from '@ant-design/icons-vue';
-  import { cloneDeep } from 'lodash-es';
-
+  import type { Ref, UnwrapRef, ComputedRef } from 'vue';
+  const event_list = [
+    {
+      label: '鼠标点击',
+      value: 'click',
+    },
+    {
+      label: '鼠标双击',
+      value: 'dblclick',
+    },
+    {
+      label: '右键点击',
+      value: 'rightclick',
+    },
+    {
+      label: '鼠标移入',
+      value: 'mouseover',
+    },
+  ];
   interface DataItem {
-    key: string;
-    name: string;
-    age: number;
-    address: string;
+    key: number;
+    event: string;
+    reactive_embed: string;
+    reactive_field: string;
+    struct_id: string;
   }
 
   const columns = [
     {
-      title: 'name',
-      dataIndex: 'name',
-      width: '30%',
+      title: '事件选择',
+      dataIndex: 'event',
     },
     {
-      title: 'age',
-      dataIndex: 'age',
+      title: '响应类目',
+      dataIndex: 'reactive_embed',
     },
     {
-      title: 'address',
-      dataIndex: 'address',
+      title: '响应字段',
+      dataIndex: 'reactive_field',
+    },
+    {
+      title: '构件ID',
+      dataIndex: 'struct_id',
     },
     {
       title: 'operation',
       dataIndex: 'operation',
     },
   ];
-  const dataSource: Ref<DataItem[]> = ref([
-    {
-      key: '0',
-      name: 'Edward King 0',
-      age: 32,
-      address: 'London, Park Lane no. 0',
-    },
-    {
-      key: '1',
-      name: 'Edward King 1',
-      age: 32,
-      address: 'London, Park Lane no. 1',
-    },
-  ]);
-  const count = computed(() => dataSource.value.length + 1);
-  const editableData: UnwrapRef<Record<string, DataItem>> = reactive({});
-
-  const edit = (key: string) => {
-    editableData[key] = cloneDeep(dataSource.value.filter((item) => key === item.key)[0]);
-  };
-  const save = (key: string) => {
-    Object.assign(dataSource.value.filter((item) => key === item.key)[0], editableData[key]);
-    delete editableData[key];
-  };
+  const dataSource: Ref<DataItem[]> = ref([]);
+  const count = computed(() => dataSource.value.length);
+  const editableData: UnwrapRef<DataItem[]> = reactive([]);
 
   const onDelete = (key: string) => {
     dataSource.value = dataSource.value.filter((item) => item.key !== key);
   };
   const handleAdd = () => {
     const newData = {
-      key: `${count.value}`,
-      name: `Edward King ${count.value}`,
-      age: 32,
-      address: `London, Park Lane no. ${count.value}`,
+      key: count.value,
+      event: '',
+      reactive_embed: '',
+      reactive_field: '',
+      struct_id: '',
     };
     dataSource.value.push(newData);
   };
 </script>
 
 <style lang="less" scoped>
+  .btn {
+    margin: 15px 0px;
+  }
   .editable-cell {
     position: relative;
     .editable-cell-input-wrapper,

@@ -62,7 +62,7 @@
     .left-section {
       position: absolute;
       .ant-collapse-content-box {
-        padding: 0 !important;
+        padding: 0px !important;
       }
       z-index: 30;
       background: white;
@@ -84,13 +84,11 @@
   .ant-collapse > .ant-collapse-item > .ant-collapse-header {
     padding: 8px 4px;
   }
-  .ant-collapse {
-    border-left: none;
-  }
+
   .ant-collapse > .ant-collapse-item > .ant-collapse-header .ant-collapse-arrow {
     vertical-align: 2px;
   }
   .ant-collapse-content > .ant-collapse-content-box {
-    padding: 0px 16px;
+    padding: 0px 0px;
   }
 </style>
