@@ -17,7 +17,7 @@ class Cover {
             map: this.mapInstance,
             extData: {
                 id: window.btoa('' + new Date().getTime()),
-                name,
+                name: options.name,
             },
         })
 

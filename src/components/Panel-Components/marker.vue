@@ -1,5 +1,8 @@
 <template>
   <a-form :model="formState" :label-col="labelCol" :wrapper-col="wrapperCol" labelAlign="left">
+    <a-form-item label="名字">
+      <a-input v-model:value="formState.name" />
+    </a-form-item>
     <a-form-item label="宽">
       <a-input-number suffix="PX" v-model:value="formState.width" placeholder="宽">
       </a-input-number>
@@ -50,8 +53,8 @@
 </template>
 
 <script lang="ts" setup>
-  import type { UnwrapRef, PropType } from 'vue';
-  import type { IMarker } from '/@/service/marker';
+  import type { UnwrapRef } from 'vue';
+  import type { IMarker } from '/@/service/base/marker';
 
   const labelCol = { span: 10 };
   const wrapperCol = { span: 14 };
@@ -66,6 +69,7 @@
     },
   });
   let formState: UnwrapRef<IMarker> = reactive({
+    name: 'marker',
     title: '',
     topWhenClick: true,
     draggable: true,
@@ -93,4 +97,3 @@
 </script>
 
 <style lang="less" scoped></style>
-../../service/base/marker

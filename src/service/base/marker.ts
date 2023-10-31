@@ -2,6 +2,7 @@ import Cover from "./cover"
 
 
 export interface IMarker {
+    name: string,
     width: number,
     height: number,
     topWhenClick: boolean,

@@ -1,5 +1,8 @@
 <template>
   <a-form :model="formState" :label-col="labelCol" :wrapper-col="wrapperCol">
+    <a-form-item label="名字">
+      <a-input v-model:value="formState.name" />
+    </a-form-item>
     <a-form-item label="画笔透明度">
       <a-input-number suffix="PX" v-model:value="formState.strokeOpacity" placeholder="高">
       </a-input-number>
@@ -29,7 +32,7 @@
 
 <script lang="ts" setup>
   import type { UnwrapRef, PropType } from 'vue';
-  import type { IRectangle } from '/@/service/base/rectangle';
+  import type { ICircle } from '/@/service/base/circle';
   const labelCol = { span: 8 };
   const wrapperCol = { span: 16 };
 
@@ -41,7 +44,7 @@
   });
   const props = defineProps({
     options: {
-      type: Object as PropType<IRectangle>,
+      type: Object as PropType<ICircle>,
       default: () => ({}),
     },
     setOptions: {
@@ -49,7 +52,8 @@
       default: () => () => {},
     },
   });
-  let formState: UnwrapRef<IRectangle> = reactive({
+  let formState: UnwrapRef<ICircle> = reactive({
+    name: 'circle',
     fillColor: '#ccebc5',
     strokeOpacity: 1,
     fillOpacity: 0.5,

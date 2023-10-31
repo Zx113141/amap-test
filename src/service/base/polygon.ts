@@ -1,5 +1,6 @@
 import Cover from "./cover"
 export interface IPoly {
+    name: string,
     fillColor?: string,
     strokeOpacity?: number,
     fillOpacity?: number,

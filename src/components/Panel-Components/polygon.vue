@@ -1,5 +1,8 @@
 <template>
   <a-form :model="formState" :label-col="labelCol" :wrapper-col="wrapperCol">
+    <a-form-item label="名字">
+      <a-input v-model:value="formState.name" />
+    </a-form-item>
     <a-form-item label="地理边界">
       <a-cascader
         v-model:value="formState.border"
@@ -137,6 +140,7 @@
     },
   });
   let formState: UnwrapRef<IPoly> = reactive({
+    name: 'polygon',
     fillColor: '#ccebc5',
     strokeOpacity: 1,
     fillOpacity: 0.5,
@@ -150,4 +154,3 @@
 </script>
 
 <style lang="less" scoped></style>
-../../service/base/polygon

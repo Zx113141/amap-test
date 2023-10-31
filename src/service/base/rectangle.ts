@@ -2,6 +2,7 @@ import Cover from "./cover"
 
 
 export interface IRectangle {
+    name: string,
     fillColor: string,
     strokeOpacity: number,
     fillOpacity: number,
