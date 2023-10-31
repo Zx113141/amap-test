@@ -3,7 +3,7 @@
     <a-form-item label="构件联动" name="isStruct">
       <a-switch v-model:checked="formState.isStruct" :options="options"> </a-switch>
     </a-form-item>
-    <a-form-item label="联动构件" name="cascader_struct">
+    <a-form-item label="联动构件" name="cascader_struct" v-if="formState.isStruct">
       <a-cascader
         v-model:value="formState.cascader_struct"
         :options="options"
@@ -11,9 +11,11 @@
       >
       </a-cascader>
     </a-form-item>
-    <!-- <a-form-item>
-      <a-button @click="() => setOptions(formState)">保存</a-button>
-    </a-form-item> -->
+    <a-form-item v-if="formState.isStruct && formState.cascader_struct.length > 0">
+      <a-button @click="() => emits('visible', true, formState.cascader_struct)"
+        >配置响应器</a-button
+      >
+    </a-form-item>
   </a-form>
 </template>
 
@@ -23,6 +25,7 @@
   const wrapperCol = { span: 14 };
   const store = useEditMapWithOut();
   const options = ref<any[][]>([]);
+  const emits = defineEmits(['visible']);
   const props = defineProps({
     setOptions: {
       type: Function,
