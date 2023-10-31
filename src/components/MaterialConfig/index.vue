@@ -18,17 +18,7 @@
   import EmbedBasePanel from '../EmbedBasePanel/index.vue';
   import EmbedBaseEvents from '../EmbedBaseEvents/index.vue';
   const activeKey = ref(['events', 'base']);
-  // const edit_map = {
-  //   base: defineAsyncComponent(() => import('../EmbedBasePanel/index.vue')),
-  //   events: defineAsyncComponent(() => import('../EmbedBaseEvents/index.vue')),
-  // };
   const editStore = useEditMapWithOut();
-  // const menu_items = ref([]);
-  // const props = defineProps({
-  //   item: {
-  //     type: Array,
-  //   },
-  // });
   const comp = reactive({
     name: 'MapService',
     setOptions: () => {},
@@ -51,4 +41,9 @@
   );
 </script>
 
-<style lang="less" scoped></style>
+<style lang="less" scoped>
+  .menu :deep(.ant-form-item) {
+    border-bottom: 1px solid #ddd;
+    margin: 10px;
+  }
+</style>

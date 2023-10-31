@@ -1,25 +1,24 @@
 <template>
   <a-form :model="formState" :label-col="labelCol" :wrapper-col="wrapperCol" labelAlign="left">
-    <a-form-item label="构件联动" name="mapStyle">
+    <a-form-item label="构件联动" name="isStruct">
       <a-switch v-model:checked="formState.isStruct" :options="options"> </a-switch>
     </a-form-item>
-    <a-form-item label="联动构件" name="mapStyle">
-      <a-cascader v-model:value="formState.mapStyle" :options="options" @change="handleChange">
+    <a-form-item label="联动构件" name="cascader_struct">
+      <a-cascader
+        v-model:value="formState.cascader_struct"
+        :options="options"
+        @change="handleChange"
+      >
       </a-cascader>
     </a-form-item>
-    <a-form-item label="构件联动" name="mapStyle">
-      <a-switch v-model:checked="formState.isStruct" :options="options"> </a-switch>
-    </a-form-item>
-    <a-form-item>
+    <!-- <a-form-item>
       <a-button @click="() => setOptions(formState)">保存</a-button>
-    </a-form-item>
+    </a-form-item> -->
   </a-form>
 </template>
 
 <script lang="ts" setup>
   import { useEditMapWithOut } from '/@/store/modules/editMap';
-  import type { SelectProps } from 'ant-design-vue';
-  import { map_theme } from '/@/config/constant/map_theme';
   const labelCol = { span: 10 };
   const wrapperCol = { span: 14 };
   const store = useEditMapWithOut();
@@ -32,6 +31,7 @@
   });
   const formState = reactive({
     isStruct: false,
+    cascader_struct: [],
     // animation: 'AMAP_ANIMATION_BOUNCE',
   });
 
@@ -65,8 +65,6 @@
     },
     {
       deep: true,
-      immediate: true,
-      flush: 'sync',
     },
   );
 </script>
