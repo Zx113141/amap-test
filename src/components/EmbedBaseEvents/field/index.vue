@@ -1,44 +1,33 @@
 <template>
   <a-table :data-source="dataSource" :columns="columns" :pagination="false">
-    <template #bodyCell="{ column, text, record }">
+    <template #bodyCell="{ column, record }">
       <template v-if="column.dataIndex === 'event'">
-        <!-- v-model:value="editableData[record.key].event" -->
-        <a-select>
+        <a-select style="width: 100%" v-model:value="editableData[record.key].event">
           <a-select-option :value="event.value" v-for="event in event_list">{{
             event.label
           }}</a-select-option>
         </a-select>
       </template>
       <template v-else-if="column.dataIndex === 'reactive_embed'">
-        <!-- v-model:value="editableData[record.key].reactive_embed" -->
-        <a-select>
-          <a-select-option :value="event.value" v-for="event in event_list">{{
-            event.label
+        <a-select
+          style="width: 100%"
+          v-model:value="editableData[record.key].reactive_embed"
+          @change="handleEmbedChange"
+        >
+          <a-select-option :value="embed.name" v-for="embed in embed_struct.embed_list">{{
+            embed.name
           }}</a-select-option>
         </a-select>
       </template>
       <template v-else-if="column.dataIndex === 'reactive_field'">
-        <!-- v-model:value="editableData[record.key].reactive_field" -->
-        <a-select>
-          <a-select-option :value="event.value" v-for="event in event_list">{{
-            event.label
-          }}</a-select-option>
-        </a-select> </template
-      ><template v-else-if="column.dataIndex === 'struct_id'">
-        {{ text }}
+        <a-select style="width: 100%" v-model:value="editableData[record.key].reactive_field">
+          <a-select-option
+            :value="struct.getExtData().id"
+            v-for="struct in embed_struct.struct_list"
+            >{{ struct.getExtData().name }}</a-select-option
+          >
+        </a-select>
       </template>
-      <!-- <template v-if="column.dataIndex !== 'operation'">
-        <div class="editable-cell">
-          <div v-if="editableData[record.key]" class="editable-cell-input-wrapper">
-            
-             <check-outlined class="editable-cell-icon-check" @click="save(record.key)" /> 
-          </div>
-          <div v-else class="editable-cell-text-wrapper">
-            {{ text || ' ' }}
-            <edit-outlined class="editable-cell-icon" @click="edit(record.key)" />
-          </div>
-        </div>
-      </template> -->
       <template v-else>
         <a-popconfirm
           v-if="dataSource.length"
@@ -58,26 +47,17 @@
 </template>
 
 <script lang="ts" setup>
-  //   import { computed, defineComponent, reactive, ref } from 'vue';
-  import type { Ref, UnwrapRef, ComputedRef } from 'vue';
-  const event_list = [
-    {
-      label: '鼠标点击',
-      value: 'click',
-    },
-    {
-      label: '鼠标双击',
-      value: 'dblclick',
-    },
-    {
-      label: '右键点击',
-      value: 'rightclick',
-    },
-    {
-      label: '鼠标移入',
-      value: 'mouseover',
-    },
-  ];
+  import { useEditMapWithOut } from '/@/store/modules/editMap';
+  import type { Ref, UnwrapRef } from 'vue';
+  import { events_list, columns } from '/@/config/constant/events_list';
+  const store = useEditMapWithOut();
+
+  const event_list = reactive(events_list);
+  const embed_struct = reactive<any>({
+    embed_list: [],
+    struct_list: [],
+  });
+
   interface DataItem {
     key: number;
     event: string;
@@ -86,33 +66,11 @@
     struct_id: string;
   }
 
-  const columns = [
-    {
-      title: '事件选择',
-      dataIndex: 'event',
-    },
-    {
-      title: '响应类目',
-      dataIndex: 'reactive_embed',
-    },
-    {
-      title: '响应字段',
-      dataIndex: 'reactive_field',
-    },
-    {
-      title: '构件ID',
-      dataIndex: 'struct_id',
-    },
-    {
-      title: 'operation',
-      dataIndex: 'operation',
-    },
-  ];
   const dataSource: Ref<DataItem[]> = ref([]);
   const count = computed(() => dataSource.value.length);
   const editableData: UnwrapRef<DataItem[]> = reactive([]);
 
-  const onDelete = (key: string) => {
+  const onDelete = (key: number) => {
     dataSource.value = dataSource.value.filter((item) => item.key !== key);
   };
   const handleAdd = () => {
@@ -123,8 +81,24 @@
       reactive_field: '',
       struct_id: '',
     };
+    editableData.push(newData);
     dataSource.value.push(newData);
   };
+  const handleEmbedChange = (e) => {
+    const embed = embed_struct.embed_list.find((embed) => embed.name === e);
+    embed_struct.struct_list = embed.structs;
+  };
+  watch(
+    () => store.service?.embedList,
+    (newList) => {
+      if (newList && newList.length > 0) {
+        embed_struct.embed_list = newList;
+      }
+    },
+    {
+      deep: true,
+    },
+  );
 </script>
 
 <style lang="less" scoped>
