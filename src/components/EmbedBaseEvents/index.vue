@@ -13,7 +13,7 @@
           <Field></Field>
         </a-collapse-panel>
         <a-collapse-panel :key="'properties'" :header="'属性响应'">
-          <div class="menu"> </div>
+          <embed-base-panel></embed-base-panel>
         </a-collapse-panel>
         <a-collapse-panel :key="'life_circle'" :header="'构件生命周期'">
           <div class="menu"> </div>
@@ -27,12 +27,17 @@
 <script lang="ts" setup>
   import StructList from './struct_list/index.vue';
   import Field from './field/index.vue';
+  import EmbedBasePanel from '../EmbedBasePanel/index.vue';
   const visible = ref(true);
   const activeKey = ref(['field']);
   // const showModal = () => {
   //   visible.value = true;
   // };
-
+  const comp = reactive({
+    name: 'MapService',
+    setOptions: () => {},
+    struct: null,
+  });
   const handleOk = (e: MouseEvent) => {
     console.log(e);
     visible.value = false;
@@ -42,28 +47,6 @@
     console.log(value, struct);
     visible.value = value;
   };
-  // import EmbedBasePanel from '../EmbedBasePanel/index.vue';
-  // import { useEditMapWithOut } from '/@/store/modules/editMap';
-  // const editStore = useEditMapWithOut();
-  // const comp = reactive({
-  //   name: 'MapService',
-  //   setOptions: () => {},
-  //   struct: null,
-  // });
-  // onMounted(() => {
-  //   comp.setOptions = editStore.setCurrentStruct;
-  // });
-  // watch(
-  //   () => editStore.embed.name,
-  //   (newName) => {
-  //     comp.name = newName;
-  //     comp.struct = editStore.embed;
-  //   },
-
-  //   {
-  //     deep: true,
-  //   },
-  // );
 </script>
 
 <style lang="less"></style>

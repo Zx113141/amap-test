@@ -1,5 +1,5 @@
 <template>
-  <a-table :data-source="dataSource" :columns="columns" :pagination="false">
+  <a-table :data-source="dataSource" :columns="fields_columns" :pagination="false">
     <template #bodyCell="{ column, record }">
       <template v-if="column.dataIndex === 'event'">
         <a-select style="width: 100%" v-model:value="editableData[record.key].event">
@@ -49,7 +49,7 @@
 <script lang="ts" setup>
   import { useEditMapWithOut } from '/@/store/modules/editMap';
   import type { Ref, UnwrapRef } from 'vue';
-  import { events_list, columns } from '/@/config/constant/events_list';
+  import { events_list, fields_columns } from '/@/config/constant/events_list';
   const store = useEditMapWithOut();
 
   const event_list = reactive(events_list);

@@ -13,7 +13,7 @@
 <script setup lang="ts">
   // import { type IMapProp } from './map';
   import InitMap from '/@/service/initMap';
-  import EmbedService from '/@/service/embedService';
+  import EmbedService, { MODE } from '/@/service/embedService';
   import { useEditMapWithOut } from '/@/store/modules/editMap';
   const embedList = {
     cover: ['Marker', 'Polygon', 'Rectangle', 'IndexCluster', 'Circle'],
@@ -48,7 +48,7 @@
     // 实例化地图
     await map.init();
     // 实例化注入
-    embedService.initAllStruct(map.AMap, map.Loca, map.options);
+    embedService.initAllStruct(map.AMap, map.Loca, map.options, MODE.EDIT);
     // store Embed list注入
     store.pushService(embedService);
     // TODO:

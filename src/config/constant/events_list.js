@@ -17,7 +17,7 @@ export const events_list = [
   },
 ];
 
-export const columns = [
+export const fields_columns = [
   {
     title: '事件选择',
     dataIndex: 'event',
@@ -31,7 +31,9 @@ export const columns = [
     dataIndex: 'reactive_field',
   },
   {
-    title: 'operation',
+    title: '操作',
     dataIndex: 'operation',
   },
 ];
+
+export const property_colomun = [];

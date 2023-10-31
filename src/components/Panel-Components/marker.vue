@@ -46,28 +46,18 @@
         <a-radio value="AMAP_ANIMATION_BOUNCE">弹跳</a-radio>
       </a-radio-group>
     </a-form-item>
-    <a-form-item>
+    <!-- <a-form-item>
       <a-button @click="() => setOptions()">保存</a-button>
-    </a-form-item>
+    </a-form-item> -->
   </a-form>
 </template>
 
 <script lang="ts" setup>
   import type { UnwrapRef } from 'vue';
   import type { IMarker } from '/@/service/base/marker';
-
   const labelCol = { span: 10 };
   const wrapperCol = { span: 14 };
-  const props = defineProps({
-    // options: {
-    //   type: Object as PropType<IMarker>,
-    //   default: () => ({}),
-    // },
-    setOptions: {
-      type: Function,
-      default: () => () => {},
-    },
-  });
+  const props = defineProps({});
   let formState: UnwrapRef<IMarker> = reactive({
     name: 'marker',
     title: '',
@@ -87,13 +77,17 @@
     height: 36,
     icon: '//a.amap.com/jsapi_demos/static/demo-center/icons/poi-marker-default.png',
   });
-  const setOptions = () => {
+  const option = computed(() => {
     const options = { ...formState };
     if (!formState.customContent) {
       delete options['label'];
     }
-    props.setOptions(options);
-  };
+    return options;
+  });
+  defineExpose(option);
+  // const setOptions = () => {
+  //   //   // props.setOptions();
+  // };
 </script>
 
 <style lang="less" scoped></style>

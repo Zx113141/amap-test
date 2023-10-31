@@ -15,6 +15,10 @@ import Camera from './pro/camera'
  * **/
 export type Embed = Marker | Polygon | Rectangle | PointerLayer | IndexCluster | Circle
 export type Plugin = RectangleEditor | CircleEditor
+export enum MODE {
+    EDIT = 'edit',
+    PREVIEW = 'preview',
+}
 export enum EVENTS_MAP {
     CLICK = 'click'
 }
@@ -41,6 +45,8 @@ export enum MENU_CATE {
 }
 
 class EmbedService {
+    // mode
+    mode: string = MODE.EDIT
     // base struct
     Marker: any = Marker
     Polygon: any = Polygon
@@ -84,7 +90,8 @@ class EmbedService {
     initMapService(domId, AMap, mapOptions) {
         this.MapService = new MapService(domId, AMap, mapOptions, this)
     }
-    initAllStruct(AMap, Loca, mapOptions) {
+    initAllStruct(AMap, Loca, mapOptions, mode) {
+        this.mode = mode
         this.initMapService(this.domId, AMap, mapOptions)
         const mepInstance = (this.MapService as MapService).struct
         Object.keys(this.embedMenu).forEach((key) => {
@@ -136,9 +143,11 @@ class EmbedService {
     }
     // init events for struct 
 
-    // // 订阅已经实例化的构件点击事件
+    // // 订阅已经实例化的构件事件
     subscribeEmbed(type: string, ctx: Embed, ...params: any) {
-        console.log();
+        if (this.mode === MODE.EDIT) {
+
+        }
         // this.handleStructEvents(type, ctx, params)
     }
     getCurrentEmbed(currentEmbed) {
@@ -150,8 +159,11 @@ class EmbedService {
 
     // 处理地图点击事件，判断是否添加构件
     handleClick(e) {
+
         if (this.currentEmbed) {
-            this.currentEmbed?.createStruct(e)
+            if (this.mode === MODE.EDIT) {
+                this.currentEmbed?.createStruct(e)
+            }
         } else {
             this.MapService?.handleMapClick(e)
         }
@@ -169,7 +181,7 @@ class EmbedService {
     destory(key) {
 
     }
-
+    // 外部事件通知
     notify(name, functionType, ...args) {
         if (this[name][functionType]) {
             const res = this[name][functionType](...args)
