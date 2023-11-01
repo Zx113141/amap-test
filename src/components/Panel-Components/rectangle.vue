@@ -63,6 +63,7 @@
     strokeDasharray: [5, 5],
     path: [],
     border: [],
+    context: 'Rectangle',
   });
 </script>
 

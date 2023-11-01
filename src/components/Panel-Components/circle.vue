@@ -63,8 +63,8 @@
     strokeDasharray: [5, 5],
     path: [],
     border: [],
+    context: 'Circle',
   });
 </script>
 
 <style lang="less" scoped></style>
-../../service/base/polygon

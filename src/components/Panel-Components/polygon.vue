@@ -32,9 +32,9 @@
         <a-radio value="point">点线</a-radio>
       </a-radio-group>
     </a-form-item>
-    <a-form-item>
+    <!-- <a-form-item>
       <a-button @click="() => handleSetOptions(formState)">保存并绘制</a-button>
-    </a-form-item>
+    </a-form-item> -->
   </a-form>
 </template>
 
@@ -139,6 +139,7 @@
       default: () => () => {},
     },
   });
+
   let formState: UnwrapRef<IPoly> = reactive({
     name: 'polygon',
     fillColor: '#ccebc5',
@@ -150,7 +151,9 @@
     strokeDasharray: [5, 5],
     path: [],
     border: [],
+    context: 'Polygon',
   });
+  defineExpose(formState);
 </script>
 
 <style lang="less" scoped></style>

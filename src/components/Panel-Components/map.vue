@@ -26,6 +26,7 @@
   });
   const formState = reactive({
     mapStyle: 'amap://styles/normal',
+    context: 'Map',
     // animation: 'AMAP_ANIMATION_BOUNCE',
   });
   const options = ref<SelectProps['options']>(map_theme);

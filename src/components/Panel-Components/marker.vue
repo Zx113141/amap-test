@@ -76,6 +76,7 @@
     width: 36,
     height: 36,
     icon: '//a.amap.com/jsapi_demos/static/demo-center/icons/poi-marker-default.png',
+    context: 'Marker',
   });
   const option = computed(() => {
     const options = { ...formState };

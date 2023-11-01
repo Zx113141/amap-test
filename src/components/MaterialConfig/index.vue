@@ -4,7 +4,11 @@
       <div class="menu">
         <Transition>
           <KeepAlive>
-            <component :is="PanelCompMap[comp.name]" :setOptions="comp.setOptions" ref="config">
+            <component
+              :is="PanelCompMap[comp.name]"
+              :setOptions="comp.setOptions"
+              :ref="setItemRef"
+            >
             </component>
           </KeepAlive>
         </Transition>
@@ -24,9 +28,14 @@
   import { useEditMapWithOut } from '/@/store/modules/editMap';
   // import EmbedBasePanel from '../EmbedBasePanel/index.vue';
   import EmbedBaseEvents from '../EmbedBaseEvents/index.vue';
-  const config = ref(null);
+  let panelCompRefs = ref<any[]>([]);
   const activeKey = ref(['events', 'base']);
   const editStore = useEditMapWithOut();
+  const setItemRef = (el) => {
+    if (el) {
+      panelCompRefs.value.push(el);
+    }
+  };
   const PanelCompMap = {
     Marker: defineAsyncComponent(() => import('../Panel-Components/marker.vue')),
     Polygon: defineAsyncComponent(() => import('../Panel-Components/polygon.vue')),
@@ -45,7 +54,10 @@
   });
 
   const handleSave = () => {
-    console.log();
+    const value = panelCompRefs.value.find(
+      (compRef) => compRef.value && compRef.value.context === comp.name,
+    );
+    comp.setOptions(value.value);
   };
 
   watch(
