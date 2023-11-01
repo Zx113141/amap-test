@@ -15,9 +15,9 @@
         <a-collapse-panel :key="'properties'" :header="'属性响应'">
           <!-- <embed-base-panel></embed-base-panel> -->
         </a-collapse-panel>
-        <a-collapse-panel :key="'life_circle'" :header="'构件生命周期'">
+        <!-- <a-collapse-panel :key="'life_circle'" :header="'构件生命周期'">
           <div class="menu"> </div>
-        </a-collapse-panel>
+        </a-collapse-panel> -->
       </a-collapse>
     </a-modal>
     <struct-list @visible="structEventsHandler"></struct-list>
@@ -30,9 +30,10 @@
 
   const visible = ref(true);
   const activeKey = ref(['field']);
+  let editData = reactive([]);
 
-  const getEmbedOrStruct = (editData) => {
-    console.log(editData);
+  const getEmbedOrStruct = (data) => {
+    editData = data;
   };
 
   const handleOk = () => {
@@ -42,6 +43,8 @@
   const structEventsHandler = (value) => {
     visible.value = value;
   };
+
+  const createTreeData = (data) => {};
 </script>
 
 <style lang="less"></style>
