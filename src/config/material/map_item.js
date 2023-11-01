@@ -11,72 +11,20 @@ export const map_items = [
       {
         name: 'Polygon',
         icon: polygon,
-        menu: [
-          {
-            name: '基础配置',
-            key: 'base',
-          },
-          {
-            name: '事件处理',
-            key: 'events',
-          },
-        ],
       },
       {
         name: 'Rectangle',
-        menu: [
-          {
-            name: '基础配置',
-            key: 'base',
-          },
-          {
-            name: '事件处理',
-            key: 'events',
-          },
-        ],
       },
       {
         name: 'Circle',
         icon: circle,
-        menu: [
-          {
-            name: '基础配置',
-            key: 'base',
-          },
-          {
-            name: '事件处理',
-            key: 'events',
-          },
-        ],
       },
       {
         name: 'Marker',
         icon: marker,
-
-        menu: [
-          {
-            name: '基础配置',
-            key: 'base',
-          },
-          {
-            name: '事件处理',
-            key: 'events',
-          },
-        ],
       },
       {
         name: 'IndexCluster',
-        icon: cluster,
-        menu: [
-          {
-            name: '基础配置',
-            key: 'base',
-          },
-          {
-            name: '事件处理',
-            key: 'events',
-          },
-        ],
       },
     ],
   },
@@ -89,25 +37,9 @@ export const map_pro = [
     children: [
       {
         name: 'Camera',
-        menu: [
-          {
-            name: '基础配置',
-            key: 'base',
-          },
-        ],
       },
       {
         name: 'PointLayer',
-        menu: [
-          {
-            name: '基础配置',
-            key: 'base',
-          },
-          {
-            name: '事件处理',
-            key: 'events',
-          },
-        ],
       },
       {
         name: 'ScatterLayer',

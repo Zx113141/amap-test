@@ -3,14 +3,6 @@
     <a-form-item label="构件联动" name="isStruct">
       <a-switch v-model:checked="formState.isStruct" :options="options"> </a-switch>
     </a-form-item>
-    <!-- <a-form-item label="联动构件" name="cascader_struct" v-if="formState.isStruct">
-      <a-cascader
-        v-model:value="formState.cascader_struct"
-        :options="options"
-        @change="handleChange"
-      >
-      </a-cascader>
-    </a-form-item> -->
     <a-form-item v-if="formState.isStruct">
       <a-button @click="() => emits('visible', true)">配置响应器</a-button>
     </a-form-item>

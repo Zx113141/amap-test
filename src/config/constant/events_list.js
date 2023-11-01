@@ -28,7 +28,7 @@ export const fields_columns = [
   },
   {
     title: '响应构件',
-    dataIndex: 'reactive_field',
+    dataIndex: 'struct_id',
   },
   {
     title: '操作',

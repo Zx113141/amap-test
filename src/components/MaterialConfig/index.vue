@@ -13,14 +13,15 @@
           </KeepAlive>
         </Transition>
         <!-- <embed-base-panel :comp="comp" ></embed-base-panel> -->
+        <embed-base-events :comp="comp"></embed-base-events>
         <a-button @click="() => handleSave()">保存</a-button>
       </div>
     </a-collapse-panel>
-    <a-collapse-panel :key="'events'" :header="'事件处理'">
+    <!-- <a-collapse-panel :key="'events'" :header="'事件处理'">
       <div class="menu">
-        <embed-base-events :comp="comp"></embed-base-events>
+       
       </div>
-    </a-collapse-panel>
+    </a-collapse-panel> -->
   </a-collapse>
 </template>
 

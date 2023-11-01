@@ -1,48 +1,50 @@
 <template>
-  <a-table :data-source="dataSource" :columns="fields_columns" :pagination="false">
-    <template #bodyCell="{ column, record }">
-      <template v-if="column.dataIndex === 'event'">
-        <a-select style="width: 100%" v-model:value="editableData[record.key].event">
-          <a-select-option :value="event.value" v-for="event in event_list">{{
-            event.label
-          }}</a-select-option>
-        </a-select>
-      </template>
-      <template v-else-if="column.dataIndex === 'reactive_embed'">
-        <a-select
-          style="width: 100%"
-          v-model:value="editableData[record.key].reactive_embed"
-          @change="handleEmbedChange"
-        >
-          <a-select-option :value="embed.name" v-for="embed in embed_struct.embed_list">{{
-            embed.name
-          }}</a-select-option>
-        </a-select>
-      </template>
-      <template v-else-if="column.dataIndex === 'reactive_field'">
-        <a-select style="width: 100%" v-model:value="editableData[record.key].reactive_field">
-          <a-select-option
-            :value="struct.getExtData().id"
-            v-for="struct in embed_struct.struct_list"
-            >{{ struct.getExtData().name }}</a-select-option
+  <div style="padding: 10px">
+    <a-table :data-source="dataSource" :columns="fields_columns" :pagination="false">
+      <template #bodyCell="{ column, record }">
+        <template v-if="column.dataIndex === 'event'">
+          <a-select style="width: 100%" v-model:value="editableData[record.key].event">
+            <a-select-option :value="event.value" v-for="event in event_list">{{
+              event.label
+            }}</a-select-option>
+          </a-select>
+        </template>
+        <template v-else-if="column.dataIndex === 'reactive_embed'">
+          <a-select
+            style="width: 100%"
+            v-model:value="editableData[record.key].reactive_embed"
+            @change="handleEmbedChange"
           >
-        </a-select>
+            <a-select-option :value="embed.name" v-for="embed in embed_struct.embed_list">{{
+              embed.name
+            }}</a-select-option>
+          </a-select>
+        </template>
+        <template v-else-if="column.dataIndex === 'struct_id'">
+          <a-select style="width: 100%" v-model:value="editableData[record.key].struct_id">
+            <a-select-option
+              :value="struct.getExtData().id"
+              v-for="struct in embed_struct.struct_list"
+              >{{ struct.getExtData().name }}</a-select-option
+            >
+          </a-select>
+        </template>
+        <template v-else>
+          <a-popconfirm
+            v-if="dataSource.length"
+            title="Sure to delete?"
+            @confirm="onDelete(record.key)"
+          >
+            <a>Delete</a>
+          </a-popconfirm>
+        </template>
       </template>
-      <template v-else>
-        <a-popconfirm
-          v-if="dataSource.length"
-          title="Sure to delete?"
-          @confirm="onDelete(record.key)"
-        >
-          <a>Delete</a>
-        </a-popconfirm>
-      </template>
-    </template>
-  </a-table>
-  <div class="btn">
-    <a-button class="editable-add-btn" style="width: 100%" @click="handleAdd" type="dashed"
-      >添加事件</a-button
-    >
+    </a-table>
+    <div class="btn">
+      <a-button class="editable-add-btn" style="width: 100%" @click="handleAdd" type="dashed"
+        >添加事件</a-button
+      >
+    </div>
   </div>
 </template>
 
@@ -57,12 +59,11 @@
     embed_list: [],
     struct_list: [],
   });
-
+  const emits = defineEmits(['change']);
   interface DataItem {
     key: number;
     event: string;
     reactive_embed: string;
-    reactive_field: string;
     struct_id: string;
   }
 
@@ -78,7 +79,6 @@
       key: count.value,
       event: '',
       reactive_embed: '',
-      reactive_field: '',
       struct_id: '',
     };
     editableData.push(newData);
@@ -88,6 +88,15 @@
     const embed = embed_struct.embed_list.find((embed) => embed.name === e);
     embed_struct.struct_list = embed.structs;
   };
+  watch(
+    editableData,
+    (newEditData) => {
+      emits('change', newEditData);
+    },
+    {
+      deep: true,
+    },
+  );
   watch(
     () => store.service?.embedList,
     (newList) => {

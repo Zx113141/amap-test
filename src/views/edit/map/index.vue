@@ -12,15 +12,7 @@
 <script setup lang="ts">
   import GeoMap from '/@/components/Map/index.vue';
   import Editor from '/@/components/Editor/index.vue';
-  import { MAP_MODE, IPolygonOptions, IMarkerOptions } from '/@/components/Map/map';
-  import { polygon } from '/@/api/map/options';
-  const polygons = reactive<{
-    polygon: IPolygonOptions | null;
-    marker: IMarkerOptions | null;
-  }>({
-    polygon: null,
-    marker: null,
-  });
+  import { MAP_MODE } from '/@/components/Map/map';
 
   // onMounted(async () => {
   //   const res = await polygon();

@@ -10,10 +10,10 @@
     >
       <a-collapse v-model:active-key="activeKey">
         <a-collapse-panel :key="'field'" :header="'依赖字段'">
-          <Field></Field>
+          <Field @change="getEmbedOrStruct"></Field>
         </a-collapse-panel>
         <a-collapse-panel :key="'properties'" :header="'属性响应'">
-          <embed-base-panel></embed-base-panel>
+          <!-- <embed-base-panel></embed-base-panel> -->
         </a-collapse-panel>
         <a-collapse-panel :key="'life_circle'" :header="'构件生命周期'">
           <div class="menu"> </div>
@@ -27,24 +27,19 @@
 <script lang="ts" setup>
   import StructList from './struct_list/index.vue';
   import Field from './field/index.vue';
-  import EmbedBasePanel from '../EmbedBasePanel/index.vue';
+
   const visible = ref(true);
   const activeKey = ref(['field']);
-  // const showModal = () => {
-  //   visible.value = true;
-  // };
-  const comp = reactive({
-    name: 'MapService',
-    setOptions: () => {},
-    struct: null,
-  });
-  const handleOk = (e: MouseEvent) => {
-    console.log(e);
+
+  const getEmbedOrStruct = (editData) => {
+    console.log(editData);
+  };
+
+  const handleOk = () => {
     visible.value = false;
   };
 
-  const structEventsHandler = (value, struct) => {
-    console.log(value, struct);
+  const structEventsHandler = (value) => {
     visible.value = value;
   };
 </script>
