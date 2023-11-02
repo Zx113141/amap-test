@@ -29,6 +29,7 @@
   import { useEditMapWithOut } from '/@/store/modules/editMap';
   // import EmbedBasePanel from '../EmbedBasePanel/index.vue';
   import EmbedBaseEvents from '../EmbedBaseEvents/index.vue';
+  import { nextTick } from 'vue';
   let panelCompRefs = ref<any[]>([]);
   const activeKey = ref(['events', 'base']);
   const editStore = useEditMapWithOut();
@@ -54,23 +55,26 @@
     comp.setOptions = editStore.setCurrentStruct;
   });
 
-  const handleSave = () => {
+  const handleSave = async () => {
     const value = panelCompRefs.value.find(
       (compRef) => compRef.value && compRef.value.context === comp.name,
     );
+    // console.log(panelCompRefs.value, comp.name);
     comp.setOptions(value.value);
   };
 
   watch(
     () => editStore.embed.name,
-    (newName) => {
+    async (newName) => {
       comp.name = newName;
       comp.struct = editStore.embed;
+      // await nextTick(async () => {
+      //   await handleSave();
+      // });
     },
 
     {
       deep: true,
-      immediate: true,
     },
   );
 </script>

@@ -30,16 +30,16 @@ export const fields_columns = [
     title: '响应构件',
     dataIndex: 'struct_id',
   },
-  {
-    title: '生命周期/创建',
-    dataIndex: 'create',
-    width: '110px',
-  },
-  {
-    title: '生命周期/销毁',
-    dataIndex: 'destroy',
-    width: '110px',
-  },
+  // {
+  //   title: '生命周期/创建',
+  //   dataIndex: 'create',
+  //   width: '110px',
+  // },
+  // {
+  //   title: '生命周期/销毁',
+  //   dataIndex: 'destroy',
+  //   width: '110px',
+  // },
   {
     title: '操作',
     dataIndex: 'operation',

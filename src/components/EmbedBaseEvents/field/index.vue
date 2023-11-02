@@ -15,11 +15,16 @@
             v-model:value="editableData[record.key].reactive_embed"
             @change="handleEmbedChange"
             :token-separators="[',']"
+            :labelInValue="true"
             mode="tags"
+            :options="
+              embed_struct.embed_list.map((embed) => ({
+                value: embed.name,
+                label: embed.name,
+              }))
+            "
           >
-            <a-select-option :value="embed.name" v-for="embed in embed_struct.embed_list">{{
-              embed.name
-            }}</a-select-option>
+            <!-- <a-select-option :value="" v-for="embed in " :label="embed.name"></a-select-option> -->
           </a-select>
         </template>
         <template v-else-if="column.dataIndex === 'struct_id'">
@@ -28,16 +33,22 @@
             v-model:value="editableData[record.key].struct_id"
             :token-separators="[',']"
             mode="tags"
+            :labelInValue="true"
+            :options="
+              embed_struct.struct_list.map((struct) => ({
+                label: struct.label,
+
+                options: struct.options.map((stru) => ({
+                  value: stru.getExtData().id,
+                  label: stru.getExtData().name,
+                  parent: struct.label,
+                })),
+              }))
+            "
           >
-            <a-select-opt-group :label="struct.label" v-for="struct in embed_struct.struct_list">
-              <a-select-option v-for="stru in struct.options" :value="stru.getExtData().id">{{
-                stru.getExtData().name
-              }}</a-select-option>
-            </a-select-opt-group>
-            <!-- <a-select-option></a-select-option> -->
           </a-select>
         </template>
-        <template v-else-if="column.dataIndex === 'create'">
+        <!-- <template v-else-if="column.dataIndex === 'create'">
           <a-switch
             v-model:checked="editableData[record.key].create"
             @change="() => (editableData[record.key].destroy = !editableData[record.key].create)"
@@ -50,7 +61,7 @@
             @change="() => (editableData[record.key].create = !editableData[record.key].destroy)"
           >
           </a-switch>
-        </template>
+        </template> -->
         <template v-else>
           <a-popconfirm
             v-if="dataSource.length"
@@ -82,13 +93,13 @@
     struct_list: [],
   });
   const emits = defineEmits(['change']);
-  interface DataItem {
+  export interface DataItem {
     key: number;
     event: string;
     reactive_embed: string[];
     struct_id: string[];
-    create: boolean;
-    destroy: boolean;
+    // create: boolean;
+    // destroy: boolean;
   }
   // const createDisabled = computed(() => (editor) => {
   //   return !editor.destroy;
@@ -109,19 +120,20 @@
       event: '',
       reactive_embed: [],
       struct_id: [],
-      create: false,
-      destroy: false,
+      // create: false,
+      // destroy: false,
     };
     editableData.push(newData);
     dataSource.value.push(newData);
   };
-  const handleEmbedChange = (e: string[]) => {
+  const handleEmbedChange = (e: any[]) => {
     // console.log(e);
     const arr: any[] = [];
     e.forEach((key) => {
-      const embed = embed_struct.embed_list.find((embed) => embed.name === key);
+      const embed = embed_struct.embed_list.find((embed) => embed.name === key.value);
       arr.push({
-        label: 'Marker',
+        label: key.label,
+        value: embed.name,
         options: embed.structs,
       });
     });

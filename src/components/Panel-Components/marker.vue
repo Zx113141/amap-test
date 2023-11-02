@@ -57,7 +57,7 @@
   import type { IMarker } from '/@/service/base/marker';
   const labelCol = { span: 10 };
   const wrapperCol = { span: 14 };
-  const props = defineProps({});
+
   let formState: UnwrapRef<IMarker> = reactive({
     name: 'marker',
     title: '',
