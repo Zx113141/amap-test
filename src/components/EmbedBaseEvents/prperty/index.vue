@@ -17,10 +17,11 @@
           mode="inline"
           @click="(e) => handleClick(e, list.label)"
         >
-          <a-menu-item @titleClick="titleClick" :key="item.value" v-for="item in list.list">{{
-            item.label
-          }}</a-menu-item>
+          <a-menu-item :key="item.value" v-for="item in list.list">{{ item.label }}</a-menu-item>
         </a-menu>
+      </div>
+      <div class="property-list">
+        <component :is=""></component>
       </div>
     </div>
   </div>
@@ -30,7 +31,7 @@
   import { PropType } from 'vue';
   import { DataItem } from '../field/index.vue';
 
-  const props = defineProps({
+  defineProps({
     data: {
       type: Object as PropType<DataItem[]>,
       default: () => [],
@@ -86,9 +87,6 @@
     },
   ]);
 
-  const titleClick = (e) => {
-    console.log(e);
-  };
   // const propertySelectedKeys = ref<string[]>([]);
 
   const handleClick = (e, id) => {
@@ -117,6 +115,8 @@
         },
       ];
     }
+    if (id === 'lifecycle') {
+    }
   };
   const handleEventsClick = (item) => {
     menu_list[0].list = item.reactive_embed;
@@ -124,6 +124,7 @@
     menu_list[2].list = [];
     // menu_list[1].list = []
   };
+  defineExpose(selectedKeys);
 </script>
 
 <style lang="less" scoped>

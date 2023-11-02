@@ -13,42 +13,34 @@
           <Field @change="getEmbedOrStruct" :events_list="events_list"></Field>
         </a-collapse-panel>
         <a-collapse-panel :key="'properties'" :header="'属性响应'">
-          <Property :data="editData" :events_list="events_list"></Property>
+          <Property :data="editData" :events_list="events_list" ref="property"></Property>
         </a-collapse-panel>
       </a-collapse>
     </a-modal>
-    <struct-list @visible="structEventsHandler"></struct-list>
+    <a-form-item>
+      <a-button @click="() => (visible = true)">配置响应器</a-button>
+    </a-form-item>
+    <!-- <struct-list @visible="structEventsHandler"></struct-list> -->
   </div>
 </template>
 
 <script lang="ts" setup>
-  import StructList from './struct_list/index.vue';
+  // import StructList from './struct_list/index.vue';
   import Field, { type DataItem } from './field/index.vue';
   import Property from './prperty/index.vue';
   import { events_list } from '/@/config/constant/events_list';
   const visible = ref(true);
   const activeKey = ref(['field']);
+  const property = ref(null);
   let editData = reactive<DataItem[]>([]);
 
   const getEmbedOrStruct = (data: DataItem[]) => {
     editData = data.filter((item: DataItem) => item.event && item.reactive_embed);
-    console.log(editData);
-    // dataItems.map((item: DataItem) => {
-    //   const
-    //   return {
-    //     ...item,
-    //     struct_id:
-    //   }
-
-    // });
   };
 
   const handleOk = () => {
+    console.log(property.value);
     visible.value = false;
-  };
-
-  const structEventsHandler = (value) => {
-    visible.value = value;
   };
 
   // const createTreeData = (data: DataItem[], embed_struct) => {
