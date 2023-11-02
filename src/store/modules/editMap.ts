@@ -66,7 +66,11 @@ export const useEditMap = defineStore({
         this.service?.getCurrentStruct(this.struct)
       }
     },
-
+    // 获取Panel Vnode 通过Name
+    getVnodePanel(key) {
+      this.service?.initStructPanel(key)
+      return this.service?.panelVNode
+    }
   },
 });
 

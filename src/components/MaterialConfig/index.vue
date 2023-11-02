@@ -4,51 +4,35 @@
       <div class="menu">
         <Transition>
           <KeepAlive>
-            <component
-              :is="PanelCompMap[comp.name]"
-              :setOptions="comp.setOptions"
-              :ref="setItemRef"
-            >
-            </component>
+            <component :is="comp.comp" :ref="setItemRef"> </component>
           </KeepAlive>
         </Transition>
-        <!-- <embed-base-panel :comp="comp" ></embed-base-panel> -->
-        <embed-base-events :comp="comp"></embed-base-events>
+
+        <embed-base-events></embed-base-events>
         <a-button @click="() => handleSave()">保存</a-button>
       </div>
     </a-collapse-panel>
-    <!-- <a-collapse-panel :key="'events'" :header="'事件处理'">
-      <div class="menu">
-       
-      </div>
-    </a-collapse-panel> -->
   </a-collapse>
 </template>
 
 <script setup lang="ts">
   import { useEditMapWithOut } from '/@/store/modules/editMap';
-  // import EmbedBasePanel from '../EmbedBasePanel/index.vue';
+
   import EmbedBaseEvents from '../EmbedBaseEvents/index.vue';
-  import { nextTick } from 'vue';
-  let panelCompRefs = ref<any[]>([]);
-  const activeKey = ref(['events', 'base']);
   const editStore = useEditMapWithOut();
+
+  const activeKey = ref(['events', 'base']);
+  let panelCompRefs = ref<any[]>([]);
   const setItemRef = (el) => {
     if (el) {
       panelCompRefs.value.push(el);
     }
   };
-  const PanelCompMap = {
-    Marker: defineAsyncComponent(() => import('../Panel-Components/marker.vue')),
-    Polygon: defineAsyncComponent(() => import('../Panel-Components/polygon.vue')),
-    MapService: defineAsyncComponent(() => import('../Panel-Components/map.vue')),
-    Rectangle: defineAsyncComponent(() => import('../Panel-Components/rectangle.vue')),
-    Circle: defineAsyncComponent(() => import('../Panel-Components/circle.vue')),
-  };
+
   const comp = reactive<any>({
-    name: 'MapService',
+    name: '',
+    comp: null,
     setOptions: () => {},
-    struct: null,
   });
 
   onMounted(() => {
@@ -56,21 +40,18 @@
   });
 
   const handleSave = async () => {
-    const value = panelCompRefs.value.find(
-      (compRef) => compRef.value && compRef.value.context === comp.name,
-    );
-    // console.log(panelCompRefs.value, comp.name);
+    const value = panelCompRefs.value
+      .filter((item) => !item.nodeType)
+      .find((item) => item.value.context === comp.name);
     comp.setOptions(value.value);
   };
 
   watch(
-    () => editStore.embed.name,
-    async (newName) => {
-      comp.name = newName;
-      comp.struct = editStore.embed;
-      // await nextTick(async () => {
-      //   await handleSave();
-      // });
+    [() => editStore.service?.panelVNode, () => editStore.embed.name],
+    async ([newComp, name]) => {
+      comp.comp = newComp;
+      comp.name = name;
+      // console.log(newName);
     },
 
     {

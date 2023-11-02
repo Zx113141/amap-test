@@ -9,6 +9,7 @@ import RectangleEditor from './plugin/utils/rectangleEditor'
 import Circle from './base/circle'
 import CircleEditor from './plugin/utils/circleEditor'
 import Camera from './pro/camera'
+import { defineAsyncComponent } from 'vue'
 /**
  * in order to manage struct such as [map, marker, polygon, and all of Amap instance]
  * when we need to init map, init this constructor
@@ -82,14 +83,21 @@ class EmbedService {
     pluginList: Plugin[] = []
     // current render menu item
     embedMenu: any[] = []
+    // panel Vnode
+    panelVNode: any = null
     constructor(domId, embedList) {
         this.embedMenu = embedList
         this.domId = domId
+    }
+    // 实例化Panel
+    initStructPanel(key) {
+        this.panelVNode = defineAsyncComponent(() => import(`/@/components/Panel-Components/${key}.vue`))
     }
     // 实例化mapService
     initMapService(domId, AMap, mapOptions) {
         this.MapService = new MapService(domId, AMap, mapOptions, this)
     }
+    // 初始化Embed 
     initAllStruct(AMap, Loca, mapOptions, mode) {
         this.mode = mode
         this.initMapService(this.domId, AMap, mapOptions)
@@ -117,7 +125,6 @@ class EmbedService {
                 }
             })
         })
-        console.log(this.embedList);
         this.embedList.push(this.MapService)
     }
     // 在初始化过程存入已经实例化plugin 下次直接读取缓存
@@ -152,6 +159,7 @@ class EmbedService {
     }
     getCurrentEmbed(currentEmbed) {
         this.currentEmbed = currentEmbed
+        this.initStructPanel(currentEmbed?.name || 'MapService')
     }
     getCurrentStruct(struct) {
         this.currentStruct = struct
