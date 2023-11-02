@@ -40,10 +40,12 @@
   });
 
   const handleSave = async () => {
+    console.log(panelCompRefs.value);
     const value = panelCompRefs.value
       .filter((item) => !item.nodeType)
-      .find((item) => item.value.context === comp.name);
-    comp.setOptions(value.value);
+      .find((item) => item.context === comp.name);
+
+    comp.setOptions(value.value || value);
   };
 
   watch(

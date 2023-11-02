@@ -50,7 +50,7 @@ export const useEditMap = defineStore({
       this.embed.options = options
       switch (this.embed.name) {
         case STRUCT_NAME.MAP_SERVICE:
-        case STRUCT_NAME.MOUSE_TOOL:
+          // case STRUCT_NAME.MOUSE_TOOL:
           (this.service as EmbedService).notify(this.embed.name, 'setOptions', options)
       }
       // TODO:

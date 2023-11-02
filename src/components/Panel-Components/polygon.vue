@@ -9,6 +9,7 @@
         placeholder="Please select"
         change-on-select
         :options="district"
+        @change="handleSetOptions"
       />
     </a-form-item>
     <a-form-item label="画笔透明度">
@@ -41,12 +42,13 @@
 <script lang="ts" setup>
   import type { UnwrapRef, PropType } from 'vue';
   import type { IPoly } from '/@/service/polygon';
-  import { get } from '/@/utils/http';
+
   const labelCol = { span: 8 };
   const wrapperCol = { span: 16 };
-
+  const loading = ref(false);
   const handleSetOptions = async () => {
     // console.log(formState);
+    loading.value = true;
     const params = {
       keywords: formState.border[formState.border.length - 1] || '贵州',
       subdistrict: 1,
@@ -99,10 +101,12 @@
           }
           polyline.push([Number(newa[0]), Number(newa[1])]);
         });
-        props.setOptions({
+        formState = {
           ...formState,
           path: polyline,
-        });
+        };
+
+        loading.value = false;
       });
   };
   const district = [
