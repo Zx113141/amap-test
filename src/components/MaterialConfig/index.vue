@@ -2,11 +2,9 @@
   <a-collapse v-model:active-key="activeKey">
     <a-collapse-panel :key="'base'" :header="'基础配置'">
       <div class="menu">
-        <Transition>
-          <KeepAlive>
-            <component :is="comp.comp" :ref="setItemRef"> </component>
-          </KeepAlive>
-        </Transition>
+        <keep-alive>
+          <component :is="comp.comp" :ref="setItemRef"> </component>
+        </keep-alive>
 
         <embed-base-events></embed-base-events>
         <a-button @click="() => handleSave()">保存</a-button>
@@ -17,7 +15,7 @@
 
 <script setup lang="ts">
   import { useEditMapWithOut } from '/@/store/modules/editMap';
-
+  import { onUpdated } from 'vue';
   import EmbedBaseEvents from '../EmbedBaseEvents/index.vue';
   const editStore = useEditMapWithOut();
 
@@ -38,9 +36,14 @@
   onMounted(() => {
     comp.setOptions = editStore.setCurrentStruct;
   });
-
-  const handleSave = async () => {
+  onDeactivated(() => {
+    console.log('onDeactivated');
+  });
+  onActivated(() => {
     console.log(panelCompRefs.value);
+  });
+  const handleSave = async () => {
+    // console.log(panelCompRefs.value);
     const value = panelCompRefs.value
       .filter((item) => !item.nodeType)
       .find((item) => (item.value.context ? item.value.context : item) === comp.name);

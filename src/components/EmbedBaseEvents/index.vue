@@ -27,7 +27,7 @@
 <script lang="ts" setup>
   // import StructList from './struct_list/index.vue';
   import Field, { type DataItem } from './field/index.vue';
-  import Property from './property/index.vue';
+  import Property, { type FormArray } from './property/index.vue';
   import { events_list } from '/@/config/constant/events_list';
   const visible = ref(true);
   const activeKey = ref(['field']);
@@ -39,10 +39,28 @@
   };
 
   const handleOk = () => {
-    console.log(property.value);
+    console.log(property);
+    // mixinEvents(property.value as FormArray[]);
     visible.value = false;
   };
-
+  const mixinEvents = (formArray: FormArray[]) => {
+    const arr = new Map<string, FormArray[]>();
+    formArray.forEach((item) => {
+      console.log(item);
+      if (arr.has(item.event)) {
+        const newArr = arr.get(item.event);
+        arr.set(item.event, [
+          ...newArr,
+          {
+            ...item,
+          },
+        ]);
+      } else {
+        arr.set(item.event, [{ ...item }]);
+      }
+    });
+    console.log(arr);
+  };
   // const createTreeData = (data: DataItem[], embed_struct) => {
   //   let treeData = [];
   //   // const { struct_list } = embed_struct;

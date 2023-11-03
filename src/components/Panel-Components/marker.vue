@@ -85,7 +85,7 @@
     }
     return options;
   });
-  defineExpose(option);
+  defineExpose(toRaw(option));
   // const setOptions = () => {
   //   //   // props.setOptions();
   // };

@@ -61,7 +61,16 @@
       }
     }
     .active {
-      border-left: 3px solid #1890ff;
+      position: relative;
+    }
+    .active::before {
+      content: '';
+      position: absolute;
+      width: 3px;
+      height: 100%;
+      background-color: #1890ff;
+      left: 0;
+      top: 0;
     }
   }
 </style>

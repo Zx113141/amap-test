@@ -64,7 +64,7 @@
       .ant-collapse-content-box {
         padding: 0px !important;
       }
-      z-index: 30;
+      z-index: 999;
       background: white;
       .menu {
         display: flex;
@@ -77,7 +77,7 @@
 
       right: 0;
       top: 0;
-      z-index: 30;
+      z-index: 999;
       background: white;
     }
   }

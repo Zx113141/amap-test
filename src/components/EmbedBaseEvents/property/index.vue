@@ -31,7 +31,7 @@
 </template>
 
 <script setup lang="ts">
-  import { PropType, reactive, ref, watch } from 'vue';
+  import { PropType, reactive, ref, defineExpose, watch } from 'vue';
   import { DataItem } from '../field/index.vue';
   import { useEditMapWithOut } from '/@/store/modules/editMap';
 
@@ -51,7 +51,14 @@
       default: () => [],
     },
   });
-
+  export interface FormArray {
+    key: string;
+    event: string;
+    embed: string;
+    struct: string;
+    lifecycle: string;
+    options: any;
+  }
   interface List {
     list: {
       label: string;
@@ -67,7 +74,7 @@
     }
   };
   const selectedKeys = reactive<{
-    eventsSelectedKeys: string[];
+    eventsSelectedKeys: { key: number; event: string }[];
     embedSelectedKeys: string[];
     lifecycleSelectedKeys: string[];
     structsSelectedKeys: string[];
@@ -98,15 +105,7 @@
   ]);
 
   const comp = ref<any>(null);
-  const arrayForm = reactive<
-    {
-      event: string;
-      embed: string;
-      struct: string;
-      lifecycle: string;
-      options: any;
-    }[]
-  >([]);
+  let arrayForm = reactive<FormArray[]>([]);
   // const propertySelectedKeys = ref<string[]>([]);
 
   const handleClick = (e, id) => {
@@ -144,7 +143,9 @@
     menu_list[0].list = item.reactive_embed;
     menu_list[1].list = [];
     menu_list[2].list = [];
-
+    selectedKeys.embedSelectedKeys = [];
+    selectedKeys.structsSelectedKeys = [];
+    selectedKeys.lifecycleSelectedKeys = [];
     comp.value = null;
     // menu_list[1].list = []
   };
@@ -155,16 +156,21 @@
       .filter((item) => !item.nodeType)
       .find((item) => item.value.context === embedSelectedKeys[0]);
     const options = value.value;
-
+    // console.log(options);
+    const eve = eventsSelectedKeys[0];
+    const key =
+      eve.event + embedSelectedKeys[0] + structsSelectedKeys[0] + lifecycleSelectedKeys[0];
+    arrayForm = arrayForm.filter((item) => item.key !== key);
     arrayForm.push({
-      event: eventsSelectedKeys[0],
+      key,
+      event: eve.event,
       embed: embedSelectedKeys[0],
       struct: structsSelectedKeys[0],
       lifecycle: lifecycleSelectedKeys[0],
       options,
     });
+    defineExpose(arrayForm);
   };
-  defineExpose(arrayForm);
 </script>
 
 <style lang="less" scoped>

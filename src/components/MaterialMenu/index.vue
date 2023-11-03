@@ -1,7 +1,9 @@
 <template>
   <div
     :class="['material', active ? 'active' : '']"
-    @click.stop="() => store.setCurrentService({ name: props.name, cate: props.cate })"
+    @click.stop="
+      () => store.setCurrentService({ name: props.name, cate: props.cate, value: props.value })
+    "
   >
     <div class="material-icon">
       <img :src="props.icon" width="24" height="24" />
@@ -23,6 +25,10 @@
       default: '',
     },
     cate: {
+      type: String,
+      default: '',
+    },
+    value: {
       type: String,
       default: '',
     },
@@ -61,6 +67,11 @@
     }
   }
   .active {
+    position: relative;
+  }
+  .active::before {
+    content: '';
+    height: 100%;
     border: 2px solid #1890ff;
   }
   .material:hover {

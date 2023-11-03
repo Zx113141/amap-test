@@ -54,9 +54,9 @@
     },
     {
       deep: true,
-      immediate: true,
     },
   );
 </script>
 
 <style lang="less" scoped></style>
+../../service/service/embedService

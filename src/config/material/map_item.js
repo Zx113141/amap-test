@@ -9,22 +9,27 @@ export const map_items = [
     key: 'base',
     children: [
       {
-        name: 'Polygon',
+        name: '区域多边形',
+        value: 'Polygon',
         icon: polygon,
       },
       {
-        name: 'Rectangle',
+        name: '矩形',
+        value: 'Rectangle',
       },
       {
-        name: 'Circle',
+        name: '圆形',
+        value: 'Circle',
         icon: circle,
       },
       {
-        name: 'Marker',
+        name: '点标记',
+        value: 'Marker',
         icon: marker,
       },
       {
-        name: 'IndexCluster',
+        name: '聚合点标记',
+        value: 'IndexCluster',
       },
     ],
   },
@@ -36,28 +41,36 @@ export const map_pro = [
     key: 'loca',
     children: [
       {
-        name: 'Camera',
+        name: '相机',
+        value: 'Camera',
       },
       {
-        name: 'PointLayer',
+        name: '圆点',
+        value: 'RoundPointLayer',
       },
       {
-        name: 'ScatterLayer',
+        name: '贴地点',
+        value: 'ScatterLayer',
       },
       {
-        name: 'IconLayer',
+        name: '图标点',
+        value: 'IconLayer',
       },
       {
-        name: 'LineLayer',
+        name: '线图层',
+        value: 'LineLayer',
       },
       {
-        name: 'PolygonLayer',
+        name: '多边形',
+        value: 'PolygonLayer',
       },
       {
-        name: 'HeatMapLayer',
+        name: '3D热力',
+        value: 'HeatMapLayer',
       },
       {
-        name: 'GridLayer/HexagonLayer',
+        name: '网格&蜂窝',
+        value: 'GridLayer/HexagonLayer',
       },
     ],
   },

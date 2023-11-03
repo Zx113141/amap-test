@@ -1,5 +1,5 @@
 
-import EmbedService, { STRUCT_NAME, MENU_CATE, Embed } from '/@/service/embedService';
+import EmbedService, { STRUCT_NAME, MENU_CATE, Embed } from '../../service/service/embedService';
 // import { * asecharts } from 'echarts/core';
 import { defineStore } from 'pinia';
 import { store } from '/@/store';

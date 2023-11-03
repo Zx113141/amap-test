@@ -1,5 +1,5 @@
 
-import EmbedService from "../embedService"
+import EmbedService from "../service/embedService"
 
 class Plugin {
     AMap: any = null

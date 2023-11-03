@@ -4,28 +4,29 @@ class MapService {
     name: string = 'MapService'
     cate: string = 'base'
     // map array
-    embedService: EmbedService
-    struct: any = null
+
+    structs: any[] = []
     options: any = {
 
     }
 
     constructor(domId, AMap, mapOptions, ctx) {
-        this.struct = new AMap.Map(domId, {
+        const struct = new AMap.Map(domId, {
             ...mapOptions
         })
+        this.structs.push(struct)
         this.options = mapOptions
-        this.embedService = ctx
+
         this.injectMapEvents()
     }
     injectMapEvents() {
-        this.struct.on('click', this.handleMapClick.bind(this));
+        this.structs[0].on('click', this.handleMapClick.bind(this));
     }
     handleMapClick(e) {
-        this.embedService.handleClick(e)
+        // this.embedService.handleEvents(this.name, 'click', e)
     }
     destroyEvents() {
-        this.struct.off('click', this.handleMapClick);
+        this.structs[0].off('click', this.handleMapClick);
     }
     methodUper(str: string) {
         return 'set' + str.slice(0, 1).toUpperCase() + str.slice(1)
@@ -36,11 +37,14 @@ class MapService {
 
             if (key === 'mapStyle') {
 
-                this.struct[this.methodUper(key)](options[key])
+                this.structs[0][this.methodUper(key)](options[key])
             }
         })
         // amap://styles/normal
 
+    }
+    getInstance(key) {
+        return this.structs[key]
     }
 
 }

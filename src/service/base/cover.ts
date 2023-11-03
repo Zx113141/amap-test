@@ -1,4 +1,4 @@
-import EmbedService from "../embedService"
+import EmbedService from "../service/embedService"
 class Cover {
     AMap: any = null
     mapInstance: any = null

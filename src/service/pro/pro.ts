@@ -1,4 +1,4 @@
-import EmbedServie from "../embedService"
+import EmbedServie from "../service/embedService"
 class LocaPro {
 
     // Loca constructor 
