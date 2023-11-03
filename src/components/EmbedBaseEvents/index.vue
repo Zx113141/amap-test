@@ -29,7 +29,7 @@
   import Field, { type DataItem } from './field/index.vue';
   import Property from './property/index.vue';
   import { events_list } from '/@/config/constant/events_list';
-  const visible = ref(true);
+  const visible = ref(false);
   const activeKey = ref(['field']);
   const property = ref(null);
   let editData = reactive<DataItem[]>([]);

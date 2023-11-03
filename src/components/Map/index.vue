@@ -7,12 +7,19 @@
     <a-divider class="line" />
     <div id="container" ref="mapRef"> </div>
   </a-card> -->
-  <div id="container" ref="mapRef"> </div>
+
+  <!-- -->
+
+  <div id="container" ref="mapRef">
+    <a-spin v-if="spinning" class="spin" size="large" :spinning="spinning" tip="Loading...">
+    </a-spin>
+  </div>
 </template>
 
 <script setup lang="ts">
   // import { type IMapProp } from './map';
   import InitMap from '/@/service/initMap';
+
   import EmbedService, { MODE } from '/@/service/embedService';
   import { useEditMapWithOut } from '/@/store/modules/editMap';
   const embedList = {
@@ -20,6 +27,7 @@
     loca: ['PointerLayer', 'Camera'],
     plugin: ['RectangleEditor', 'CircleEditor'],
   };
+  const spinning = ref(false);
   const store = useEditMapWithOut();
   // embedService
   const embedService = new EmbedService('container', embedList);
@@ -46,11 +54,13 @@
 
   onMounted(async () => {
     // 实例化地图
+    spinning.value = true;
     await map.init();
     // 实例化注入
     embedService.initAllStruct(map.AMap, map.Loca, map.options, MODE.EDIT);
     // store Embed list注入
     store.pushService(embedService);
+    spinning.value = false;
     // TODO:
     // // 全屏请求
     // if (props.autoFullscreen) {
@@ -63,6 +73,17 @@
 </script>
 
 <style lang="less" scoped>
+  .spin {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
   #container {
     // width: 300px;
     height: 100%;
