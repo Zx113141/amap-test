@@ -101,12 +101,13 @@ class EmbedService {
         this.MapService = new MapService(domId, AMap, mapOptions, this)
     }
     // 初始化Embed 
-    initAllStruct(AMap, Loca, mapOptions, mode) {
+    initAllStruct(AMap, Loca, mapOptions, mode,) {
         this.mode = mode
         this.initMapService(this.domId, AMap, mapOptions)
         const mepInstance = (this.MapService as MapService).struct
         Object.keys(this.embedMenu).forEach((key) => {
             this.embedMenu[key].forEach((serve) => {
+                // tip.value = `加载${key}下的${serve}`
                 if (this[serve]) {
                     let embed
 

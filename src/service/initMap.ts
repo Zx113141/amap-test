@@ -31,7 +31,8 @@ class InitMap {
   }
 
   // init
-  async init() {
+  async init(tip) {
+
     const AMap = await AMapLoader.load({
       key: 'f31603ec0edd29e60f2721d9422ed9f6',
       version: '2.0',

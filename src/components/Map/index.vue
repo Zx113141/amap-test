@@ -11,8 +11,7 @@
   <!-- -->
 
   <div id="container" ref="mapRef">
-    <a-spin v-if="spinning" class="spin" size="large" :spinning="spinning" tip="Loading...">
-    </a-spin>
+    <a-spin v-if="spinning" class="spin" size="large" :spinning="spinning" :tip="tip"> </a-spin>
   </div>
 </template>
 
@@ -29,6 +28,7 @@
   };
   const spinning = ref(false);
   const store = useEditMapWithOut();
+  const tip = ref('Loading');
   // embedService
   const embedService = new EmbedService('container', embedList);
   // props
@@ -37,6 +37,7 @@
   const mapRef = ref<HTMLDivElement>();
   // init
   const initMap = () => {
+    tip.value = '加载地图';
     return new InitMap('container', {
       center: [106.648225, 26.612017],
       zoom: 14,
@@ -55,12 +56,17 @@
   onMounted(async () => {
     // 实例化地图
     spinning.value = true;
-    await map.init();
+    await map.init(tip);
+    tip.value = '加载插件';
     // 实例化注入
-    embedService.initAllStruct(map.AMap, map.Loca, map.options, MODE.EDIT);
+    setTimeout(() => {
+      embedService.initAllStruct(map.AMap, map.Loca, map.options, MODE.EDIT);
+      store.pushService(embedService);
+
+      spinning.value = false;
+    }, 1000);
     // store Embed list注入
-    store.pushService(embedService);
-    spinning.value = false;
+
     // TODO:
     // // 全屏请求
     // if (props.autoFullscreen) {
