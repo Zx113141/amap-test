@@ -58,7 +58,7 @@ export const useEditMap = defineStore({
           (this.service as EmbedService).notify(this.embed.name, 'setOptions', options)
       }
       // TODO:
-      (this.service as EmbedService).notify(this.embed.name, 'createStruct', options)
+      // (this.service as EmbedService).notify(this.embed.name, 'createStruct', options)
       message.success('配置保存成功')
     },
     // 根据Id 选中构件

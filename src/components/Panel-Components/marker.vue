@@ -78,14 +78,8 @@
     icon: '//a.amap.com/jsapi_demos/static/demo-center/icons/poi-marker-default.png',
     context: 'Marker',
   });
-  const option = computed(() => {
-    const options = { ...formState };
-    if (!formState.customContent) {
-      delete options['label'];
-    }
-    return options;
-  });
-  defineExpose(option);
+
+  defineExpose(formState);
   // const setOptions = () => {
   //   //   // props.setOptions();
   // };

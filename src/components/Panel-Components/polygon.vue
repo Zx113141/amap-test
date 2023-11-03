@@ -9,7 +9,6 @@
         placeholder="Please select"
         change-on-select
         :options="district"
-        @change="handleSetOptions"
       />
     </a-form-item>
     <a-form-item label="画笔透明度">
@@ -19,8 +18,14 @@
     <a-form-item label="填充透明度">
       <a-input-number v-model:value="formState.fillOpacity" />
     </a-form-item>
+    <a-form-item label="填充颜色">
+      <vue3-color-picker v-model:pureColor="formState.fillColor" />
+    </a-form-item>
     <a-form-item label="画笔字重">
       <a-input-number v-model:value="formState.strokeWeight" />
+    </a-form-item>
+    <a-form-item label="画笔颜色">
+      <vue3-color-picker v-model:pureColor="formState.strokeColor" />
     </a-form-item>
     <a-form-item label="线条间距">
       <a-input-number v-model:value="formState.strokeDasharray[0]" />
@@ -45,70 +50,7 @@
 
   const labelCol = { span: 8 };
   const wrapperCol = { span: 16 };
-  const loading = ref(false);
-  const handleSetOptions = async () => {
-    // console.log(formState);
-    loading.value = true;
-    const params = {
-      keywords: formState.border[formState.border.length - 1] || '贵州',
-      subdistrict: 1,
-    };
-    await getPathByDistrict(params);
-  };
-  const getPathByDistrict = async (params) => {
-    const { keywords, subdistrict } = params;
-    fetch(
-      `https://restapi.amap.com/v3/config/district?keywords=${keywords}&subdistrict=${subdistrict}&key=${window.SERVER_KEY}&extensions=all`,
-    )
-      .then((response) => response.body)
-      .then((rb) => {
-        const reader = rb?.getReader() as ReadableStreamBYOBReader;
-        return new ReadableStream({
-          start(controller) {
-            // The following function handles each data chunk
-            function push() {
-              // "done" is a Boolean and value a "Uint8Array"
-              reader.read().then(({ done, value }) => {
-                // If there is no more data to read
-                if (done) {
-                  // console.log('done', done);/
-                  controller.close();
-                  return;
-                }
-                // Get the data and send it to the browser via the controller
-                controller.enqueue(value);
-                // Check chunks by logging to the console
-                // console.log(done, value);
-                push();
-              });
-            }
-            push();
-          },
-        });
-      })
-      .then((stream) =>
-        // Respond with our stream
-        new Response(stream, { headers: { 'Content-Type': 'text/json' } }).json(),
-      )
-      .then((result) => {
-        // Do things with result
-        const polyline: number[][] = [];
-        const arr = result.districts[0].polyline.split(';');
-        arr.forEach((item: string) => {
-          const newa = item.split(',');
-          if (newa[1].indexOf('|')) {
-            newa[1] = newa[1].split('|')[0];
-          }
-          polyline.push([Number(newa[0]), Number(newa[1])]);
-        });
-        formState = {
-          ...formState,
-          path: polyline,
-        };
 
-        loading.value = false;
-      });
-  };
   const district = [
     {
       value: '贵州',
@@ -146,7 +88,7 @@
 
   let formState: UnwrapRef<IPoly> = reactive({
     name: 'polygon',
-    fillColor: '#ccebc5',
+    fillColor: 'rgb(254, 87, 34)',
     strokeOpacity: 1,
     fillOpacity: 0.5,
     strokeColor: 'red',

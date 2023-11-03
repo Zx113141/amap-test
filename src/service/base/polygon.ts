@@ -22,8 +22,10 @@ class Polygon extends Cover {
         super(AMap, mapInstance, server)
     }
 
-    createStruct(e) {
+    async createStruct(e) {
         // const position = [e.lnglat.lng, e.lnglat.lat]
+        await this.getDistrict()
+
         const configs = {
 
             offset: new this.AMap.Pixel(-30, -60),
@@ -31,7 +33,6 @@ class Polygon extends Cover {
 
         }
         const polygon = this.create(this.name, configs)
-
         polygon.on('click', (e) => {
             this.notify('click', e)
         })
@@ -51,6 +52,65 @@ class Polygon extends Cover {
         // mapInstance.add(polygon);
         // this.structs.push(polygon)
     }
+    async getDistrict() {
+        const district = this.options.border
+        const params = {
+            keywords: district[district.length - 1] || '贵州',
+            subdistrict: 1,
+        };
+        const res = await this.getPathByDistrict(params)
+
+    }
+    async getPathByDistrict(params) {
+        const { keywords, subdistrict } = params;
+        fetch(
+            `https://restapi.amap.com/v3/config/district?keywords=${keywords}&subdistrict=${subdistrict}&key=${window.SERVER_KEY}&extensions=all`,
+        )
+            .then((response) => response.body)
+            .then((rb) => {
+                const reader = rb?.getReader() as ReadableStreamBYOBReader;
+                return new ReadableStream({
+                    start(controller) {
+                        // The following function handles each data chunk
+                        function push() {
+                            // "done" is a Boolean and value a "Uint8Array"
+                            reader.read().then(({ done, value }) => {
+                                // If there is no more data to read
+                                if (done) {
+                                    // console.log('done', done);/
+                                    controller.close();
+                                    return;
+                                }
+                                // Get the data and send it to the browser via the controller
+                                controller.enqueue(value);
+                                // Check chunks by logging to the console
+                                // console.log(done, value);
+                                push();
+                            });
+                        }
+                        push();
+                    },
+                });
+            })
+            .then((stream) =>
+                // Respond with our stream
+                new Response(stream, { headers: { 'Content-Type': 'text/json' } }).json(),
+            )
+            .then((result) => {
+                // Do things with result
+                const polyline: number[][] = [];
+                const arr = result.districts[0].polyline.split(';');
+                arr.forEach((item: string) => {
+                    const newa = item.split(',');
+                    if (newa[1].indexOf('|')) {
+                        newa[1] = newa[1].split('|')[0];
+                    }
+                    polyline.push([Number(newa[0]), Number(newa[1])]);
+                });
+                this.options.path = polyline
+            });
+    };
+
 
     // pushPolygonToMap(areas) {
     //     areas.forEach((area) => {

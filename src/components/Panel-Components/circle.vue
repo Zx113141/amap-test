@@ -24,9 +24,6 @@
         <a-radio value="point">点线</a-radio>
       </a-radio-group>
     </a-form-item>
-    <a-form-item>
-      <a-button @click="() => setOptions(formState)">保存</a-button>
-    </a-form-item>
   </a-form>
 </template>
 

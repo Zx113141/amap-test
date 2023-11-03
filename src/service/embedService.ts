@@ -14,7 +14,7 @@ import { defineAsyncComponent } from 'vue'
  * in order to manage struct such as [map, marker, polygon, and all of Amap instance]
  * when we need to init map, init this constructor
  * **/
-export type Embed = Marker | Polygon | Rectangle | PointerLayer | IndexCluster | Circle
+export type Embed = Marker | Polygon | Rectangle | PointerLayer | IndexCluster | Circle | MapService
 export type Plugin = RectangleEditor | CircleEditor
 export enum MODE {
     EDIT = 'edit',
@@ -104,7 +104,7 @@ class EmbedService {
     initAllStruct(AMap, Loca, mapOptions, mode,) {
         this.mode = mode
         this.initMapService(this.domId, AMap, mapOptions)
-        const mepInstance = (this.MapService as MapService).struct
+        const mepInstance = (this.MapService as MapService).structs[0]
         Object.keys(this.embedMenu).forEach((key) => {
             this.embedMenu[key].forEach((serve) => {
                 // tip.value = `加载${key}下的${serve}`
@@ -129,7 +129,7 @@ class EmbedService {
                 }
             })
         })
-        this.embedList.push(this.MapService)
+        this.embedList.push(mepInstance)
     }
     // 在初始化过程存入已经实例化plugin 下次直接读取缓存
     pushPlugin(plugin) {
@@ -197,6 +197,7 @@ class EmbedService {
     notify(name, functionType, ...args) {
         if (this[name][functionType]) {
             const res = this[name][functionType](...args)
+            console.log(1);
         } else {
             const embed = this.embedList.find(embed => embed.name === name)
             if (embed) {

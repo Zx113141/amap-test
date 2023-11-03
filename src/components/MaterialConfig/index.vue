@@ -43,9 +43,9 @@
     console.log(panelCompRefs.value);
     const value = panelCompRefs.value
       .filter((item) => !item.nodeType)
-      .find((item) => (item.value.context ? item.value.context : item) === comp.name);
-
-    comp.setOptions(value.value);
+      .find((item) => item.context === comp.name);
+    console.log(value);
+    comp.setOptions(value);
   };
 
   watch(

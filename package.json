@@ -54,7 +54,8 @@
     "sanitize.css": "^13.0.0",
     "vue": "^3.2.16",
     "vue-request": "^1.2.3",
-    "vue-router": "^4.0.12"
+    "vue-router": "^4.0.12",
+    "vue3-colorpicker": "^2.2.2"
   },
   "devDependencies": {
     "@amap/amap-jsapi-types": "^0.0.13",

@@ -3,6 +3,10 @@ import 'sanitize.css';
 // import 'sanitize.css/forms.css';
 // import 'sanitize.css/typography.css';
 import '/@/styles/index.less';
+import "vue3-colorpicker/style.css";
+import Vue3ColorPicker from "vue3-colorpicker";
+
+
 
 import { createApp } from 'vue';
 import App from './App.vue';
@@ -18,6 +22,7 @@ app.use(store);
 
 app.use(router);
 
+app.use(Vue3ColorPicker)
 // Register global directive
 setupGlobDirectives(app);
 
