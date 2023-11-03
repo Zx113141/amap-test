@@ -36,13 +36,17 @@ export const useEditMap = defineStore({
     // 获取当前embed所有服务(构件)
     setCurrentService(material: any) {
       // console.log(material, this.service);
+      // this.embed.name = material.name
       if (!material) {
         this.embed = (this.service as EmbedService).embedList.find(server => server.name === STRUCT_NAME.MAP_SERVICE)
         this.service?.getCurrentEmbed(null)
       } else {
         this.embed = (this.service as EmbedService).embedList.find(server => server.name === material.name)
         // console.log(this.embed, material.name);
+
+        // TODO: optim
         this.service?.getCurrentEmbed(this.embed)
+
       }
     },
     // 获取构件配置

@@ -5,7 +5,7 @@
         <component
           :is="comp.component"
           :key="comp.key"
-          @click="() => onTabChange(comp.key)"
+          @click.stop="() => onTabChange(comp.key)"
           style="font-size: 22px"
         />
       </div>
@@ -48,7 +48,7 @@
   ];
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
   .struct-list {
     height: 100%;
     display: flex;
@@ -61,7 +61,16 @@
       }
     }
     .active {
-      border-left: 3px solid #1890ff;
+      position: relative;
+    }
+    .active::after {
+      position: absolute;
+      left: 0;
+      top: 0;
+      content: '';
+      width: 3px;
+      height: 100%;
+      background-color: #1890ff;
     }
   }
 </style>

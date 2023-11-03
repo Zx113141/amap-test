@@ -61,7 +61,16 @@
     }
   }
   .active {
-    border: 2px solid #1890ff;
+    position: relative;
+  }
+  .active::after {
+    position: absolute;
+    left: 0;
+    top: 0;
+    content: '';
+    width: 3px;
+    height: 100%;
+    background-color: #1890ff;
   }
   .material:hover {
     /* cursor: move; */

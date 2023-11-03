@@ -91,7 +91,10 @@ class EmbedService {
     }
     // 实例化Panel
     initStructPanel(key) {
-        this.panelVNode = defineAsyncComponent(() => import(`/@/components/Panel-Components/${key}.vue`))
+        // 异步加载
+        setTimeout(() => {
+            this.panelVNode = defineAsyncComponent(() => import(`/@/components/Panel-Components/${key}.vue`))
+        })
     }
     // 实例化mapService
     initMapService(domId, AMap, mapOptions) {
