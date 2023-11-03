@@ -92,9 +92,7 @@ class EmbedService {
     // 实例化Panel
     initStructPanel(key) {
         // 异步加载
-        setTimeout(() => {
-            this.panelVNode = defineAsyncComponent(() => import(`/@/components/Panel-Components/${key}.vue`))
-        })
+        this.panelVNode = defineAsyncComponent(() => import(`/@/components/Panel-Components/${key}.vue`))
     }
     // 实例化mapService
     initMapService(domId, AMap, mapOptions) {
@@ -157,13 +155,19 @@ class EmbedService {
     // // 订阅已经实例化的构件事件
     subscribeEmbed(type: string, ctx: Embed, ...params: any) {
         if (this.mode === MODE.EDIT) {
-
+            if (type === 'click') {
+                this.getCurrentStruct(ctx)
+            }
+        } else {
+            // TODO: work flow --> 
         }
         // this.handleStructEvents(type, ctx, params)
     }
     getCurrentEmbed(currentEmbed) {
         this.currentEmbed = currentEmbed
-        this.initStructPanel(currentEmbed?.name || 'MapService')
+        setTimeout(() => {
+            this.initStructPanel(currentEmbed?.name || 'MapService')
+        },);
     }
     getCurrentStruct(struct) {
         this.currentStruct = struct

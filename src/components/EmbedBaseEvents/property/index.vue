@@ -17,14 +17,19 @@
           mode="inline"
           @click="(e) => handleClick(e, list.label)"
         >
-          <a-menu-item :key="item.value" v-for="item in list.list">{{ item.label }}</a-menu-item>
+          <a-menu-item :key="item" v-for="item in list.list">{{ item.label }}</a-menu-item>
         </a-menu>
       </div>
       <div class="property-list" style="flex: 2">
         <component :is="comp" :ref="setItemRef"> </component>
       </div>
+      <!-- <div class="step">
+        <a-steps direction="vertical">
+          <a-step v-for="step in steps" :title="step.label" description=" " :key="step.value" />
+        </a-steps>
+      </div> -->
       <div class="btn">
-        <a-button style="height: 100%" type="parimary" @click="saveCurrentEvents">保存</a-button>
+        <a-button style="height: 100%" type="primary" @click="saveCurrentEvents">保存</a-button>
       </div>
     </div>
   </div>
@@ -51,7 +56,10 @@
       default: () => [],
     },
   });
-
+  interface Item {
+    label: string;
+    value: string;
+  }
   interface List {
     list: {
       label: string;
@@ -67,10 +75,10 @@
     }
   };
   const selectedKeys = reactive<{
-    eventsSelectedKeys: string[];
-    embedSelectedKeys: string[];
-    lifecycleSelectedKeys: string[];
-    structsSelectedKeys: string[];
+    eventsSelectedKeys: Item[];
+    embedSelectedKeys: Item[];
+    lifecycleSelectedKeys: Item[];
+    structsSelectedKeys: Item[];
   }>({
     eventsSelectedKeys: [],
     embedSelectedKeys: [],
@@ -98,13 +106,14 @@
   ]);
 
   const comp = ref<any>(null);
+  const steps = ref<Item[]>([]);
   const arrayForm = reactive<
     {
-      event: string;
-      embed: string;
-      struct: string;
-      lifecycle: string;
-      options: any;
+      event: Item;
+      embed: Item;
+      struct: Item;
+      lifecycle: Item;
+      options: Item;
     }[]
   >([]);
   // const propertySelectedKeys = ref<string[]>([]);
@@ -113,7 +122,7 @@
     if (id === 'embed') {
       // console.log(e, id);
       menu_list[1].list = selectedKeys.eventsSelectedKeys[0].struct_id.filter(
-        (struct) => struct.option.parent === e.key,
+        (struct) => struct.option.parent === e.key.value,
       );
       menu_list[2].list = [
         {
@@ -136,8 +145,21 @@
     }
     if (id === 'lifecycle') {
       if (e.key != 'destroy') {
-        comp.value = store.getVnodePanel(selectedKeys.embedSelectedKeys[0]);
+        comp.value = store.getVnodePanel(selectedKeys.embedSelectedKeys[0].value);
       }
+      // Object.keys(selectedKeys).forEach((key) => {
+      //   if (selectedKeys[key] && selectedKeys[key][0]) {
+      //     steps.value.push({
+      //       value: selectedKeys[key][0].value || selectedKeys[key][0].key,
+      //       label: selectedKeys[key][0].label || selectedKeys[key][0].event,
+      //     });
+      //   }
+      // });
+      // console.log(e);
+      // steps.value.push({
+      //   value: e.key.value,
+      //   label: e.key.label,
+      // });
     }
   };
   const handleEventsClick = (item) => {
@@ -184,6 +206,9 @@
     }
     .btn {
       margin: 10px;
+    }
+    .step {
+      padding: 10px 5px;
     }
   }
 </style>

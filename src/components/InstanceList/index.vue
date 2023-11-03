@@ -13,11 +13,11 @@
     <div class="tab-content">
       <div class="tabs">
         <div class="tab-title"> </div>
-        <div v-if="activeKey == 'app_store'">
+        <div v-show="activeKey == 'app_store'">
           <slot name="app_store"></slot>
         </div>
-        <div v-else-if="activeKey == 'struct_list'"> <slot name="struct_list"></slot></div>
-        <div v-else> history_list </div>
+        <div v-show="activeKey == 'struct_list'"> <slot name="struct_list"></slot></div>
+        <!-- <div v-else> history_list </div> -->
       </div>
     </div>
   </div>

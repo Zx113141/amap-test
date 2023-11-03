@@ -36,21 +36,21 @@ class Polygon extends Cover {
         polygon.on('click', (e) => {
             this.notify('click', e)
         })
-        polygon.on('mouseover', () => {
-            polygon.setOptions({
-                fillOpacity: 0.7,
-                fillColor: '#7bccc4'
-            })
-        })
-        polygon.on('mouseout', () => {
-            polygon.setOptions({
-                fillOpacity: 0.5,
-                fillColor: '#ccebc5'
+        // polygon.on('mouseover', () => {
+        //     polygon.setOptions({
+        //         fillOpacity: 0.7,
+        //         fillColor: '#7bccc4'
+        //     })
+        // })
+        // polygon.on('mouseout', () => {
+        //     polygon.setOptions({
+        //         fillOpacity: 0.5,
+        //         fillColor: '#ccebc5'
 
-            })
-        })
+        //     })
+        // })
         // mapInstance.add(polygon);
-        // this.structs.push(polygon)
+        this.structs.push(polygon)
     }
     async getDistrict() {
         const district = this.options.border

@@ -89,7 +89,7 @@
 
   const event_list = reactive(events_list);
   const embed_struct = reactive<any>({
-    embed_list: [],
+    embed_list: store.service?.embedList,
     struct_list: [],
   });
   const emits = defineEmits(['change']);
@@ -123,6 +123,7 @@
       // create: false,
       // destroy: false,
     };
+    // console.log(store.service);
     editableData.push(newData);
     dataSource.value.push(newData);
   };
@@ -137,6 +138,7 @@
         options: embed.structs,
       });
     });
+
     embed_struct.struct_list = arr;
     //
     //  = ;
@@ -145,17 +147,6 @@
     editableData,
     (newEditData) => {
       emits('change', newEditData);
-    },
-    {
-      deep: true,
-    },
-  );
-  watch(
-    () => store.service?.embedList,
-    (newList) => {
-      if (newList && newList.length > 0) {
-        embed_struct.embed_list = newList;
-      }
     },
     {
       deep: true,
