@@ -1,6 +1,6 @@
 <template>
   <div class="editor-area">
-    <section class="left-section" @click="() => sotre.setCurrentService('')">
+    <section class="left-section" @click="() => sotre.service?.setCurrentEmbed('')">
       <left-slide>
         <instance-list>
           <template #app_store>

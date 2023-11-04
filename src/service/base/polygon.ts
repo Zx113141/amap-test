@@ -111,7 +111,9 @@ class Polygon extends Cover {
             });
     };
 
-
+    update(ctx, options) {
+        ctx.setOptions(options)
+    }
     // pushPolygonToMap(areas) {
     //     areas.forEach((area) => {
     //         this.addPolygon(area)

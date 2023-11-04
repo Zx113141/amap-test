@@ -1,15 +1,16 @@
 import EmbedService from "../embedService"
+
 class Cover {
     AMap: any = null
     mapInstance: any = null
-    embedService: EmbedService
-    constructor(AMap, mapInstance, embedService) {
-        this.embedService = embedService
+    // embedService: EmbedService
+    constructor(AMap, mapInstance,) {
+        // this.embedService = new EmbedService()
         this.mapInstance = mapInstance
         this.AMap = AMap
     }
     notify(type: string, ctx, ...args: any) {
-        (this.embedService as EmbedService).subscribeEmbed(type, ctx, args)
+        window.embedService.subscribeEmbed(type, ctx, this, args)
     }
     create(name, options,) {
         const struct = new this.AMap[name]({
@@ -23,14 +24,15 @@ class Cover {
 
         this.mapInstance.setFitView([struct])
         struct.on('click', (e) => {
-            this.notify('click', this, e)
+            // console.log(1);
+            this.notify('click', struct, e)
         })
         struct.on('rightclick', (e) => this.remove(struct.getExtData().name, e))
         return struct
 
     }
     remove(ctx, e) {
-        (this.embedService as EmbedService).handleRemove(ctx, e)
+        // (this.embedService as EmbedService).handleRemove(ctx, e)
     }
     calcuBoundsLng(x, y) {
 
@@ -39,13 +41,15 @@ class Cover {
 
         return lnglat
     }
-
-    editStruct(name, ctx, e) {
-        this.embedService.getCoverByPluginEdit(name, ctx, e)
-        // TODO: to do this we need plugin
-        // const rectangleEditor = new this.AMap[name](this.mapInstance, e.target)
-        // console.log(rectangleEditor)
+    update(ctx, options) {
+        ctx.setOptions(options)
     }
+    // editStruct(name, ctx, e) {
+    //     // this.embedService.getCoverByPluginEdit(name, ctx, e)
+    //     // TODO: to do this we need plugin
+    //     // const rectangleEditor = new this.AMap[name](this.mapInstance, e.target)
+    //     // console.log(rectangleEditor)
+    // }
 }
 
 export default Cover

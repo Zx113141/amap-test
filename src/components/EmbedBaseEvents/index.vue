@@ -26,12 +26,15 @@
 
 <script lang="ts" setup>
   // import StructList from './struct_list/index.vue';
+  import EmbedService from '/@/service/embedService';
   import Field, { type DataItem } from './field/index.vue';
   import Property from './property/index.vue';
   import { events_list } from '/@/config/constant/events_list';
+  import { useEditMapWithOut } from '/@/store/modules/editMap';
   const visible = ref(false);
   const activeKey = ref(['field']);
   const property = ref(null);
+  const store = useEditMapWithOut();
   let editData = reactive<DataItem[]>([]);
 
   const getEmbedOrStruct = (data: DataItem[]) => {
@@ -39,7 +42,9 @@
   };
 
   const handleOk = () => {
-    console.log(property.value);
+    // console.log(property.value);
+
+    (store.service as EmbedService).setEventsLoop(property.value);
     visible.value = false;
   };
 

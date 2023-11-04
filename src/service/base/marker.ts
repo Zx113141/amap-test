@@ -35,8 +35,8 @@ class Marker extends Cover {
     structs: any[] = []
 
     options: any = {}
-    constructor(AMap, mapInstance, server) {
-        super(AMap, mapInstance, server)
+    constructor(AMap, mapInstance) {
+        super(AMap, mapInstance)
     }
     createStruct(e) {
 

@@ -48,20 +48,6 @@
           >
           </a-select>
         </template>
-        <!-- <template v-else-if="column.dataIndex === 'create'">
-          <a-switch
-            v-model:checked="editableData[record.key].create"
-            @change="() => (editableData[record.key].destroy = !editableData[record.key].create)"
-          >
-          </a-switch>
-        </template>
-        <template v-else-if="column.dataIndex === 'destroy'">
-          <a-switch
-            v-model:checked="editableData[record.key].destroy"
-            @change="() => (editableData[record.key].create = !editableData[record.key].destroy)"
-          >
-          </a-switch>
-        </template> -->
         <template v-else>
           <a-popconfirm
             v-if="dataSource.length"

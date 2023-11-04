@@ -56,9 +56,6 @@ class Rectangle extends Cover {
         this.remove(this, e)
     }
 
-    updateMarkerOptions(options) {
-
-    }
 
 
 }

@@ -34,26 +34,24 @@
     comp: null,
     setOptions: () => {},
   });
-
+  onActivated(() => {});
   onMounted(() => {
-    comp.setOptions = editStore.setCurrentStruct;
+    // comp.setOptions = editStore.setCurrentStruct;
   });
 
   const handleSave = async () => {
-    console.log(panelCompRefs.value);
+    // console.log(panelCompRefs.value);
     const value = panelCompRefs.value
       .filter((item) => !item.nodeType)
       .find((item) => item.context === comp.name);
-    console.log(value);
     comp.setOptions(value);
   };
 
   watch(
-    [() => editStore.service?.panelVNode, () => editStore.embed.name],
+    [() => editStore.service?.panelVNode, () => editStore.service?.currentEmbed?.name],
     async ([newComp, name]) => {
       comp.comp = newComp;
       comp.name = name;
-      // console.log(newName);
     },
 
     {

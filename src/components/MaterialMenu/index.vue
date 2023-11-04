@@ -1,7 +1,7 @@
 <template>
   <div
     :class="['material', active ? 'active' : '']"
-    @click.stop="() => store.setCurrentService({ name: props.name, cate: props.cate })"
+    @click.stop="() => store.service?.setCurrentEmbed(props.name)"
   >
     <div class="material-icon">
       <img :src="props.icon" width="24" height="24" />
@@ -31,14 +31,13 @@
     },
   });
   watch(
-    () => store.embed.name,
+    () => store.service?.currentEmbed?.name,
     (newName) => {
       // console.log(store.struct);
       active.value = newName === props.name;
     },
     {
       deep: true,
-      immediate: true,
     },
   );
   // console.log(props);

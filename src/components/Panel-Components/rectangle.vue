@@ -7,8 +7,14 @@
       <a-input-number suffix="PX" v-model:value="formState.strokeOpacity" placeholder="高">
       </a-input-number>
     </a-form-item>
+    <a-form-item label="填充颜色">
+      <vue3-color-picker v-model:pureColor="formState.fillColor" />
+    </a-form-item>
     <a-form-item label="填充透明度">
       <a-input-number v-model:value="formState.fillOpacity" />
+    </a-form-item>
+    <a-form-item label="画笔颜色">
+      <vue3-color-picker v-model:pureColor="formState.strokeColor" />
     </a-form-item>
     <a-form-item label="画笔字重">
       <a-input-number v-model:value="formState.strokeWeight" />
@@ -21,7 +27,6 @@
       <a-radio-group v-model:value="formState['strokeStyle']">
         <a-radio value="dashed">线段</a-radio>
         <a-radio value="solid">直线</a-radio>
-        <a-radio value="point">点线</a-radio>
       </a-radio-group>
     </a-form-item>
   </a-form>
@@ -62,6 +67,7 @@
     border: [],
     context: 'Rectangle',
   });
+  defineExpose(formState);
 </script>
 
 <style lang="less" scoped></style>

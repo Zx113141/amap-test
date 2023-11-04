@@ -4,26 +4,27 @@ class MapService {
     name: string = 'MapService'
     cate: string = 'base'
     // map array
-    embedService: EmbedService
+    // embedService: EmbedService
     structs: any[]
     options: any = {
 
     }
 
-    constructor(domId, AMap, mapOptions, ctx) {
+    constructor(domId, AMap, mapOptions) {
         this.structs = []
         this.structs.push(new AMap.Map(domId, {
-            ...mapOptions
+            ...mapOptions,
+
         }))
         this.options = mapOptions
-        this.embedService = ctx
+        // this.embedService = ctx
         this.injectMapEvents()
     }
     injectMapEvents() {
         this.structs[0].on('click', this.handleMapClick.bind(this));
     }
     handleMapClick(e) {
-        this.embedService.handleClick(e)
+        window.embedService.handleClick(e)
     }
     destroyEvents() {
         this.structs[0].off('click', this.handleMapClick);

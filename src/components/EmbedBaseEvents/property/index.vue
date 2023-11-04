@@ -4,9 +4,12 @@
       <!-- event -->
       <div class="property-list">
         <a-menu id="event'" v-model:selectedKeys="selectedKeys.eventsSelectedKeys" mode="inline">
-          <a-menu-item @click="() => handleEventsClick(item)" :key="item" v-for="item in data">{{
-            events_list.find((eve) => eve.value == item.event)?.label || item
-          }}</a-menu-item>
+          <a-menu-item
+            @click="() => handleEventsClick(item)"
+            :key="item.key"
+            v-for="item in data"
+            >{{ events_list.find((eve) => eve.value == item.event)?.label || item }}</a-menu-item
+          >
         </a-menu>
       </div>
 
@@ -17,7 +20,7 @@
           mode="inline"
           @click="(e) => handleClick(e, list.label)"
         >
-          <a-menu-item :key="item" v-for="item in list.list">{{ item.label }}</a-menu-item>
+          <a-menu-item :key="item.value" v-for="item in list.list">{{ item.label }}</a-menu-item>
         </a-menu>
       </div>
       <div class="property-list" style="flex: 2">
@@ -36,12 +39,13 @@
 </template>
 
 <script setup lang="ts">
-  import { PropType, reactive, ref, watch } from 'vue';
+  import { PropType, reactive, ref } from 'vue';
   import { DataItem } from '../field/index.vue';
   import { useEditMapWithOut } from '/@/store/modules/editMap';
+  import EmbedService from '/@/service/embedService';
 
   const store = useEditMapWithOut();
-  defineProps({
+  const props = defineProps({
     data: {
       type: Object as PropType<DataItem[]>,
       default: () => [],
@@ -56,10 +60,7 @@
       default: () => [],
     },
   });
-  interface Item {
-    label: string;
-    value: string;
-  }
+
   interface List {
     list: {
       label: string;
@@ -75,10 +76,10 @@
     }
   };
   const selectedKeys = reactive<{
-    eventsSelectedKeys: Item[];
-    embedSelectedKeys: Item[];
-    lifecycleSelectedKeys: Item[];
-    structsSelectedKeys: Item[];
+    eventsSelectedKeys: number[];
+    embedSelectedKeys: string[];
+    lifecycleSelectedKeys: string[];
+    structsSelectedKeys: string[];
   }>({
     eventsSelectedKeys: [],
     embedSelectedKeys: [],
@@ -106,14 +107,15 @@
   ]);
 
   const comp = ref<any>(null);
-  const steps = ref<Item[]>([]);
+  // const steps = ref<Item[]>([]);
   const arrayForm = reactive<
     {
-      event: Item;
-      embed: Item;
-      struct: Item;
-      lifecycle: Item;
-      options: Item;
+      key: number;
+      event: string;
+      embed: string;
+      struct: string;
+      lifecycle: string;
+      options: string;
     }[]
   >([]);
   // const propertySelectedKeys = ref<string[]>([]);
@@ -121,9 +123,16 @@
   const handleClick = (e, id) => {
     if (id === 'embed') {
       // console.log(e, id);
-      menu_list[1].list = selectedKeys.eventsSelectedKeys[0].struct_id.filter(
-        (struct) => struct.option.parent === e.key.value,
-      );
+      const item = props.data.find(
+        (data: DataItem) => data.key === selectedKeys.eventsSelectedKeys[0],
+      ) as DataItem;
+
+      menu_list[1].list = item.struct_id.map((struct: any) => {
+        return {
+          label: struct.label,
+          value: struct.key,
+        };
+      });
       menu_list[2].list = [
         {
           label: '创建',
@@ -145,21 +154,10 @@
     }
     if (id === 'lifecycle') {
       if (e.key != 'destroy') {
-        comp.value = store.getVnodePanel(selectedKeys.embedSelectedKeys[0].value);
+        const service = store.service as EmbedService;
+        service.initStructPanel(selectedKeys.embedSelectedKeys[0]);
+        comp.value = service.panelVNode;
       }
-      // Object.keys(selectedKeys).forEach((key) => {
-      //   if (selectedKeys[key] && selectedKeys[key][0]) {
-      //     steps.value.push({
-      //       value: selectedKeys[key][0].value || selectedKeys[key][0].key,
-      //       label: selectedKeys[key][0].label || selectedKeys[key][0].event,
-      //     });
-      //   }
-      // });
-      // console.log(e);
-      // steps.value.push({
-      //   value: e.key.value,
-      //   label: e.key.label,
-      // });
     }
   };
   const handleEventsClick = (item) => {
@@ -173,13 +171,16 @@
   const saveCurrentEvents = () => {
     const { embedSelectedKeys, eventsSelectedKeys, structsSelectedKeys, lifecycleSelectedKeys } =
       selectedKeys;
-    const value = panelCompRefs.value
+    const options = panelCompRefs.value
       .filter((item) => !item.nodeType)
-      .find((item) => item.value.context === embedSelectedKeys[0]);
-    const options = value.value;
+      .find((item) => item.context === embedSelectedKeys[0]);
 
+    const item = props.data.find(
+      (data: DataItem) => data.key === selectedKeys.eventsSelectedKeys[0],
+    ) as DataItem;
     arrayForm.push({
-      event: eventsSelectedKeys[0],
+      key: eventsSelectedKeys[0],
+      event: item.event,
       embed: embedSelectedKeys[0],
       struct: structsSelectedKeys[0],
       lifecycle: lifecycleSelectedKeys[0],

@@ -1,15 +1,4 @@
 <template>
-  <!-- <a-card :bordered="false" v-if="mode === MAP_MODE.PREVIEW">
-    <a-row>
-      <a-button @click="handleFullScreen"> 地图全屏 </a-button>
-      <a-button @click="routeToEditMap"> 进入地图编辑 </a-button>
-    </a-row>
-    <a-divider class="line" />
-    <div id="container" ref="mapRef"> </div>
-  </a-card> -->
-
-  <!-- -->
-
   <div id="container" ref="mapRef">
     <a-spin v-if="spinning" class="spin" size="large" :spinning="spinning" :tip="tip"> </a-spin>
   </div>
@@ -62,7 +51,7 @@
     setTimeout(() => {
       embedService.initAllStruct(map.AMap, map.Loca, map.options, MODE.EDIT);
       store.pushService(embedService);
-
+      window.embedService = embedService;
       spinning.value = false;
     }, 1000);
     // store Embed list注入
@@ -74,7 +63,7 @@
     // }
   });
   onUnmounted(() => {
-    embedService.destory('all');
+    // embedService.destory('all');
   });
 </script>
 
