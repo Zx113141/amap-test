@@ -39,12 +39,6 @@
     //   subdistrict: 1,
     // });
   });
-  const props = defineProps({
-    options: {
-      type: Object as PropType<ICircle>,
-      default: () => ({}),
-    },
-  });
   let formState: UnwrapRef<ICircle> = reactive({
     name: 'circle',
     fillColor: '#ccebc5',
@@ -60,4 +54,4 @@
   });
 </script>
 
-<style lang="less" scoped></style>
+<!-- <style lang="less" scoped></style> -->

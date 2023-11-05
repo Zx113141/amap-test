@@ -1,5 +1,4 @@
-import EmbedService from "../embedService"
-import { toRefs } from "vue"
+
 
 class Cover {
     AMap: any = null

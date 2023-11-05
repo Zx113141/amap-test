@@ -33,7 +33,7 @@
 </template>
 
 <script lang="ts" setup>
-  import type { UnwrapRef, PropType } from 'vue';
+  import type { UnwrapRef } from 'vue';
   import type { IRectangle } from '/@/service/base/rectangle';
   const labelCol = { span: 8 };
   const wrapperCol = { span: 16 };
@@ -44,12 +44,6 @@
     //   subdistrict: 1,
     // });
   });
-  const props = defineProps({
-    options: {
-      type: Object as PropType<IRectangle>,
-      default: () => ({}),
-    },
-  });
   let formState: UnwrapRef<IRectangle> = reactive({
     name: 'rectangle',
     fillColor: '#ccebc5',
@@ -59,11 +53,7 @@
     strokeWeight: 1,
     strokeStyle: 'dashed',
     strokeDasharray: [5, 5],
-    // path: [],
-    // border: [],
     context: 'Rectangle',
   });
   defineExpose(formState);
 </script>
-
-<style lang="less" scoped></style>

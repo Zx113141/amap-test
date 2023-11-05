@@ -42,8 +42,8 @@
 </template>
 
 <script lang="ts" setup>
-  import type { UnwrapRef, PropType } from 'vue';
-  import type { IPoly } from '/@/service/polygon';
+  import type { UnwrapRef } from 'vue';
+  import type { IPoly } from '/@/service/base/polygon';
 
   const labelCol = { span: 8 };
   const wrapperCol = { span: 16 };
@@ -66,19 +66,6 @@
       ],
     },
   ];
-  onMounted(async () => {
-    // await getPathByDistrict({
-    //   keywords: '贵州',
-    //   subdistrict: 1,
-    // });
-  });
-  const props = defineProps({
-    options: {
-      type: Object as PropType<IPoly>,
-      default: () => ({}),
-    },
-  });
-
   let formState: UnwrapRef<IPoly> = reactive({
     name: 'polygon',
     fillColor: 'rgb(254, 87, 34)',
@@ -95,4 +82,4 @@
   defineExpose(formState);
 </script>
 
-<style lang="less" scoped></style>
+<!-- <style lang="less" scoped></style> -->

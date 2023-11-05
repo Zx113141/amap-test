@@ -23,4 +23,4 @@
   const options = ref<SelectProps['options']>(map_theme);
 </script>
 
-<style lang="less" scoped></style>
+<!-- <style lang="less" scoped></style> -->

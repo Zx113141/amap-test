@@ -18,4 +18,4 @@
   const options = ref<SelectProps['options']>(mouse_tool);
 </script>
 
-<style lang="less" scoped></style>
+<!-- <style lang="less" scoped></style> -->
