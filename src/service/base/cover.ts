@@ -20,6 +20,7 @@ class Cover {
             extData: {
                 id: window.btoa('' + new Date().getTime()),
                 name: options.name,
+                parent: name
             },
         })
 

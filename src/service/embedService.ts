@@ -60,7 +60,7 @@ const Constructor = {
 
 class EmbedService {
     // mode
-    mode: string = MODE.PREVIEW
+    mode: string = MODE.EDIT
     /**
      * @author {zhangxu}
      * @description map instance and map domId
@@ -160,29 +160,29 @@ class EmbedService {
     // init events for struct 
 
     // // 订阅已经实例化的构件事件
-    subscribeEmbed(type: string, ctx: any, parent: any, ...params: any) {
-        // if (this.mode === MODE.EDIT) {
-        //     if (type === 'click') {
-        //         this.setCurrentEmbed(ctx)
-        //     }
-        // } else {
-
-
-        // }
-        // TODO: work flow --> 
-        // debugger;
-        console.log(ctx);
-
-        const id = ctx.getExtData().id
-        const event_list = this.getEventFromEventsLoop(id)
-        // console.log(event_list, parent, ctx);
-        if (event_list) {
-            if (event_list.event === type) {
-                window.flowEngine.runTask(parent[event_list.lifecycle], ctx, event_list.options)
+    subscribeEmbed(type: string, struct: any, embed: any, ...params: any) {
+        console.log(MODE.EDIT, type);
+        if (this.mode === MODE.EDIT) {
+            if (type === 'click') {
+                this.setCurrentStruct(struct)
+            }
+        } else {
+            // TODO: work flow --> 
+            const id = struct.getExtData().id
+            const event_list = this.getEventFromEventsLoop(id)
+            // console.log(event_list, parent, ctx);
+            if (event_list) {
+                if (event_list.event === type) {
+                    window.flowEngine.runTask(embed[event_list.lifecycle], struct, event_list.options)
+                }
             }
         }
+
+
+
     }
     // 处理地图点击事件，判断是否添加构件
+    // TODO:
     handleClick(e) {
 
         if (this.currentEmbed) {
@@ -197,12 +197,8 @@ class EmbedService {
     }
 
     cfgForEmbedAndStruct(options) {
-        if (this.currentStruct) {
-            // TODO: setCurrentSturctOptons
-            // this.currentStruct.options = options
-        } else if (this.currentEmbed) {
+        if (this.currentEmbed) {
             // embed
-            this.currentEmbed.options = options
         } else {
             // map
             this.embedList[this.embedList.length - 1].options = options
@@ -211,9 +207,14 @@ class EmbedService {
     setCurrentEmbed(name) {
         this.currentEmbed = this.embedList.find((embed: Embed) => embed.name === name) as Embed
         this.initStructPanel(name || 'MapService')
+
     }
     setCurrentStruct(struct) {
         this.currentStruct = struct
+        if (this.currentEmbed && this.currentEmbed?.name === struct._opts.context) {
+            this.currentEmbed.options = { ...struct._opts }
+        }
+        console.log(struct, this.currentEmbed);
     }
 
 

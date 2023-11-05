@@ -34,7 +34,26 @@ class Marker extends Cover {
     // marker array
     structs: any[] = []
 
-    options: any = {}
+    options: any = {
+        name: 'marker',
+        title: '',
+        topWhenClick: true,
+        draggable: true,
+        visible: true,
+        zIndex: 100,
+        angle: 45,
+        animation: 'AMAP_ANIMATION_NONE',
+        clickable: true,
+        label: {
+            content: '',
+            direction: 'bottom',
+        },
+        customContent: false,
+        width: 36,
+        height: 36,
+        icon: '//a.amap.com/jsapi_demos/static/demo-center/icons/poi-marker-default.png',
+        context: 'Marker',
+    }
     constructor(AMap, mapInstance) {
         super(AMap, mapInstance)
     }

@@ -4,7 +4,7 @@
       <div class="menu">
         <Transition>
           <KeepAlive>
-            <component :is="comp.comp" :ref="setItemRef"> </component>
+            <component :is="comp.comp" :ref="setItemRef" :options="comp.options"> </component>
           </KeepAlive>
         </Transition>
 
@@ -30,8 +30,8 @@
   };
 
   const comp = reactive<any>({
-    name: '',
     comp: null,
+    options: null,
   });
   onActivated(() => {});
 
@@ -39,15 +39,16 @@
     // console.log(panelCompRefs.value);
     const value = panelCompRefs.value
       .filter((item) => !item.nodeType)
-      .find((item) => item.context === comp.name);
+      .find((item) => item.context === comp.options.context);
+    console.log(value);
     editStore.service?.cfgForEmbedAndStruct(value);
   };
 
   watch(
-    [() => editStore.service?.panelVNode, () => editStore.service?.currentEmbed?.name],
-    async ([newComp, name]) => {
+    () => editStore.service?.panelVNode,
+    (newComp) => {
       comp.comp = newComp;
-      comp.name = name;
+      comp.options = editStore.service?.currentEmbed?.options;
     },
 
     {

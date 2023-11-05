@@ -50,31 +50,19 @@
 </template>
 
 <script lang="ts" setup>
-  import type { UnwrapRef } from 'vue';
+  import type { UnwrapRef, PropType } from 'vue';
   import type { IMarker } from '/@/service/base/marker';
   const labelCol = { span: 10 };
   const wrapperCol = { span: 14 };
 
-  let formState: UnwrapRef<IMarker> = reactive({
-    name: 'marker',
-    title: '',
-    topWhenClick: true,
-    draggable: true,
-    visible: true,
-    zIndex: 100,
-    angle: 30,
-    animation: 'AMAP_ANIMATION_NONE',
-    clickable: true,
-    label: {
-      content: '',
-      direction: 'bottom',
+  const props = defineProps({
+    options: {
+      type: Object as PropType<IMarker>,
+      default: () => ({}),
     },
-    customContent: false,
-    width: 36,
-    height: 36,
-    icon: '//a.amap.com/jsapi_demos/static/demo-center/icons/poi-marker-default.png',
-    context: 'Marker',
   });
+
+  const formState: UnwrapRef<IMarker> = reactive(props.options);
 
   defineExpose(formState);
 </script>
