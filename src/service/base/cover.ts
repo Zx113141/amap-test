@@ -3,9 +3,9 @@ import EmbedService from "../embedService"
 class Cover {
     AMap: any = null
     mapInstance: any = null
-    // embedService: EmbedService
+
     constructor(AMap, mapInstance,) {
-        // this.embedService = new EmbedService()
+
         this.mapInstance = mapInstance
         this.AMap = AMap
     }

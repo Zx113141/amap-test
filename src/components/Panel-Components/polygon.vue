@@ -38,9 +38,6 @@
         <a-radio value="point">点线</a-radio>
       </a-radio-group>
     </a-form-item>
-    <!-- <a-form-item>
-      <a-button @click="() => handleSetOptions(formState)">保存并绘制</a-button>
-    </a-form-item> -->
   </a-form>
 </template>
 
@@ -79,10 +76,6 @@
     options: {
       type: Object as PropType<IPoly>,
       default: () => ({}),
-    },
-    setOptions: {
-      type: Function,
-      default: () => () => {},
     },
   });
 

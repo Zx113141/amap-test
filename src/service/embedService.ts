@@ -10,6 +10,7 @@ import Circle from './base/circle'
 import CircleEditor from './plugin/utils/circleEditor'
 import Camera from './pro/camera'
 import { defineAsyncComponent } from 'vue'
+import FlowEngine from './workflow/flowEngine'
 /**
  * in order to manage struct such as [map, marker, polygon, and all of Amap instance]
  * when we need to init map, init this constructor
@@ -92,6 +93,7 @@ class EmbedService {
     constructor(domId, embedList) {
         this.embedMenu = embedList
         this.domId = domId
+        window.flowEngine = new FlowEngine()
     }
     // 实例化Panel
     initStructPanel(key) {
@@ -107,8 +109,8 @@ class EmbedService {
     // 初始化Embed 
     initAllStruct(AMap, Loca, mapOptions, mode,) {
         this.mode = mode
-        const mepInstance = this.initMapService(this.domId, AMap, mapOptions).structs[0]
-        // const mepInstance = (this.MapService as MapService).structs[0]
+        const mapEmbed = this.initMapService(this.domId, AMap, mapOptions)
+        const mepInstance = mapEmbed.structs[0]
         Object.keys(this.embedMenu).forEach((key) => {
             this.embedMenu[key].forEach((serve) => {
                 // tip.value = `加载${key}下的${serve}`
@@ -116,7 +118,7 @@ class EmbedService {
 
                 switch (key) {
                     case SERVER_CONSTRUCT.COVER:
-                        embed = new Constructor[serve](AMap, mepInstance, this);
+                        embed = new Constructor[serve](AMap, mepInstance);
                         // console.log(embed);
                         break;
                     case SERVER_CONSTRUCT.PLUGIN:
@@ -132,7 +134,7 @@ class EmbedService {
                 }
             })
         })
-        this.embedList.push(mepInstance)
+        this.embedList.push()
     }
     // 在初始化过程存入已经实例化plugin 下次直接读取缓存
     pushPlugin(plugin) {
@@ -161,23 +163,23 @@ class EmbedService {
     subscribeEmbed(type: string, ctx: any, parent: any, ...params: any) {
         // if (this.mode === MODE.EDIT) {
         //     if (type === 'click') {
-        //         this.getCurrentStruct(ctx)
+        //         this.setCurrentEmbed(ctx)
         //     }
         // } else {
 
 
         // }
         // TODO: work flow --> 
+
+
         const id = ctx.getExtData().id
         const event_list = this.getEventFromEventsLoop(id)
         // console.log(event_list, parent, ctx);
         if (event_list) {
             if (event_list.event === type) {
-                parent[event_list.lifecycle](ctx, event_list.options)
+                window.flowEngine.runTask(parent[event_list.lifecycle], ctx, event_list.options)
             }
         }
-
-
     }
     // 处理地图点击事件，判断是否添加构件
     handleClick(e) {
@@ -187,14 +189,26 @@ class EmbedService {
                 this.currentEmbed?.createStruct(e)
             }
         } else {
-            const mapInstance = this.embedList[this.embedList.length - 1]
-            mapInstance.handleMapClick(e)
+            const mapEmbed = this.embedList[this.embedList.length - 1]
+            mapEmbed.handleMapClick(e)
             // this.MapService?.handleMapClick(e)
+        }
+    }
+
+    cfgForEmbedAndStruct(options) {
+        if (this.currentStruct) {
+            // TODO: setCurrentSturctOptons
+            // this.currentStruct.options = options
+        } else if (this.currentEmbed) {
+            // embed
+            this.currentEmbed.options = options
+        } else {
+            // map
+            this.embedList[this.embedList.length - 1].options = options
         }
     }
     setCurrentEmbed(name) {
         this.currentEmbed = this.embedList.find((embed: Embed) => embed.name === name) as Embed
-        console.log(this.embedList);
         this.initStructPanel(name || 'MapService')
     }
     setCurrentStruct(struct) {

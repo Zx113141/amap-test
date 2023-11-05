@@ -3,9 +3,6 @@
     <a-form-item label="绘制类型" name="type">
       <a-select v-model:value="formState.type" :options="options"> </a-select>
     </a-form-item>
-    <a-form-item>
-      <a-button @click="() => setOptions(formState)">保存</a-button>
-    </a-form-item>
   </a-form>
 </template>
 
@@ -14,12 +11,6 @@
   import { mouse_tool } from '/@/config/constant/mouse_tool';
   const labelCol = { span: 10 };
   const wrapperCol = { span: 14 };
-  const props = defineProps({
-    setOptions: {
-      type: Function,
-      default: () => () => {},
-    },
-  });
   const formState = reactive({
     type: 'polyline',
     // animation: 'AMAP_ANIMATION_BOUNCE',

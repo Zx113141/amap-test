@@ -46,9 +46,6 @@
         <a-radio value="AMAP_ANIMATION_BOUNCE">弹跳</a-radio>
       </a-radio-group>
     </a-form-item>
-    <!-- <a-form-item>
-      <a-button @click="() => setOptions()">保存</a-button>
-    </a-form-item> -->
   </a-form>
 </template>
 
@@ -80,9 +77,6 @@
   });
 
   defineExpose(formState);
-  // const setOptions = () => {
-  //   //   // props.setOptions();
-  // };
 </script>
 
 <style lang="less" scoped></style>

@@ -32,19 +32,15 @@
   const comp = reactive<any>({
     name: '',
     comp: null,
-    setOptions: () => {},
   });
   onActivated(() => {});
-  onMounted(() => {
-    // comp.setOptions = editStore.setCurrentStruct;
-  });
 
   const handleSave = async () => {
     // console.log(panelCompRefs.value);
     const value = panelCompRefs.value
       .filter((item) => !item.nodeType)
       .find((item) => item.context === comp.name);
-    comp.setOptions(value);
+    editStore.service?.cfgForEmbedAndStruct(value);
   };
 
   watch(

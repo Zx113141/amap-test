@@ -49,10 +49,6 @@
       type: Object as PropType<IRectangle>,
       default: () => ({}),
     },
-    setOptions: {
-      type: Function,
-      default: () => () => {},
-    },
   });
   let formState: UnwrapRef<IRectangle> = reactive({
     name: 'rectangle',

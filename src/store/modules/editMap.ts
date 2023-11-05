@@ -35,49 +35,6 @@ export const useEditMap = defineStore({
     pushService(service) {
       this.service = service
     },
-    // 获取当前embed所有服务(构件)
-    // setCurrentService(material: any) {
-    //   // console.log(material, this.service);
-    //   // this.embed.name = material.name
-    //   if (!material) {
-    //     this.embed = (this.service as EmbedService).embedList.find(server => server.name === STRUCT_NAME.MAP_SERVICE)
-    //     this.service?.getCurrentEmbed(null)
-    //   } else {
-    //     this.embed = (this.service as EmbedService).embedList.find(server => server.name === material.name)
-    //     // console.log(this.embed, material.name);
-
-    //     // TODO: optim
-    //     this.service?.getCurrentEmbed(this.embed)
-
-    //   }
-    // },
-    // 获取构件配置
-    // setCurrentStruct(options) {
-    //   this.embed.options = options
-    //   switch (this.embed.name) {
-    //     case STRUCT_NAME.MAP_SERVICE:
-    //       // case STRUCT_NAME.MOUSE_TOOL:
-    //       (this.service as EmbedService).notify(this.embed.name, 'setOptions', options)
-    //   }
-    //   // console.log(options);
-    //   // TODO:
-    //   // (this.service as EmbedService).notify(this.embed.name, 'createStruct', options)
-    //   message.success('配置保存成功')
-    // },
-    // 根据Id 选中构件
-    // selectStructById({ name, id }) {
-    //   const struct_list = this.service?.embedList.find((embed: Embed) => embed.name === name)?.structs
-    //   if (struct_list) {
-    //     this.struct = struct_list.find((struct: any) => struct.getExtData().id === id)
-
-    //     this.service?.getCurrentStruct(this.struct)
-    //   }
-    // },
-    // // 获取Panel Vnode 通过Name
-    // getVnodePanel(key) {
-    //   this.service?.initStructPanel(key)
-    //   return this.service?.panelVNode
-    // }
   },
 });
 

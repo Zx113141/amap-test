@@ -7,9 +7,6 @@
     <a-form-item label="地图主题" name="mapStyle">
       <a-select v-model:value="formState.mapStyle" :options="options"> </a-select>
     </a-form-item>
-    <!-- <a-form-item>
-      
-    </a-form-item> -->
   </a-form>
 </template>
 
@@ -18,12 +15,6 @@
   import { map_theme } from '/@/config/constant/map_theme';
   const labelCol = { span: 10 };
   const wrapperCol = { span: 14 };
-  const props = defineProps({
-    setOptions: {
-      type: Function,
-      default: () => () => {},
-    },
-  });
   const formState = reactive({
     mapStyle: 'amap://styles/normal',
     context: 'Map',

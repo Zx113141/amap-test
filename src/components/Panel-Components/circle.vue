@@ -44,10 +44,6 @@
       type: Object as PropType<ICircle>,
       default: () => ({}),
     },
-    setOptions: {
-      type: Function,
-      default: () => () => {},
-    },
   });
   let formState: UnwrapRef<ICircle> = reactive({
     name: 'circle',
