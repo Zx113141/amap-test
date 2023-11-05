@@ -8,13 +8,13 @@
       </a-input-number>
     </a-form-item>
     <a-form-item label="填充颜色">
-      <vue3-color-picker v-model:pureColor="formState.fillColor" />
+      <vue3-color-picker v-model:pureColor="formState.fillColor" format="hex6" />
     </a-form-item>
     <a-form-item label="填充透明度">
       <a-input-number v-model:value="formState.fillOpacity" />
     </a-form-item>
     <a-form-item label="画笔颜色">
-      <vue3-color-picker v-model:pureColor="formState.strokeColor" />
+      <vue3-color-picker v-model:pureColor="formState.strokeColor" format="hex6" />
     </a-form-item>
     <a-form-item label="画笔字重">
       <a-input-number v-model:value="formState.strokeWeight" />
@@ -59,8 +59,8 @@
     strokeWeight: 1,
     strokeStyle: 'dashed',
     strokeDasharray: [5, 5],
-    path: [],
-    border: [],
+    // path: [],
+    // border: [],
     context: 'Rectangle',
   });
   defineExpose(formState);

@@ -33,9 +33,7 @@ class Polygon extends Cover {
 
         }
         const polygon = this.create(this.name, configs)
-        polygon.on('click', (e) => {
-            this.notify('click', e)
-        })
+
         // polygon.on('mouseover', () => {
         //     polygon.setOptions({
         //         fillOpacity: 0.7,

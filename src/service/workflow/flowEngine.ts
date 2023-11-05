@@ -15,7 +15,7 @@ class FlowEngine {
                 task(args)
                 callback()
             } else {
-                this.#_runTask(task, callback)
+                this.#_runTask(task, callback, ...args)
             }
         })
     }

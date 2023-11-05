@@ -1,4 +1,5 @@
 import EmbedService from "../embedService"
+import { toRefs } from "vue"
 
 class Cover {
     AMap: any = null
@@ -16,6 +17,7 @@ class Cover {
         const struct = new this.AMap[name]({
             ...options,
             map: this.mapInstance,
+            bubble: false,
             extData: {
                 id: window.btoa('' + new Date().getTime()),
                 name: options.name,
@@ -24,7 +26,9 @@ class Cover {
 
         this.mapInstance.setFitView([struct])
         struct.on('click', (e) => {
-            // console.log(1);
+            // struct.setOptions({
+            //     fillColor: 'blue'
+            // })
             this.notify('click', struct, e)
         })
         struct.on('rightclick', (e) => this.remove(struct.getExtData().name, e))
@@ -41,8 +45,10 @@ class Cover {
 
         return lnglat
     }
-    update(ctx, options) {
-        ctx.setOptions(options)
+    update(params) {
+        const [ctx, options] = params[0]
+
+        ctx.setOptions({ ...options })
     }
     // editStruct(name, ctx, e) {
     //     // this.embedService.getCoverByPluginEdit(name, ctx, e)

@@ -42,14 +42,15 @@ class Rectangle extends Cover {
             position,
             ...this.options,
 
+
         }
 
         const rectangle = this.create(this.name, configs)
-        console.log(rectangle)
-        rectangle.on('click', (e) => {
-            this.notify('click', this, e)
-        })
-        rectangle.on('rightclick', (e) => this.editStruct('RectangleEditor', this, e))
+        // console.log(rectangle)
+        // rectangle.on('click', (e) => {
+
+        // })
+        // rectangle.on('rightclick', (e) => this.editStruct('RectangleEditor', this, e))
         this.structs.push(rectangle)
     }
     removeMarker(e) {

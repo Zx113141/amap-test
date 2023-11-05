@@ -170,7 +170,8 @@ class EmbedService {
 
         // }
         // TODO: work flow --> 
-
+        // debugger;
+        console.log(ctx);
 
         const id = ctx.getExtData().id
         const event_list = this.getEventFromEventsLoop(id)
