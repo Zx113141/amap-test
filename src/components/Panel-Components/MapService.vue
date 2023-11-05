@@ -17,7 +17,7 @@
   const wrapperCol = { span: 14 };
   const formState = reactive({
     mapStyle: 'amap://styles/normal',
-    context: 'Map',
+    context: 'MapService',
     // animation: 'AMAP_ANIMATION_BOUNCE',
   });
   const options = ref<SelectProps['options']>(map_theme);

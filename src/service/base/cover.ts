@@ -1,5 +1,5 @@
 
-
+import { ShallowReactive } from "vue"
 class Cover {
     AMap: any = null
     mapInstance: any = null
@@ -13,8 +13,9 @@ class Cover {
         window.embedService.subscribeEmbed(type, ctx, this, args)
     }
     create(name, options,) {
+        console.log(shallowReactive(options))
         const struct = new this.AMap[name]({
-            ...options,
+            ...shallowReactive(options),
             map: this.mapInstance,
             bubble: false,
             extData: {

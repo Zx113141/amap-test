@@ -9,7 +9,7 @@ import RectangleEditor from './plugin/utils/rectangleEditor'
 import Circle from './base/circle'
 import CircleEditor from './plugin/utils/circleEditor'
 import Camera from './pro/camera'
-import { defineAsyncComponent } from 'vue'
+import { defineAsyncComponent, shallowReactive} from 'vue'
 import FlowEngine from './workflow/flowEngine'
 /**
  * in order to manage struct such as [map, marker, polygon, and all of Amap instance]
@@ -164,6 +164,7 @@ class EmbedService {
         console.log(MODE.EDIT, type);
         if (this.mode === MODE.EDIT) {
             if (type === 'click') {
+                console.log(struct);
                 this.setCurrentStruct(struct)
             }
         } else {
@@ -199,6 +200,7 @@ class EmbedService {
     cfgForEmbedAndStruct(options) {
         if (this.currentEmbed) {
             // embed
+            this.currentEmbed.options = options
         } else {
             // map
             this.embedList[this.embedList.length - 1].options = options
@@ -212,9 +214,9 @@ class EmbedService {
     setCurrentStruct(struct) {
         this.currentStruct = struct
         if (this.currentEmbed && this.currentEmbed?.name === struct._opts.context) {
-            this.currentEmbed.options = { ...struct._opts }
+            this.currentEmbed.options =struct._opts
         }
-        console.log(struct, this.currentEmbed);
+        // console.log(struct, this.currentEmbed);
     }
 
 
