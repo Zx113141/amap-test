@@ -8,7 +8,7 @@ interface IIndexCluster {
 
 class IndexCluster extends Cover {
     name: string = 'IndexCluster'
-    cate: string = 'base'
+    // cate: string = 'base'
     // marker array
     structs: any[] = []
 

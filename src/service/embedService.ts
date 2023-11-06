@@ -185,16 +185,15 @@ class EmbedService {
     // 处理地图点击事件，判断是否添加构件
     // TODO:
     handleClick(e) {
-
+        // console.log(this.currentEmbed);
         if (this.currentEmbed) {
-            if (this.mode === MODE.EDIT) {
+            if (this.mode === MODE.EDIT && this.currentEmbed.cate === MENU_CATE.BASE) {
                 this.currentEmbed?.createStruct(e)
+                return
             }
-        } else {
-            const mapEmbed = this.embedList[this.embedList.length - 1]
-            mapEmbed.handleMapClick(e)
-            // this.MapService?.handleMapClick(e)
         }
+        const mapEmbed = this.embedList[this.embedList.length - 1]
+        mapEmbed.handleMapClick(e)
     }
 
     cfgForEmbedAndStruct(options) {

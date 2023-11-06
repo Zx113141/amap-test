@@ -21,7 +21,17 @@ class Rectangle extends Cover {
     // marker array
     structs: any[] = []
     editable: boolean = false
-    options: any = {}
+    options: any = {
+        name: 'rectangle',
+        fillColor: '#ccebc5',
+        strokeOpacity: 1,
+        fillOpacity: 0.5,
+        strokeColor: 'red',
+        strokeWeight: 1,
+        strokeStyle: 'dashed',
+        strokeDasharray: [5, 5],
+        context: 'Rectangle',
+    }
     constructor(AMap, mapInstance,) {
         super(AMap, mapInstance,)
     }

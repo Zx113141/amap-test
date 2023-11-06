@@ -42,8 +42,15 @@
 </template>
 
 <script lang="ts" setup>
-  import type { UnwrapRef } from 'vue';
+  import type { UnwrapRef, PropType } from 'vue';
   import type { IPoly } from '/@/service/base/polygon';
+
+  const props = defineProps({
+    options: {
+      type: Object as PropType<IPoly>,
+      default: () => ({}),
+    },
+  });
 
   const labelCol = { span: 8 };
   const wrapperCol = { span: 16 };
@@ -66,19 +73,7 @@
       ],
     },
   ];
-  let formState: UnwrapRef<IPoly> = reactive({
-    name: 'polygon',
-    fillColor: 'rgb(254, 87, 34)',
-    strokeOpacity: 1,
-    fillOpacity: 0.5,
-    strokeColor: 'red',
-    strokeWeight: 1,
-    strokeStyle: 'dashed',
-    strokeDasharray: [5, 5],
-    path: [],
-    border: [],
-    context: 'Polygon',
-  });
+  let formState: UnwrapRef<IPoly> = reactive(props.options);
   defineExpose(formState);
 </script>
 

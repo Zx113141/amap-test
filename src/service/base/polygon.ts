@@ -16,10 +16,22 @@ class Polygon extends Cover {
     name: string = 'Polygon'
     // marker array
     structs: any[] = []
-    cate: string = 'base'
-    options: any = {}
-    constructor(AMap, mapInstance, server) {
-        super(AMap, mapInstance, server)
+    // cate: string = 'base'
+    options: any = {
+        name: 'polygon',
+        fillColor: 'rgb(254, 87, 34)',
+        strokeOpacity: 1,
+        fillOpacity: 0.5,
+        strokeColor: 'red',
+        strokeWeight: 1,
+        strokeStyle: 'dashed',
+        strokeDasharray: [5, 5],
+        path: [],
+        border: [],
+        context: 'Polygon',
+    }
+    constructor(AMap, mapInstance) {
+        super(AMap, mapInstance)
     }
 
     async createStruct(e) {

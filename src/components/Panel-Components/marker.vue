@@ -52,8 +52,8 @@
 <script lang="ts" setup>
   import type { UnwrapRef, PropType } from 'vue';
   import type { IMarker } from '/@/service/base/marker';
-  const labelCol = { span: 10 };
-  const wrapperCol = { span: 14 };
+  const labelCol = { span: 8 };
+  const wrapperCol = { span: 16 };
 
   const props = defineProps({
     options: {
