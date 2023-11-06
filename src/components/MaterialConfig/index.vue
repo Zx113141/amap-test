@@ -16,60 +16,53 @@
 </template>
 
 <script setup lang="ts">
-import { useEditMapWithOut } from '/@/store/modules/editMap';
+  import { useEditMapWithOut } from '/@/store/modules/editMap';
 
-import EmbedBaseEvents from '../EmbedBaseEvents/index.vue';
+  import EmbedBaseEvents from '../EmbedBaseEvents/index.vue';
 
-const editStore = useEditMapWithOut();
+  const editStore = useEditMapWithOut();
 
-const activeKey = ref(['events', 'base']);
-let panelCompRefs = ref<any[]>([]);
-const setItemRef = (el) => {
-  if (el) {
-    panelCompRefs.value.push(el);
-  }
-};
+  const activeKey = ref(['events', 'base']);
+  let panelCompRefs = ref<any[]>([]);
+  const setItemRef = (el) => {
+    if (el) {
+      panelCompRefs.value.push(el);
+    }
+  };
 
-const comp = reactive<any>({
-  comp: null,
-  options: null,
-});
-onActivated(() => { });
+  const comp = reactive<any>({
+    comp: null,
+    options: {},
+  });
+  onActivated(() => {});
 
-const handleSave = async () => {
-  // console.log(panelCompRefs.value);
-  const value = panelCompRefs.value
-    .filter((item) => !item.nodeType)
-    .find((item) => item.context === comp.options.context);
-  editStore.service?.cfgForEmbedAndStruct(value);
-};
+  const handleSave = async () => {
+    // console.log(panelCompRefs.value);
+    const value = panelCompRefs.value
+      .filter((item) => !item.nodeType)
+      .find((item) => item.context === comp.options.context);
+    editStore.service?.cfgForEmbedAndStruct(value);
+  };
 
-watch(
-  () => editStore.service?.panelVNode,
+  watch(
+    [() => editStore.service?.panelVNode, () => editStore.service?.currentEmbed?.options],
 
-  (newComp) => {
-    
-    comp.comp = newComp;
+    ([newComp, options]) => {
+      if (options) {
+        comp.options = options;
+      }
+      comp.comp = newComp;
+    },
 
-  },
-
-  {
-    deep: true,
-  },
-);
-
-watch(() => editStore.service?.currentEmbed?.options, (options) => {
-
-  if (options) {
-
-    comp.options = options
-  }
-})
+    {
+      deep: true,
+    },
+  );
 </script>
 
 <style lang="less" scoped>
-.menu :deep(.ant-form-item) {
-  border-bottom: 1px solid #ddd;
-  margin: 10px;
-}
+  .menu :deep(.ant-form-item) {
+    border-bottom: 1px solid #ddd;
+    margin: 10px;
+  }
 </style>
