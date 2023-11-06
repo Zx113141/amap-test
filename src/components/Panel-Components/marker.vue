@@ -61,9 +61,13 @@
       default: () => ({}),
     },
   });
-
-  const formState: UnwrapRef<IMarker> = reactive(props.options);
-
+  let formState: UnwrapRef<IMarker> = reactive(props.options);
+  watch(
+    () => props.options,
+    (options) => {
+      formState = options;
+    },
+  );
   defineExpose(formState);
 </script>
 

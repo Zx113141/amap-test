@@ -9,7 +9,7 @@
         </Transition>
 
         <embed-base-events></embed-base-events>
-        <a-button @click="() => handleSave()">保存</a-button>
+        <!-- <a-button @click="() => handleSave()">保存</a-button> -->
       </div>
     </a-collapse-panel>
   </a-collapse>
@@ -30,28 +30,27 @@
     }
   };
 
-  const comp = reactive<any>({
+  const comp = ref<any>({
     comp: null,
     options: {},
   });
-  onActivated(() => {});
 
   const handleSave = async () => {
     // console.log(panelCompRefs.value);
-    const value = panelCompRefs.value
-      .filter((item) => !item.nodeType)
-      .find((item) => item.context === comp.options.context);
-    editStore.service?.cfgForEmbedAndStruct(value);
+    // const value = panelCompRefs.value
+    //   .filter((item) => !item.nodeType)
+    //   .find((item) => item.context === comp.options.context);
+    // editStore.service?.cfgForEmbedAndStruct(value);
   };
 
   watch(
-    [() => editStore.service?.panelVNode, () => editStore.service?.currentEmbed?.options],
+    [() => editStore.service?.panelVNode, () => editStore.service?.options],
 
     ([newComp, options]) => {
       if (options) {
-        comp.options = options;
+        comp.value.options = options.value || options;
       }
-      comp.comp = newComp;
+      comp.value.comp = newComp;
     },
 
     {

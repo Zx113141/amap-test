@@ -1,3 +1,7 @@
+/**
+ * @author {zhangxu}
+ * @description map instance and map domId
+ * **/
 import Polygon from './base/polygon'
 import Marker from './base/marker'
 import PointerLayer from './pro/pointLayer'
@@ -9,7 +13,7 @@ import RectangleEditor from './plugin/utils/rectangleEditor'
 import Circle from './base/circle'
 import CircleEditor from './plugin/utils/circleEditor'
 import Camera from './pro/camera'
-import { defineAsyncComponent, shallowReactive } from 'vue'
+import { defineAsyncComponent, ref } from 'vue'
 import FlowEngine from './workflow/flowEngine'
 /**
  * in order to manage struct such as [map, marker, polygon, and all of Amap instance]
@@ -61,10 +65,6 @@ const Constructor = {
 class EmbedService {
     // mode
     mode: string = MODE.EDIT
-    /**
-     * @author {zhangxu}
-     * @description map instance and map domId
-     * **/
     // domID
     domId: string = ''
     /**
@@ -90,6 +90,9 @@ class EmbedService {
         lifecycle: string,
         options: any
     }[]> = new Map()
+
+    // options:
+    options: any = ref({})
     constructor(domId, embedList) {
         this.embedMenu = embedList
         this.domId = domId
@@ -163,7 +166,7 @@ class EmbedService {
     subscribeEmbed(type: string, struct: any, embed: any, ...params: any) {
         // console.log(MODE.EDIT, type);
         if (this.mode === MODE.EDIT) {
-            if (type === 'click') {
+            if (type === EVENTS_MAP.CLICK) {
 
                 this.setCurrentStruct(struct)
             }
@@ -196,27 +199,32 @@ class EmbedService {
         mapEmbed.handleMapClick(e)
     }
 
-    cfgForEmbedAndStruct(options) {
-        if (this.currentEmbed) {
-            // embed
-            this.currentEmbed.options = options
-        } else {
-            // map
-            this.embedList[this.embedList.length - 1].options = options
-        }
-    }
-    setCurrentEmbed(name) {
+    // cfgForEmbedAndStruct(options) {
+
+    //     if (this.currentEmbed) {
+    //         // embed
+    //         this.currentEmbed.options = options
+    //     } else {
+    //         // map
+    //         this.embedList[this.embedList.length - 1].options = options
+    //     }
+    // }
+    setCurrentEmbed(name, options) {
         this.currentEmbed = this.embedList.find((embed: Embed) => embed.name === name) as Embed
         this.initStructPanel(name || 'MapService')
-
+        if (!options) {
+            this.options.value = this.currentEmbed.options
+        } else {
+            this.options.value = options
+        }
+        console.log(this.options);
     }
     setCurrentStruct(struct) {
         this.currentStruct = struct
-        if (this.currentEmbed && this.currentEmbed?.name === struct._opts.context) {
-            this.currentEmbed.options = toRaw(struct._opts)
-        }
-        console.log(this.currentEmbed);
-        // console.log(struct, this.currentEmbed);
+        // console.log(struct); 
+        this.setCurrentEmbed(struct._opts.context, struct.getExtData())
+        // this.options.value = struct._opts
+        // console.log(struct);
     }
 
 

@@ -12,16 +12,18 @@ class Cover {
     notify(type: string, ctx, ...args: any) {
         window.embedService.subscribeEmbed(type, ctx, this, args)
     }
-    create(name, options,) {
+    create(name, options, extData) {
         console.log(shallowReactive(options))
         const struct = new this.AMap[name]({
             ...shallowReactive(options),
             map: this.mapInstance,
             bubble: false,
             extData: {
+                ...extData,
                 id: window.btoa('' + new Date().getTime()),
                 name: options.name,
-                parent: name
+                parent: name,
+
             },
         })
 

@@ -69,7 +69,7 @@ class Marker extends Cover {
             icon: this.calculateIconSize(),
 
         }
-        const marker = this.create(this.name, configs)
+        const marker = this.create(this.name, configs, this.options)
 
 
         this.structs.push(marker)

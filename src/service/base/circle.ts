@@ -21,8 +21,8 @@ class Circle extends Cover {
     structs: any[] = []
     editable: boolean = false
     options: any = {}
-    constructor(AMap, mapInstance, server) {
-        super(AMap, mapInstance, server)
+    constructor(AMap, mapInstance,) {
+        super(AMap, mapInstance,)
     }
     createStruct(e) {
         const center = [e.lnglat.lng, e.lnglat.lat]
